@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">OurApp</string>
+    <string name="action_signUp">Sign Up</string>
+    <string name="action_signIn">Sign In</string>
+    <string name="title_SignUp">SIGN UP</string>
+    <string name="text_Email">Your Email</string>
+    <string name="text_PW1">Password</string>
+    <string name="action_start">I\'m ready</string>
+    <string name="text_achievements">-------- Achievements --------</string>
+    <string name="text_creative">Creative</string>
+    <string name="text_social">Social</string>
+    <string name="text_health">Health</string>
+    <string name="text_adventure">Adventure</string>
+    <string name="text_challenges">--------- Challenges ---------</string>
 </resources>
