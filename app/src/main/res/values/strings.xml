@@ -21,4 +21,10 @@
     <string name="action_changePW">Change Password</string>
     <string name="title_changeP">EDIT PROFILE</string>
     <string name="action_changeImg">Change picture</string>
+    <string name="title_social">------- Social Challenge -------</string>
+    <string name="title_health">------- Health Challenge -------</string>
+    <string name="title_creative">------- Creative Challenge -------</string>
+    <string name="title_adventure">------- Adventure Challenge -------</string>
+    <string name="action_proof">Proof Picture</string>
+    <string name="action_completed">Challenge Completed</string>
 </resources>
