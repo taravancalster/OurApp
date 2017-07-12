@@ -20,4 +20,5 @@
     <string name="action_LogOut">Log Out!</string>
     <string name="action_changePW">Change Password</string>
     <string name="title_changeP">EDIT PROFILE</string>
+    <string name="action_changeImg">Change picture</string>
 </resources>
