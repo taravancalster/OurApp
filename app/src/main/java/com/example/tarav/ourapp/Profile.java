@@ -41,22 +41,22 @@ public class Profile extends AppCompatActivity {
 
             //show creative Challenge
            if (v.getId() == R.id.button5){
-
+                startActivity(new Intent(Profile.this, Challenge.class));
            }
 
             //show healthy Challenge
             if (v.getId() == R.id.button5){
-
+                startActivity(new Intent(Profile.this, Challenge.class));
             }
 
             //show social Challenge
             if (v.getId() == R.id.button5){
-
+                startActivity(new Intent(Profile.this, Challenge.class));
             }
 
             //show adventure Challenge
             if (v.getId() == R.id.button5){
-
+                startActivity(new Intent(Profile.this, Challenge.class));
             }
         }
     };
