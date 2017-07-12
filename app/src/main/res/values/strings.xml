@@ -12,4 +12,7 @@
     <string name="text_health">Health</string>
     <string name="text_adventure">Adventure</string>
     <string name="text_challenges">--------- Challenges ---------</string>
+    <string name="title_Profile">PROFILE</string>
+    <string name="text_fillIn">Please fill in your information</string>
+    <string name="action_back">Back</string>
 </resources>
