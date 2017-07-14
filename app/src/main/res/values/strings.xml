@@ -28,4 +28,9 @@
     <string name="action_proof">Proof Picture</string>
     <string name="action_completed">Challenge Completed</string>
     <string name="text_proofPic">Here you can upload a proof picture!</string>
+    <string name="title_changePW">Change password</string>
+    <string name="text_oPW">Old password</string>
+    <string name="text_nPW">New password</string>
+    <string name="text_repeat">Repeat the new password</string>
+    <string name="action_cancel">Cancel</string>
 </resources>
