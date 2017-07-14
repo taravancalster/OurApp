@@ -30,6 +30,9 @@ public class ChangePW extends AppCompatActivity {
         public void onClick(View v) {
             if(v.getId() == R.id.button17){
                 //save the new password
+
+                //go back to changeProfile
+                startActivity(new Intent(ChangePW.this, ChangeProfile.class));
             }
 
             else if(v.getId() == R.id.button18){
