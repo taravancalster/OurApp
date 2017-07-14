@@ -27,4 +27,5 @@
     <string name="title_adventure">------- Adventure Challenge -------</string>
     <string name="action_proof">Proof Picture</string>
     <string name="action_completed">Challenge Completed</string>
+    <string name="text_proofPic">Here you can upload a proof picture!</string>
 </resources>
