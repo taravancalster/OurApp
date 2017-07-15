@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/text_pic"
         android:textColor="#3d5c5c"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
@@ -29,8 +29,11 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
-        app:layout_constraintVertical_bias="0.325"
-        tools:layout_editor_absoluteX="8dp">
+        app:layout_constraintVertical_bias="0.232"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
