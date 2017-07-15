@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class Profile extends AppCompatActivity {
 
@@ -12,6 +14,8 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
 
         //define the buttons
         Button buttonPro = (Button)findViewById(R.id.button9);
