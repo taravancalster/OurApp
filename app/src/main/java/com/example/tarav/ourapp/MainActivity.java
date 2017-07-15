@@ -3,6 +3,7 @@ package com.example.tarav.ourapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,11 +13,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void toProfile(){
+    public void toProfile(View view){
         startActivity(new Intent(this, Profile.class));
     }
 
-    public void signUp(){
+    public void signUp(View view){
         startActivity(new Intent(this, SignUp.class));
     }
 }
