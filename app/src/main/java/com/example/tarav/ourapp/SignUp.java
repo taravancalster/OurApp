@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 public class SignUp extends AppCompatActivity {
 
-    @Override
+   /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
@@ -73,7 +73,8 @@ public class SignUp extends AppCompatActivity {
         startActivity(new Intent(this, Profile.class));
     }*/
 
-    public void signIn(View view){
+   /* public void signIn(View view){
         startActivity(new Intent(this, MainActivity.class));
-    }
+    }*/
+
 }
