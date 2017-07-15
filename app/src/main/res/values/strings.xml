@@ -36,4 +36,5 @@
     <string name="title_proofPic">Upload your proof picture here!</string>
     <string name="action_notNow">Not now!</string>
     <string name="action_try">Try!</string>
+    <string name="text_pic">Choose a new profile picture</string>
 </resources>

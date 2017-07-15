@@ -22,7 +22,8 @@
         <activity android:name=".Challenge" />
         <activity android:name=".Galery" />
         <activity android:name=".ChangePW" />
-        <activity android:name=".ChallengeNew"></activity>
+        <activity android:name=".ChallengeNew" />
+        <activity android:name=".GaleryProof"></activity>
     </application>
 
 </manifest>
