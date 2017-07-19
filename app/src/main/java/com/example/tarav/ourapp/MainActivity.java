@@ -1,6 +1,7 @@
 package com.example.tarav.ourapp;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,42 +13,54 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private UserMemoDataSource dataSource;
+    public DatabaseHelper dbh = new DatabaseHelper(MainActivity.this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final EditText email = (EditText) findViewById(R.id.etMail);
+        final EditText password = (EditText) findViewById(R.id.etPassword);
 
-        UserMemo testMemo = new UserMemo("tara", "email", "123password", "123password");
-        Log.d(LOG_TAG, "Inhalt der Testmemo: " + testMemo.toString());
-
-        dataSource = new UserMemoDataSource(this);
-
-
-        /*final EditText etMail = (EditText) findViewById(R.id.etMail);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final Button bLogin = (Button) findViewById(R.id.bLogin);
         final TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
 
+        /**
+         * go to SignUp
+         */
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(MainActivity.this, SignUp.class); //Creates an intent that opens sign up
-                MainActivity.this.startActivity(registerIntent);
+                startActivity(new Intent(MainActivity.this, SignUp.class));
             }
         });
-    }
 
-    public void toProfile(View view){
-        startActivity(new Intent(this, Profile.class));
-    }
+        /**
+         * check if user exists
+         * and if password is right
+         * and go to Profile
+         */
+        bLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    public void signUp(View view){
-        startActivity(new Intent(this, SignUp.class));}*/
+                //if user exists
+                if(dbh.exists(email.getText().toString(), password.getText().toString())) {
+                    //get the right Password
+                    String pw = dbh.getPw(email.getText().toString());
+                        //if the passwords match
+                        if (pw.equals(password.getText().toString())) {
+                            //get the username
+                            dbh.getUsername(email.getText().toString());
+                            //save username in file
 
-
+                            //go to Profile
+                            startActivity(new Intent(MainActivity.this, Profile.class));
+                        }
+                }
+            }
+        });
     }
 }
