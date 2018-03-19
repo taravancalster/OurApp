@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //get input fields
 
                 //if user exists
                 if(dbh.exists(email.getText().toString(), password.getText().toString())) {
