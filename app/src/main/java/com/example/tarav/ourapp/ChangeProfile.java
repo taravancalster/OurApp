@@ -14,7 +14,7 @@ public class ChangeProfile extends AppCompatActivity {
         setContentView(R.layout.activity_change_profile);
 
         //define the buttons
-        Button buttonBack = (Button)findViewById(R.id.button10);
+        Button buttonBack = (Button)findViewById(R.id.homeButton);
         Button buttonCPic = (Button)findViewById(R.id.button14);
         Button buttonSave = (Button)findViewById(R.id.button11);
         Button buttonCPW = (Button)findViewById(R.id.button12);
@@ -35,7 +35,7 @@ public class ChangeProfile extends AppCompatActivity {
         public void onClick(View v) {
 
             //back to profile
-            if(v.getId() == R.id.button10){
+            if(v.getId() == R.id.homeButton){
                 //save changes
 
                 //go back to profile

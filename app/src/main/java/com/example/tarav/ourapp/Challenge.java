@@ -14,7 +14,7 @@ public class Challenge extends AppCompatActivity {
         setContentView(R.layout.activity_challenge);
 
         //define the buttons
-        Button buttonProof = (Button)findViewById(R.id.button15);
+        Button buttonProof = (Button)findViewById(R.id.proofPicButton);
         Button buttonComplete = (Button)findViewById(R.id.button16);
 
         //set an OnClickListener to the buttons
@@ -27,8 +27,9 @@ public class Challenge extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            if(v.getId() == R.id.button15){
-                //go to gallery
+            if(v.getId() == R.id.proofPicButton){
+                //goes to galery
+                setContentView(R.layout.activity_galery);
                 //save the picture in the right challenge
             }
 
