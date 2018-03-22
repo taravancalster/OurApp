@@ -14,22 +14,19 @@ import android.widget.ImageView;
 public class Galery extends AppCompatActivity {
 
     ImageView imageView;
+    Button cameraBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
 
-        Button cameraBtn = (Button)findViewById(R.id.cameraButton);
+       cameraBtn = (Button)findViewById(R.id.cameraButton);
        imageView = (ImageView)findViewById(R.id.imageView);
 
-        cameraBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,0);
-            }
-        });
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent,0);
+
     }
 
     @Override
@@ -38,7 +35,6 @@ public class Galery extends AppCompatActivity {
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
         imageView.setImageBitmap(bitmap);
     }
-
 
 
 }

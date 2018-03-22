@@ -38,6 +38,6 @@
     <string name="action_try">Try!</string>
     <string name="text_pic">Choose a new profile picture</string>
     <string name="achievements">ACHIEVEMENTS</string>
-    <string name="camera">Acess to camera</string>
+    <string name="camera">Go to camera</string>
 
 </resources>
