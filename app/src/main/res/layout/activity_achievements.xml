@@ -7,4 +7,33 @@
     android:background="@drawable/hintergrund_challenger"
     tools:context="com.example.tarav.ourapp.Achievements">
 
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/achievements"
+        android:textSize="18sp"
+        android:textColor="#3d5c5c"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+
+    <Button
+        android:id="@+id/homeButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:background="@drawable/man"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+
+
+
 </android.support.constraint.ConstraintLayout>
+

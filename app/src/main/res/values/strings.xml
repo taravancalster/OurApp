@@ -37,4 +37,6 @@
     <string name="action_notNow">Not now!</string>
     <string name="action_try">Try!</string>
     <string name="text_pic">Choose a new profile picture</string>
+    <string name="achievements">ACHIEVEMENTS</string>
+
 </resources>
