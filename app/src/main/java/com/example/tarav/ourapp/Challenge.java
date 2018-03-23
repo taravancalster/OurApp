@@ -29,11 +29,11 @@ public class Challenge extends AppCompatActivity {
         public void onClick(View v) {
             if(v.getId() == R.id.button15){
                 //go to gallery
-                //save the picture in the right challenge
+                //save the picture in the right ChallengeTable
             }
 
             else if(v.getId() == R.id.button16){
-                //mark challenge as done
+                //mark ChallengeTable as done
                 //put it in Achievements
                 //change to Profile --> empty cross
                 startActivity(new Intent(Challenge.this, Profile.class));

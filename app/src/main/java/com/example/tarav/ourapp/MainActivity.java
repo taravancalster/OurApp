@@ -10,10 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import db.DbHelper;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    public DatabaseHelper dbh = new DatabaseHelper(MainActivity.this);
+
 
 
     @Override
@@ -21,11 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final EditText email = (EditText) findViewById(R.id.etMail);
-        final EditText password = (EditText) findViewById(R.id.etPassword);
-
-        final Button bLogin = (Button) findViewById(R.id.bLogin);
-        final TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
+        Button bLogin = (Button) findViewById(R.id.bLogin);
+        TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
 
         /**
          * go to SignUp
@@ -45,8 +44,27 @@ public class MainActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //get input fields
+                DbHelper dbh = new DbHelper(getApplicationContext());
 
+                //get input fields
+                EditText email = (EditText) findViewById(R.id.etMail);
+                EditText password = (EditText) findViewById(R.id.etPassword);
+
+                String mail = email.getText().toString();
+                String pw = password.getText().toString();
+
+                //mail aus db holen und in var speichern
+
+                //if email exists
+                    // if pws match
+                        //go to profile
+                }
+
+
+
+
+
+/*
                 //if user exists
                 if(dbh.exists(email.getText().toString(), password.getText().toString())) {
                     //get the right Password
@@ -61,7 +79,11 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(MainActivity.this, Profile.class));
                         }
                 }
+
             }
+            */
         });
+
     }
+
 }

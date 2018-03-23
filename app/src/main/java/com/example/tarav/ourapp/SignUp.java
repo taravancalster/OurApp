@@ -1,5 +1,6 @@
 package com.example.tarav.ourapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
@@ -19,35 +20,76 @@ import org.json.JSONObject;
 
 import java.io.File;
 
-public class SignUp extends AppCompatActivity {
+import db.DbHelper;
 
-    public DatabaseHelper dbh = new DatabaseHelper(SignUp.this);
-    SQLiteDatabase db;
+public class SignUp extends AppCompatActivity {
 
    @Override
     protected void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_sign_up);
 
-       final EditText email = (EditText) findViewById(R.id.etMail);
-       final EditText username = (EditText) findViewById(R.id.etName);
-       final EditText password = (EditText) findViewById(R.id.etPassword);
-       final EditText password2 = (EditText) findViewById(R.id.etPassword2);
-
-       final Button bRegister = (Button) findViewById(R.id.bRegister);
-       final Button backBtn = (Button)findViewById(R.id.button4);
-
+       //Buttons lösen Listener aus
+       Button bRegister = (Button) findViewById(R.id.bRegister);
+       Button backBtn = (Button)findViewById(R.id.button4);
 
 
        /**
-        * check if the registration data is correct
-        * and he does not exist yet
-        * and go to Profile
+        * go back to Login
+        */
+       backBtn.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View view) {
+               startActivity(new Intent(SignUp.this, MainActivity.class));
+           }
+       });
+
+
+       /**
+        * if registration data is correct
+        * and if does not exist
+        * then go to Profile
         */
        bRegister.setOnClickListener(new View.OnClickListener() {
 
            @Override
            public void onClick(View view) {
+
+               //inputfields
+               EditText email = (EditText) findViewById(R.id.etMail);
+               EditText username = (EditText) findViewById(R.id.etName);
+               EditText password = (EditText) findViewById(R.id.etPassword);
+               EditText password2 = (EditText) findViewById(R.id.etPassword2);
+
+               DbHelper dbh = new DbHelper(getApplicationContext());
+               SQLiteDatabase db = dbh.getWritableDatabase();
+
+               //if alle felder sind voll
+               if(email != null && username != null && password != null && password2 != null){
+                   //if email hat @
+                   if(email.getText().toString().contains("@")){
+                       //if email exists
+
+                           //if pws match
+                           if(password.getText().toString().equals(password2.getText().toString())){
+                               //values zuordnen
+                               ContentValues values = new ContentValues();
+                               values.put("email", email.getText().toString());
+                               values.put("username", username.getText().toString());
+                               values.put("pw", password.getText().toString());
+
+                               //füge input in die db ein
+                               db.insert("user", null, values );
+                               db.close();
+                               dbh.close();
+                           }
+                    }
+               }
+
+
+
+
+               /*
 
                File database = getApplicationContext().getDatabasePath("RegisterAndLogin.db");
                UserMemo user = new UserMemo(username.getText().toString(),
@@ -71,18 +113,10 @@ public class SignUp extends AppCompatActivity {
                    //    startActivity(new Intent(SignUp.this, MainActivity.class));
                   // }
                }
+
+               */
           }
        });
 
-       /**
-        * go back to Login
-        */
-       backBtn.setOnClickListener(new View.OnClickListener(){
-
-           @Override
-           public void onClick(View view) {
-               startActivity(new Intent(SignUp.this, MainActivity.class));
-           }
-       });
    }
 }
