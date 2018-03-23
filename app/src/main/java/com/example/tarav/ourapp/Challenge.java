@@ -43,11 +43,8 @@ public class Challenge extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if(v.getId() == R.id.proofPicButton){
-                //If the proofPicButton is clicked, the dispatchTakePictureIntent() Method is called up
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent,0);
-
-                //save the picture in the right challenge
+               //Takes the user to the GaleryProof layout
+                startActivity(new Intent(Challenge.this, GaleryProof.class));
             }
 
             else if(v.getId() == R.id.button16){
@@ -59,15 +56,4 @@ public class Challenge extends AppCompatActivity {
         }
     };
 
-
-    //Saves the taken picture
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-
-        /*  If we would like to put that image in an ImageView:
-        imageView.setImageBitmap(bitmap);
-        */
-    }
 }

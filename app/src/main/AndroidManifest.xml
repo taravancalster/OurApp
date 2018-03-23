@@ -10,6 +10,9 @@
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
 
+    <!-- Asks if the app is able to open the content from the public external storage !-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <!-- Asks if the app is able to save its content in a public external storage !-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 

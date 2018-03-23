@@ -39,5 +39,7 @@
     <string name="text_pic">Choose a new profile picture</string>
     <string name="achievements">ACHIEVEMENTS</string>
     <string name="camera">Go to camera</string>
+    <string name="action_selectPhoto">Select a picture</string>
+    <string name="gallery">Gallery</string>
 
 </resources>
