@@ -25,7 +25,7 @@
     <string name="title_health">------- Health Challenge -------</string>
     <string name="title_creative">------- Creative Challenge -------</string>
     <string name="title_adventure">------- Adventure Challenge -------</string>
-    <string name="action_proof">Proof Picture</string>
+    <string name="action_proof">Take a proof picture</string>
     <string name="action_completed">Challenge Completed</string>
     <string name="text_proofPic">Here you can upload a proof picture!</string>
     <string name="title_changePW">Change password</string>
@@ -37,4 +37,9 @@
     <string name="action_notNow">Not now!</string>
     <string name="action_try">Try!</string>
     <string name="text_pic">Choose a new profile picture</string>
+    <string name="achievements">ACHIEVEMENTS</string>
+    <string name="camera">Go to camera</string>
+    <string name="action_selectPhoto">Select a picture</string>
+    <string name="gallery">Gallery</string>
+
 </resources>
