@@ -1,6 +1,7 @@
 package com.example.tarav.ourapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import db.DbHelper;
 
@@ -52,38 +54,43 @@ public class MainActivity extends AppCompatActivity {
                 EditText email = (EditText) findViewById(R.id.etMail);
                 EditText password = (EditText) findViewById(R.id.etPassword);
 
-                String mail = email.getText().toString();
-                String pw = password.getText().toString();
-
                 //mail aus db holen und in var speichern
+                SQLiteDatabase dbRead = dbh.getReadableDatabase();
+                String suchStr = "email = '" + email.getText().toString() + "'";
+                String[] spalten = new String[] {"username", "email", "pw"};
 
-                //if email exists
-                    // if pws match
+                //suchanfrage an db geben
+                Cursor cursor = dbRead.query("user", spalten, suchStr, null, null, null, null);
+                //ob es einen eintrag gibt
+                int anzahl = cursor.getCount();
+
+                //daten aus eintrag holen und in var speichern
+                long id;
+                String uname;
+                String pwReal = "";
+
+                cursor.moveToFirst();
+                for(int i = 0; i < anzahl; i++){
+                    id = cursor.getLong(0);
+                    uname = cursor.getString(1);
+                    pwReal = cursor.getString(3);
+                }
+                cursor.close();
+
+                //iff all fields are filled
+                if((email.getText().toString() != null) && (password.getText().toString() != null)) {
+                    Toast.makeText(MainActivity.this, "felder voll", Toast.LENGTH_SHORT);
+                    //if email exists and the pws match
+                    if ((anzahl > 0) && ((password.getText().toString()).equals(pwReal))) {
+                        Toast.makeText(MainActivity.this, "email exisitert und pw passen!", Toast.LENGTH_SHORT);
+                        //give var with uname an profile weiter
+
                         //go to profile
+                        startActivity(new Intent(MainActivity.this, Profile.class));
+                    }
                 }
-
-
-
-
-
-/*
-                //if user exists
-                if(dbh.exists(email.getText().toString(), password.getText().toString())) {
-                    //get the right Password
-                    String pw = dbh.getPw(email.getText().toString());
-                        //if the passwords match
-                        if (pw.equals(password.getText().toString())) {
-                            //get the username
-                            dbh.getUsername(email.getText().toString());
-                            //save username in file
-
-                            //go to Profile
-                            startActivity(new Intent(MainActivity.this, Profile.class));
-                        }
-                }
-
             }
-            */
+
         });
 
     }
