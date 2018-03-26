@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OurApp</string>
+    <string name="app_name">Challenger</string>
     <string name="action_signUp">Sign Up</string>
     <string name="action_signIn">Sign In</string>
     <string name="title_SignUp">SIGN UP</string>
