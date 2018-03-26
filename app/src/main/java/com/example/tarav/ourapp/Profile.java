@@ -6,9 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class Profile extends AppCompatActivity {
+
+    Button buttonPro;
+    Button buttonC;
+    Button buttonH;
+    Button buttonS;
+    Button buttonA;
+
+    ProgressBar progressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,11 +27,14 @@ public class Profile extends AppCompatActivity {
         final EditText etUsername = (EditText) findViewById(R.id.etUsername);
 
         //define the buttons
-        Button buttonPro = (Button)findViewById(R.id.button9);
-        Button buttonC = (Button)findViewById(R.id.button5);
-        Button buttonH = (Button)findViewById(R.id.button6);
-        Button buttonS = (Button)findViewById(R.id.button7);
-        Button buttonA = (Button)findViewById(R.id.button8);
+        buttonPro = (Button)findViewById(R.id.button9);
+        buttonC = (Button)findViewById(R.id.button5);
+        buttonH = (Button)findViewById(R.id.button6);
+        buttonS = (Button)findViewById(R.id.button7);
+        buttonA = (Button)findViewById(R.id.button8);
+
+        //define progress bar
+        progressbar = (ProgressBar)findViewById(R.id.progressBar);
 
         //set an OnClickListener to the buttons
         buttonPro.setOnClickListener(onClickListener);
@@ -30,6 +42,9 @@ public class Profile extends AppCompatActivity {
         buttonH.setOnClickListener(onClickListener);
         buttonS.setOnClickListener(onClickListener);
         buttonA.setOnClickListener(onClickListener);
+
+        //set an OnClickListener to the progress bar
+        progressbar.setOnClickListener(onClickListener);
     }
 
     //what happens onClick?
@@ -62,6 +77,17 @@ public class Profile extends AppCompatActivity {
             if (v.getId() == R.id.button5){
                 startActivity(new Intent(Profile.this, Challenge.class));
             }
+
+            //if the user clicks on the progress bar he will be taken to the achievements layout
+            if (v.getId() == R.id.progressBar){
+                startActivity(new Intent(Profile.this, Achievements.class));
+            }
         }
     };
+
+
+    //Increment the progress bar, when a challenge has been completed
+    /* private updateProgress(){
+
+    }*/
 }
