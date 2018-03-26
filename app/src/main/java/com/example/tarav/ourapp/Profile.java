@@ -11,11 +11,7 @@ import android.widget.TextView;
 
 public class Profile extends AppCompatActivity {
 
-    Button buttonPro;
-    Button buttonC;
-    Button buttonH;
-    Button buttonS;
-    Button buttonA;
+    Button buttonPro, buttonC, buttonH, buttonS, buttonA;
 
     ProgressBar progressbar;
 
@@ -87,7 +83,10 @@ public class Profile extends AppCompatActivity {
 
 
     //Increment the progress bar, when a challenge has been completed
-    /* private updateProgress(){
-
-    }*/
+    /*
+     private updateProgress(){
+            if (challengeCompleted){
+                progressbar.setProgress(actualProgress +=1)}
+    }
+    */
 }
