@@ -51,6 +51,7 @@ public class Challenge extends AppCompatActivity {
                     //Takes the user to the GaleryProof layout
                     startActivity(new Intent(Challenge.this, GaleryProof.class));
 
+
                 } else if (v.getId() == R.id.button16) {
                     //mark ChallengeTable as done
                     //put it in Achievements
@@ -58,9 +59,10 @@ public class Challenge extends AppCompatActivity {
                     startActivity(new Intent(Challenge.this, Profile.class));
                 }
             }
-        }
-
-
+        };
 
     };
+
+
 }
+
