@@ -2,6 +2,7 @@ package com.example.tarav.ourapp;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -69,9 +70,15 @@ public class SignUp extends AppCompatActivity {
                    //if email hat @
                    if(email.getText().toString().contains("@")){
                        //if email exists
-
+                       SQLiteDatabase dbRead = dbh.getReadableDatabase();
+                        String suchStr = "email = '" + email.getText().toString() + "'";
+                        String[] spalten = new String[] {"username", "email"};
+                        Cursor cursor = dbRead.query("user", spalten, suchStr, null, null, null, null);
+                        int anzahl = cursor.getCount();
+                        cursor.close();
+                        if(anzahl == 0){
                            //if pws match
-                           if(password.getText().toString().equals(password2.getText().toString())){
+                           if(password.getText().toString().equals(password2.getText().toString())) {
                                //values zuordnen
                                ContentValues values = new ContentValues();
                                values.put("email", email.getText().toString());
@@ -79,13 +86,13 @@ public class SignUp extends AppCompatActivity {
                                values.put("pw", password.getText().toString());
 
                                //füge input in die db ein
-                               db.insert("user", null, values );
+                               db.insert("user", null, values);
                                db.close();
                                dbh.close();
                                //zu Login
                                startActivity(new Intent(SignUp.this, MainActivity.class));
-
                            }
+                        }
                     }
                }
           }
