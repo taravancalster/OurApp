@@ -82,39 +82,12 @@ public class SignUp extends AppCompatActivity {
                                db.insert("user", null, values );
                                db.close();
                                dbh.close();
+                               //zu Login
+                               startActivity(new Intent(SignUp.this, MainActivity.class));
+
                            }
                     }
                }
-
-
-
-
-               /*
-
-               File database = getApplicationContext().getDatabasePath("RegisterAndLogin.db");
-               UserMemo user = new UserMemo(username.getText().toString(),
-                       email.getText().toString(),
-                       password.getText().toString(),
-                       password2.getText().toString());
-
-               //check if passwords match
-               if (password.getText().toString().equals(password2.getText().toString())){
-                   //database exists
-                 //  if  (database.exists()){
-                       //check that user doesn't allready exist
-                       if (!dbh.exists(email.getText().toString(), password.getText().toString())) {
-                           dbh.addUser(user);
-                           startActivity(new Intent(SignUp.this, MainActivity.class));
-                       } Toast.makeText(SignUp.this, "You allready exist!", Toast.LENGTH_SHORT);
-
-                  // }else{
-                       //if database does not exist --> build one and add the new user
-                   //    dbh.addUser(user);
-                   //    startActivity(new Intent(SignUp.this, MainActivity.class));
-                  // }
-               }
-
-               */
           }
        });
 

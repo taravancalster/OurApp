@@ -26,8 +26,8 @@ public class Challenge extends AppCompatActivity {
         setContentView(R.layout.activity_challenge);
 
         //define the buttons
-        Button buttonProof = (Button)findViewById(R.id.proofPicButton);
-        Button buttonComplete = (Button)findViewById(R.id.button16);
+        Button buttonProof = (Button) findViewById(R.id.proofPicButton);
+        Button buttonComplete = (Button) findViewById(R.id.button16);
 
         //Creates an ImageView
         //ImageView imageView = new ImageView();
@@ -42,24 +42,25 @@ public class Challenge extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-			
-            if(v.getId() == R.id.button15){
+
+            if (v.getId() == R.id.proofPicButton) {
                 //go to gallery
                 //save the picture in the right ChallengeTable
 
-            if(v.getId() == R.id.proofPicButton){
-               //Takes the user to the GaleryProof layout
-                startActivity(new Intent(Challenge.this, GaleryProof.class));
+                if (v.getId() == R.id.proofPicButton) {
+                    //Takes the user to the GaleryProof layout
+                    startActivity(new Intent(Challenge.this, GaleryProof.class));
 
-            }
-
-            else if(v.getId() == R.id.button16){
-                //mark ChallengeTable as done
-                //put it in Achievements
-                //change to Profile --> empty cross
-                startActivity(new Intent(Challenge.this, Profile.class));
+                } else if (v.getId() == R.id.button16) {
+                    //mark ChallengeTable as done
+                    //put it in Achievements
+                    //change to Profile --> empty cross
+                    startActivity(new Intent(Challenge.this, Profile.class));
+                }
             }
         }
-    };
 
+
+
+    };
 }
