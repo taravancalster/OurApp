@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class Achievements extends AppCompatActivity {
 
     Button homeButton;
-
     ProgressBar progressbar;
+    TextView progressText;
 
      /*
     Von der Datenbank die abgeschlossenen Challenges holen
@@ -29,17 +30,33 @@ public class Achievements extends AppCompatActivity {
         //define progress bar
         progressbar = (ProgressBar) findViewById(R.id.progressBar);
 
+        //define the button
+        progressText = (TextView) findViewById(R.id.textViewProgress);
+
         //set an OnClickListener to the buttons
         homeButton.setOnClickListener(onClickListener);
 
         updateProgressBar();
+        updateProgressText();
 
     }
 
 
+    /**
+     * sets the progress of the progressbar to the number of challenges the user has completed
+     */
     private void updateProgressBar() {
         //progressbar.setProgress(completedChallenges);
         progressbar.setProgress(2); //Test ob er den Wert auf 2 ändert
+    }
+
+
+    /**
+     * converts the progress of the progressbar to a number and sets this to a string
+     */
+    private void updateProgressText(){
+        //progressText.setText(completedChallenges.toString() + "/12");
+        progressText.setText("2/12");   //Test ob er den Text zu 2/12 ändert
     }
 
 
