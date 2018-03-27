@@ -78,7 +78,5 @@ public class Achievements extends AppCompatActivity {
 }
 
 
-//muss die leeren oder Fragezeichen-Bilder nur durch Bilder aus der DB ersetzten
-//Schonmal leere Images + TextViews ins Layout setzten
-//ProgressBar oben (mit Text?)
-//Scrollbar/ScrollView
+    //muss die leeren oder Fragezeichen-Bilder durch Bilder aus der DB ersetzten
+
