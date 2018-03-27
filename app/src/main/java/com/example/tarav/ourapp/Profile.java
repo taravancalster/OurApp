@@ -17,7 +17,7 @@ public class Profile extends AppCompatActivity {
 
     /*
     Von der Datenbank die abgeschlossenen Challenges holen
-    int challengeCompleted = ;
+    int challengeCompleted = ???;
     */
 
     @Override
@@ -46,7 +46,18 @@ public class Profile extends AppCompatActivity {
 
         //set an OnClickListener to the progress bar
         progressbar.setOnClickListener(onClickListener);
+
+        updateProgressBar();
     }
+
+    /**
+     * sets the progress of the progressbar to the number of challenges the user has completed
+     */
+    private void updateProgressBar(){
+        //progressbar.setProgress(completedChallenges);
+        progressbar.setProgress(2); //Test ob er den Wert auf 2 ändert
+    }
+
 
     //what happens onClick?
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -87,17 +98,4 @@ public class Profile extends AppCompatActivity {
     };
 
 
-   /*
-        private newChallengeCompleted(){
-
-        }
-
-        private updateProgress(){
-            progressbar.setProgress(completedChallenges);
-
-            if (newChallengeCompleted() == true ){
-                progressbar.setProgress(completedChallenges += 1)}
-        }
-
-    */
 }

@@ -20,14 +20,17 @@ import java.util.Date;
 
 public class Challenge extends AppCompatActivity {
 
+    Button buttonProof, buttonComplete, homeButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge);
 
         //define the buttons
-        Button buttonProof = (Button) findViewById(R.id.proofPicButton);
-        Button buttonComplete = (Button) findViewById(R.id.button16);
+        buttonProof = (Button) findViewById(R.id.proofPicButton);
+        buttonComplete = (Button) findViewById(R.id.button16);
+        homeButton = (Button) findViewById(R.id.homeButtonChallenge);
 
         //Creates an ImageView
         //ImageView imageView = new ImageView();
@@ -50,19 +53,23 @@ public class Challenge extends AppCompatActivity {
                 if (v.getId() == R.id.proofPicButton) {
                     //Takes the user to the GaleryProof layout
                     startActivity(new Intent(Challenge.this, GaleryProof.class));
+                }
 
-
-                } else if (v.getId() == R.id.button16) {
+                if (v.getId() == R.id.button16) {
                     //mark ChallengeTable as done
                     //put it in Achievements
                     //change to Profile --> empty cross
                     startActivity(new Intent(Challenge.this, Profile.class));
                 }
-            }
-        };
+
+                if (v.getId() == R.id.homeButtonChallenge) {
+                    //Takes the user to the GaleryProof layout
+                    startActivity(new Intent(Challenge.this, Profile.class));
+                }
+            };
+
+        } ;
 
     };
 
-
 }
-

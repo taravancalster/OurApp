@@ -8,18 +8,22 @@ import android.widget.Button;
 
 public class ChangePW extends AppCompatActivity {
 
+    Button buttonSave, buttonCancel, homeButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pw);
 
         //define the buttons
-        Button buttonSave = (Button)findViewById(R.id.button17);
-        Button buttonCancel = (Button)findViewById(R.id.button18);
+        buttonSave = (Button)findViewById(R.id.button17);
+        buttonCancel = (Button)findViewById(R.id.button18);
+        homeButton = (Button)findViewById(R.id.homeButtonChangePw);
 
         //set an OnClickListener to the buttons
         buttonSave.setOnClickListener(onClickListener);
         buttonCancel.setOnClickListener(onClickListener);
+        homeButton.setOnClickListener(onClickListener);
 
     }
 
@@ -35,9 +39,14 @@ public class ChangePW extends AppCompatActivity {
                 startActivity(new Intent(ChangePW.this, ChangeProfile.class));
             }
 
-            else if(v.getId() == R.id.button18){
+            if(v.getId() == R.id.button18){
                 //go back to Change Profile
                 startActivity(new Intent(ChangePW.this, ChangeProfile.class));
+            }
+
+            if(v.getId() == R.id.homeButtonChangePw){
+                //go back to Profile
+                startActivity(new Intent(ChangePW.this, Profile.class));
             }
         }
     };

@@ -10,26 +10,32 @@ import android.widget.ImageView;
 
 public class ChangeProfile extends AppCompatActivity {
 
+    Button buttonBack, buttonSave, buttonCPW, buttonLogO, homeButton;
+    ImageView userImage;
+    EditText changeUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_profile);
 
         //define the buttons
-        Button buttonBack = (Button)findViewById(R.id.homeButton);
-        Button buttonSave = (Button)findViewById(R.id.saveButton);
-        Button buttonCPW = (Button)findViewById(R.id.changePwButton);
-        Button buttonLogO = (Button)findViewById(R.id.logoutButton);
+        buttonBack = (Button)findViewById(R.id.homeButton);
+        buttonSave = (Button)findViewById(R.id.saveButton);
+        buttonCPW = (Button)findViewById(R.id.changePwButton);
+        buttonLogO = (Button)findViewById(R.id.logoutButton);
+        homeButton = (Button)findViewById(R.id.homeButtonChangeProfile);
         //define view
-        ImageView userImage = (ImageView)findViewById(R.id.imageView3);
+        userImage = (ImageView)findViewById(R.id.imageView3);
         //define text
-        EditText changeUsername = (EditText)findViewById(R.id.editText7);
+        changeUsername = (EditText)findViewById(R.id.editText7);
 
         //set an OnClickListener to the buttons
         buttonBack.setOnClickListener(onClickListener);
         buttonSave.setOnClickListener(onClickListener);
         buttonCPW.setOnClickListener(onClickListener);
         buttonLogO.setOnClickListener(onClickListener);
+        homeButton.setOnClickListener(onClickListener);
         //set an OnClickListener to the ImageView
         userImage.setOnClickListener(onClickListener);
         //set an OnClickListener to the text
@@ -71,6 +77,11 @@ public class ChangeProfile extends AppCompatActivity {
             //change password
             if(v.getId() == R.id.changePwButton){
                 startActivity(new Intent(ChangeProfile.this, ChangePW.class));
+            }
+
+            //go back to profile
+            if(v.getId() == R.id.homeButtonChangeProfile){
+                startActivity(new Intent(ChangeProfile.this, Profile.class));
             }
 
             //Log out!

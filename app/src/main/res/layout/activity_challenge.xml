@@ -112,7 +112,7 @@
         app:srcCompat="@drawable/creativebtn1" />
 
     <Button
-        android:id="@+id/homeButton"
+        android:id="@+id/homeButtonChallenge"
         android:layout_width="33dp"
         android:layout_height="33dp"
         android:background="@drawable/man"

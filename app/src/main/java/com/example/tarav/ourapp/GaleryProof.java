@@ -11,15 +11,19 @@ import android.widget.ImageView;
 
 public class GaleryProof extends AppCompatActivity {
 
-    //Define Buttons
-    Button cameraBtn = (Button)findViewById(R.id.cameraButton);
-    //Define ImageView
-    ImageView imageView = (ImageView)findViewById(R.id.imageViewProofPicture);
+    Button cameraBtn, homeButton;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery_proof);
+
+        //Define Buttons
+        cameraBtn = (Button)findViewById(R.id.cameraButton);
+        homeButton = (Button)findViewById(R.id.homeButtonGalleryProof);
+        //Define ImageView
+        imageView = (ImageView)findViewById(R.id.imageViewProofPicture);
 
         //set OnClickListener to the button
         cameraBtn.setOnClickListener(onClickListener);
@@ -35,6 +39,11 @@ public class GaleryProof extends AppCompatActivity {
                 //Creates an Intent, which opens the Camera
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent,0);
+            }
+
+            if(v.getId() == R.id.homeButtonGalleryProof){
+                //go back to Profile
+                startActivity(new Intent(GaleryProof.this, Profile.class));
             }
         }
     };
