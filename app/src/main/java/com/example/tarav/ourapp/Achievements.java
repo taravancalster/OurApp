@@ -11,3 +11,10 @@ public class Achievements extends AppCompatActivity {
         setContentView(R.layout.activity_achievements);
     }
 }
+
+
+
+//muss die leeren oder Fragezeichen-Bilder nur durch Bilder aus der DB ersetzten
+//Schonmal leere Images + TextViews ins Layout setzten
+//ProgressBar oben (mit Text?)
+//Scrollbar?

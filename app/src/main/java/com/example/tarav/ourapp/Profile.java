@@ -15,6 +15,11 @@ public class Profile extends AppCompatActivity {
 
     ProgressBar progressbar;
 
+    /*
+    Von der Datenbank die abgeschlossenen Challenges holen
+    int challengeCompleted = ;
+    */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,11 +87,17 @@ public class Profile extends AppCompatActivity {
     };
 
 
-    //Increment the progress bar, when a challenge has been completed
-    /*
-     private updateProgress(){
-            if (challengeCompleted){
-                progressbar.setProgress(actualProgress +=1)}
-    }
+   /*
+        private newChallengeCompleted(){
+
+        }
+
+        private updateProgress(){
+            progressbar.setProgress(completedChallenges);
+
+            if (newChallengeCompleted() == true ){
+                progressbar.setProgress(completedChallenges += 1)}
+        }
+
     */
 }
