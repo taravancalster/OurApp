@@ -20,7 +20,7 @@ public class ChangeProfile extends AppCompatActivity {
         setContentView(R.layout.activity_change_profile);
 
         //define the buttons
-        buttonBack = (Button)findViewById(R.id.homeButton);
+        buttonBack = (Button)findViewById(R.id.homeButtonChangeProfile);
         buttonSave = (Button)findViewById(R.id.saveButton);
         buttonCPW = (Button)findViewById(R.id.changePwButton);
         buttonLogO = (Button)findViewById(R.id.logoutButton);
@@ -50,7 +50,7 @@ public class ChangeProfile extends AppCompatActivity {
         public void onClick(View v) {
 
             //back to profile
-            if(v.getId() == R.id.homeButton){
+            if(v.getId() == R.id.homeButtonChangeProfile){
                 //save changes
 
                 //go back to profile
