@@ -55,13 +55,13 @@ public class GaleryProof extends AppCompatActivity {
                 //save image in storage
                 //???????
                 //go back to Profile
-                startActivity(new Intent(GaleryProof.this, Achievements.class));
+                startActivity(new Intent(GaleryProof.this, Challenge.class));
             }
 
             //if the cancel button is clicked, the user will be taken back to profile
             if(v.getId() == R.id.cancelButtonGalleryProof){
                 //go back to Profile
-                startActivity(new Intent(GaleryProof.this, Profile.class));
+                startActivity(new Intent(GaleryProof.this, Challenge.class));
             }
         }
     };

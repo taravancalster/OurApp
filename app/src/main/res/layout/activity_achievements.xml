@@ -31,7 +31,7 @@
             android:id="@+id/homeButtonAchievements"
             android:layout_width="33dp"
             android:layout_height="33dp"
-            android:background="@drawable/man"
+            android:background="@drawable/homebtn"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
@@ -81,7 +81,7 @@
             app:layout_constraintHorizontal_bias="0.875"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewProgress"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -109,7 +109,7 @@
             app:layout_constraintHorizontal_bias="0.875"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge1"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -137,7 +137,7 @@
             app:layout_constraintHorizontal_bias="0.875"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge2"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="8dp" />
 
@@ -165,7 +165,7 @@
             app:layout_constraintHorizontal_bias="0.875"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge3"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -196,7 +196,7 @@
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge4"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -228,7 +228,7 @@
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge5"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -260,7 +260,7 @@
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge6"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -292,7 +292,7 @@
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge7"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -324,7 +324,7 @@
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge8"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -356,7 +356,7 @@
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge9"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -388,7 +388,7 @@
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge10"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 
@@ -420,7 +420,7 @@
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageChallenge11"
-            app:srcCompat="@drawable/pluszeichen"
+            app:srcCompat="@drawable/fragezeichen"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="80dp" />
 

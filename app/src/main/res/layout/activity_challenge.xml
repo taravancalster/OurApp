@@ -115,7 +115,7 @@
         android:id="@+id/homeButtonChallenge"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:background="@drawable/man"
+        android:background="@drawable/homebtn"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"

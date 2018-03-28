@@ -85,18 +85,18 @@ public class Galery extends AppCompatActivity {
                 startActivity(new Intent(Galery.this, Profile.class));
             }
 
-            //if the user clickes the save button the image will be saved in achievements, and the user will be taken to achievements
+            //if the user clickes the save button the image will be saved, and the user will be taken to changeProfile
             if(v.getId() == R.id.saveButtonGallery){
                 //save image in storage
                 //???????
                 //go back to Profile
-                startActivity(new Intent(Galery.this, Achievements.class));
+                startActivity(new Intent(Galery.this, ChangeProfile.class));
             }
 
-            //if the cancel button is clicked, the user will be taken back to profile
+            //if the cancel button is clicked, the user will be taken back to change profile
             if(v.getId() == R.id.cancelButtonGallery){
                 //go back to Profile
-                startActivity(new Intent(Galery.this, Profile.class));
+                startActivity(new Intent(Galery.this, ChangeProfile.class));
             }
         }
     };
