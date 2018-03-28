@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import java.io.File;
@@ -21,19 +22,24 @@ import java.util.Date;
 public class Challenge extends AppCompatActivity {
 
     Button buttonProof, buttonComplete, homeButton;
+    TextView challengeCategory ,challengeTitle, challengeDescription;
+    ImageView challengePicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge);
 
-        //define the buttons
+        //define the Buttons
         buttonProof = (Button) findViewById(R.id.proofPicButton);
         buttonComplete = (Button) findViewById(R.id.button16);
         homeButton = (Button) findViewById(R.id.homeButtonChallenge);
-
-        //Creates an ImageView
-        //ImageView imageView = new ImageView();
+        //define TextViews
+        challengeCategory = (TextView) findViewById(R.id.textView11);
+        challengeTitle = (TextView) findViewById(R.id.textView12);
+        challengeDescription = (TextView) findViewById(R.id.textView13);
+        //define ImageView
+        challengePicture = (ImageView) findViewById(R.id.imageView5);
 
         //set an OnClickListener to the buttons
         buttonProof.setOnClickListener(onClickListener);
