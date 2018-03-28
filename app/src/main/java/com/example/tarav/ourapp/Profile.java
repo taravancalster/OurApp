@@ -15,7 +15,8 @@ public class Profile extends AppCompatActivity {
     Button buttonPro, buttonC, buttonH, buttonS, buttonA;
     ProgressBar progressbar;
     TextView progressText;
-    EditText etUsername;
+    //EditText etUsername;
+    TextView etUsername;
     ImageView userPicture;
 
     /*
@@ -28,7 +29,9 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        etUsername = (EditText) findViewById(R.id.etUsername);
+        //etUsername = (EditText) findViewById(R.id.etUsername);
+        etUsername = (TextView) findViewById(R.id.etUsername);
+
 
         //define the buttons
         buttonPro = (Button)findViewById(R.id.button9);
@@ -102,17 +105,17 @@ public class Profile extends AppCompatActivity {
 
             //show creative Challenge
            if (v.getId() == R.id.button5){
-                startActivity(new Intent(Profile.this, Challenge.class));
+                startActivity(new Intent(Profile.this, ChallengeNew.class));
            }
 
             //show healthy Challenge
             if (v.getId() == R.id.button6){
-                startActivity(new Intent(Profile.this, Challenge.class));
+                startActivity(new Intent(Profile.this, ChallengeNew.class));
             }
 
             //show social Challenge
             if (v.getId() == R.id.button7){
-                startActivity(new Intent(Profile.this, Challenge.class));
+                startActivity(new Intent(Profile.this, ChallengeNew.class));
             }
 
             //show adventure Challenge

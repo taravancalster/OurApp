@@ -33,7 +33,7 @@ public class Achievements extends AppCompatActivity {
         homeButton = (Button) findViewById(R.id.homeButtonAchievements);
 
         //define progress bar
-        progressbar = (ProgressBar) findViewById(R.id.progressBar);
+        progressbar = (ProgressBar) findViewById(R.id.progressBar2);
 
         //define text views
         progressText = (TextView) findViewById(R.id.textViewProgress);

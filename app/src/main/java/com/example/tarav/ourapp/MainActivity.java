@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
             //change to ChangeProfile
             if (v.getId() == R.id.testButton) {
-                startActivity(new Intent(MainActivity.this, Achievements.class));
+                startActivity(new Intent(MainActivity.this, Profile.class));
             }
         }
     };
