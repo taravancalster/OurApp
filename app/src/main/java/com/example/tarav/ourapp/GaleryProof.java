@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 public class GaleryProof extends AppCompatActivity {
 
-    Button cameraBtn, homeButton;
+    Button cameraBtn, homeButton, saveButton, cancelButton ;
     ImageView imageView;
 
     @Override
@@ -22,11 +22,15 @@ public class GaleryProof extends AppCompatActivity {
         //Define Buttons
         cameraBtn = (Button)findViewById(R.id.cameraButton);
         homeButton = (Button)findViewById(R.id.homeButtonGalleryProof);
+        saveButton = (Button)findViewById(R.id.saveButtonGalleryProof);
+        cancelButton = (Button)findViewById(R.id.cancelButtonGalleryProof);
         //Define ImageView
         imageView = (ImageView)findViewById(R.id.imageViewProofPicture);
 
         //set OnClickListener to the button
         cameraBtn.setOnClickListener(onClickListener);
+        saveButton.setOnClickListener(onClickListener);
+        cancelButton.setOnClickListener(onClickListener);
     }
 
 
@@ -42,6 +46,20 @@ public class GaleryProof extends AppCompatActivity {
             }
 
             if(v.getId() == R.id.homeButtonGalleryProof){
+                //go back to Profile
+                startActivity(new Intent(GaleryProof.this, Profile.class));
+            }
+
+            //if the user clickes the save button the image will be saved in achievements, and the user will be taken to achievements
+            if(v.getId() == R.id.saveButtonGalleryProof){
+                //save image in storage
+                //???????
+                //go back to Profile
+                startActivity(new Intent(GaleryProof.this, Achievements.class));
+            }
+
+            //if the cancel button is clicked, the user will be taken back to profile
+            if(v.getId() == R.id.cancelButtonGalleryProof){
                 //go back to Profile
                 startActivity(new Intent(GaleryProof.this, Profile.class));
             }

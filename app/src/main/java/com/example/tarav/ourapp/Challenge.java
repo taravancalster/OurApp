@@ -62,6 +62,7 @@ public class Challenge extends AppCompatActivity {
                 }
 
                 if (v.getId() == R.id.button16) {
+                    //aks user again if the challenge was completed
                     //mark ChallengeTable as done
                     //put it in Achievements
                     //change to Profile --> empty cross

@@ -23,7 +23,7 @@ public class Galery extends AppCompatActivity {
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
 
-    private Button cameraBtn, galleryBtn, homeButton;
+    private Button cameraBtn, galleryBtn, homeButton, saveButton, cancelButton;
     private ImageView imageView;
 
     @Override
@@ -35,6 +35,8 @@ public class Galery extends AppCompatActivity {
         cameraBtn = (Button)findViewById(R.id.cameraButton);
         galleryBtn = (Button)findViewById(R.id.galleryButton);
         homeButton = (Button)findViewById(R.id.homeButtonGallery);
+        saveButton = (Button) findViewById(R.id.saveButtonGallery);
+        cancelButton = (Button) findViewById(R.id.cancelButtonGallery);
         //Define ImageView
         imageView = (ImageView)findViewById(R.id.imageViewUserPicture);
 
@@ -42,6 +44,8 @@ public class Galery extends AppCompatActivity {
         cameraBtn.setOnClickListener(onClickListener);
         galleryBtn.setOnClickListener(onClickListener);
         homeButton.setOnClickListener(onClickListener);
+        saveButton.setOnClickListener(onClickListener);
+        cancelButton.setOnClickListener(onClickListener);
     }
 
 
@@ -77,6 +81,20 @@ public class Galery extends AppCompatActivity {
             }
 
             if(v.getId() == R.id.homeButtonGallery){
+                //go back to Profile
+                startActivity(new Intent(Galery.this, Profile.class));
+            }
+
+            //if the user clickes the save button the image will be saved in achievements, and the user will be taken to achievements
+            if(v.getId() == R.id.saveButtonGallery){
+                //save image in storage
+                //???????
+                //go back to Profile
+                startActivity(new Intent(Galery.this, Achievements.class));
+            }
+
+            //if the cancel button is clicked, the user will be taken back to profile
+            if(v.getId() == R.id.cancelButtonGallery){
                 //go back to Profile
                 startActivity(new Intent(Galery.this, Profile.class));
             }
