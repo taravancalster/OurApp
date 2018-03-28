@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ public class Profile extends AppCompatActivity {
     Button buttonPro, buttonC, buttonH, buttonS, buttonA;
     ProgressBar progressbar;
     TextView progressText;
+    EditText etUsername;
+    ImageView userPicture;
 
     /*
     Von der Datenbank die abgeschlossenen Challenges holen
@@ -25,7 +28,7 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
+        etUsername = (EditText) findViewById(R.id.etUsername);
 
         //define the buttons
         buttonPro = (Button)findViewById(R.id.button9);
@@ -40,6 +43,9 @@ public class Profile extends AppCompatActivity {
         //define textView
         progressText = (TextView)findViewById(R.id.textViewProgressBar);
 
+        //define image view
+        userPicture = (ImageView) findViewById(R.id.imageView2);
+
         //set an OnClickListener to the buttons
         buttonPro.setOnClickListener(onClickListener);
         buttonC.setOnClickListener(onClickListener);
@@ -50,14 +56,26 @@ public class Profile extends AppCompatActivity {
         //set an OnClickListener to the progress bar
         progressbar.setOnClickListener(onClickListener);
 
+
+        setUserName();
+        setUserPicture();
         updateProgressBar();
         updateProgressText();
+    }
+
+    public void setUserName(){
+        // etUsername.setText(*Muss username von Datenbank reintun*);
+        etUsername.setText("Max Musterman");    //Test ob er den User Namen ändert
+    }
+
+    public void setUserPicture(){
+        // userPicture.setImageResource(R.drawable.*Muss Bild von Datenbank rein*);
     }
 
     /**
      * sets the progress of the progressbar to the number of challenges the user has completed
      */
-    private void updateProgressBar(){
+    public void updateProgressBar(){
         //progressbar.setProgress(completedChallenges);
         progressbar.setProgress(2); //Test ob er den Wert auf 2 ändert
     }
@@ -65,7 +83,7 @@ public class Profile extends AppCompatActivity {
     /**
      * converts the progress of the progressbar to a number and sets this to a string
      */
-    private void updateProgressText(){
+    public void updateProgressText(){
         //progressText.setText(completedChallenges.toString() + "/12");
         progressText.setText("2/12");   //Test ob er den Text zu 2/12 ändert
     }
@@ -88,17 +106,17 @@ public class Profile extends AppCompatActivity {
            }
 
             //show healthy Challenge
-            if (v.getId() == R.id.button5){
+            if (v.getId() == R.id.button6){
                 startActivity(new Intent(Profile.this, Challenge.class));
             }
 
             //show social Challenge
-            if (v.getId() == R.id.button5){
+            if (v.getId() == R.id.button7){
                 startActivity(new Intent(Profile.this, Challenge.class));
             }
 
             //show adventure Challenge
-            if (v.getId() == R.id.button5){
+            if (v.getId() == R.id.button8){
                 startActivity(new Intent(Profile.this, Challenge.class));
             }
 

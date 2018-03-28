@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
         Button bLogin = (Button) findViewById(R.id.bLogin);
         TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
 
+        //TEST
+        Button testBtn = (Button) findViewById(R.id.testButton);
+        testBtn.setOnClickListener(onClickListener);
+
+
+
         /**
          * go to SignUp
          */
@@ -87,5 +93,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    //TEST
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            //change to ChangeProfile
+            if (v.getId() == R.id.testButton) {
+                startActivity(new Intent(MainActivity.this, Achievements.class));
+            }
+        }
+    };
 
 }
