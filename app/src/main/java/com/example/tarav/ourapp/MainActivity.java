@@ -18,8 +18,6 @@ import db.DbHelper;
 public class MainActivity extends AppCompatActivity {
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         /**
          * check if user exists
          * and if password is right
@@ -54,8 +51,59 @@ public class MainActivity extends AppCompatActivity {
                 EditText email = (EditText) findViewById(R.id.etMail);
                 EditText password = (EditText) findViewById(R.id.etPassword);
 
+                //hole die eingegebene email
+                String mail = email.getText().toString();
+                String pass = password.getText().toString();
+
+                //definiere was du holen willst
+                String sql = "SELECT * FROM user WHERE email = ?";
+
+                //mache db nutzbar
+                SQLiteDatabase db = dbh.getWritableDatabase();
+
+                //uebergebe sql mit variable mail als parameter
+                Cursor cursor = db.rawQuery(sql, new String[]{mail});
+
+                //gehe zum Anfang des Ergebnisses
+                //cursor.moveToFirst();
+
+                if(cursor != null){
+                    cursor.moveToFirst();
+
+                    //speichere email und pw in variable
+                    String readMail = cursor.getString(2);
+                    String readPW = cursor.getString(3);
+
+                    //if passwords match
+                    if (readPW.equals(pass)) {
+                        //go to profile
+                        startActivity(new Intent(MainActivity.this, Profile.class));
+                    } else {
+                        Toast toastWrong = Toast.makeText(MainActivity.this, "Falsches Passwort oder falsche Email!", Toast.LENGTH_SHORT);
+                        toastWrong.show();
+                    }
+                }
+
+                //beende cursor
+                cursor.close();
+                db.close();
+
+            }
+        });
+
+    }
+
+
+}
+
+
+                /*
+
                 //mail aus db holen und in var speichern
                 SQLiteDatabase dbRead = dbh.getReadableDatabase();
+
+
+
                 String suchStr = "email = '" + email.getText().toString() + "'";
                 String[] spalten = new String[] {"username", "email", "pw"};
 
@@ -77,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 cursor.close();
 
+
                 //iff all fields are filled
                 if((email.getText().toString() != null) && (password.getText().toString() != null)) {
                     Toast.makeText(MainActivity.this, "felder voll", Toast.LENGTH_SHORT);
@@ -89,10 +138,4 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, Profile.class));
                     }
                 }
-            }
-
-        });
-
-    }
-
-}
+                */

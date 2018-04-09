@@ -92,16 +92,20 @@ public class SignUp extends AppCompatActivity {
                                //zu Login
                                startActivity(new Intent(SignUp.this, MainActivity.class));
                            }else{
-                               Toast.makeText(SignUp.this, "Passwords don't match!", Toast.LENGTH_SHORT);
+                               Toast toastPW = Toast.makeText(SignUp.this, "Passwords don't match!", Toast.LENGTH_SHORT);
+                               toastPW.show();
                            }
                         } else{
-                            Toast.makeText(SignUp.this, "Your email allready exists!", Toast.LENGTH_SHORT);
+                            Toast toastE = Toast.makeText(SignUp.this, "Your email allready exists!", Toast.LENGTH_SHORT);
+                            toastE.show();
                         }
                     } else{
-                       Toast.makeText(SignUp.this, "This is not an email!", Toast.LENGTH_SHORT);
+                       Toast toastNot = Toast.makeText(SignUp.this, "This is not an email!", Toast.LENGTH_SHORT);
+                        toastNot.show();
                    }
                } else{
-                   Toast.makeText(SignUp.this, "Please fill out everything!", Toast.LENGTH_SHORT);
+                   Toast toastFill = Toast.makeText(SignUp.this, "Please fill out everything!", Toast.LENGTH_SHORT);
+                    toastFill.show();
                }
           }
        });
