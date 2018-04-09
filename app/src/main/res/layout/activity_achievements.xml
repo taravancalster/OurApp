@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,33 +7,438 @@
     android:background="@drawable/hintergrund_challenger"
     tools:context="com.example.tarav.ourapp.Achievements">
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/achievements"
-        android:textSize="18sp"
-        android:textColor="#3d5c5c"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
-    <Button
-        android:id="@+id/homeButton"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
-        android:background="@drawable/man"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/achievements"
+            android:textColor="#3d5c5c"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
+        <Button
+            android:id="@+id/homeButtonAchievements"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:background="@drawable/homebtn"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="8dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="220dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="32dp"
+            android:indeterminate="false"
+            android:max="12"
+            android:progress="0"
+            android:progressBackgroundTint="#d9d9d9"
+            android:progressTint="#ffb765"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <TextView
+            android:id="@+id/textViewProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
 
-</android.support.constraint.ConstraintLayout>
+        <!-- 1. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="44dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge1"
+            app:layout_constraintHorizontal_bias="0.875"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewProgress"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/challenge1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewProgress"
+            android:layout_marginRight="124dp" />
+
+        <!-- 2. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge2"
+            app:layout_constraintHorizontal_bias="0.875"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge1"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginTop="72dp"
+            android:text="@string/challenge2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge1"
+            android:layout_marginRight="124dp" />
+
+        <!-- 3. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge3"
+            app:layout_constraintHorizontal_bias="0.875"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge2"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:id="@+id/textChallenge3"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/challenge3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge2"
+            android:layout_marginRight="124dp" />
+
+        <!-- 4. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge4"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge3"
+            app:layout_constraintHorizontal_bias="0.875"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge3"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge4"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/challenge4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge4"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge3"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="8dp" />
+
+        <!-- 5. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge5"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge4"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge4"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge5"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/challenge5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge5"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge4"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="8dp" />
+
+        <!-- 6. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge6"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge5"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge5"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge6"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="62dp"
+            android:text="@string/challenge6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge5"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge5"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="8dp" />
+
+        <!-- 7. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge7"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge6"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge6"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge7"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/challenge7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge6"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge6"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="8dp" />
+
+        <!-- 8. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge8"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge7"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge7"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge8"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/challenge8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge7"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge7"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="8dp" />
+
+        <!-- 9. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge9"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge8"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge8"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge9"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="62dp"
+            android:text="@string/challenge9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge8"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge8"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="8dp" />
+
+        <!-- 10. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge10"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge9"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge9"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge10"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="62dp"
+            android:text="@string/challenge10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge9"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge9"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="8dp" />
+
+        <!-- 11. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge11"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge10"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge10"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge11"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="62dp"
+            android:text="@string/challenge11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge10"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge10"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="8dp" />
+
+        <!-- 12. Challenge completed  !-->
+
+        <ImageView
+            android:id="@+id/imageChallenge12"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/textChallenge11"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageChallenge11"
+            app:srcCompat="@drawable/fragezeichen"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="80dp" />
+
+        <TextView
+            android:id="@+id/textChallenge12"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/challenge12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge11"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge11"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="8dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
 

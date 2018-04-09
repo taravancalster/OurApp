@@ -11,18 +11,26 @@ import android.widget.ImageView;
 
 public class GaleryProof extends AppCompatActivity {
 
-    //Define Buttons
-    Button cameraBtn = (Button)findViewById(R.id.cameraButton);
-    //Define ImageView
-    ImageView imageView = (ImageView)findViewById(R.id.imageViewProofPicture);
+    Button cameraBtn, homeButton, saveButton, cancelButton ;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery_proof);
 
+        //Define Buttons
+        cameraBtn = (Button)findViewById(R.id.cameraButton);
+        homeButton = (Button)findViewById(R.id.homeButtonGalleryProof);
+        saveButton = (Button)findViewById(R.id.saveButtonGalleryProof);
+        cancelButton = (Button)findViewById(R.id.cancelButtonGalleryProof);
+        //Define ImageView
+        imageView = (ImageView)findViewById(R.id.imageViewProofPicture);
+
         //set OnClickListener to the button
         cameraBtn.setOnClickListener(onClickListener);
+        saveButton.setOnClickListener(onClickListener);
+        cancelButton.setOnClickListener(onClickListener);
     }
 
 
@@ -35,6 +43,25 @@ public class GaleryProof extends AppCompatActivity {
                 //Creates an Intent, which opens the Camera
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent,0);
+            }
+
+            if(v.getId() == R.id.homeButtonGalleryProof){
+                //go back to Profile
+                startActivity(new Intent(GaleryProof.this, Profile.class));
+            }
+
+            //if the user clickes the save button the image will be saved in achievements, and the user will be taken to achievements
+            if(v.getId() == R.id.saveButtonGalleryProof){
+                //save image in storage
+                //???????
+                //go back to Profile
+                startActivity(new Intent(GaleryProof.this, Challenge.class));
+            }
+
+            //if the cancel button is clicked, the user will be taken back to profile
+            if(v.getId() == R.id.cancelButtonGalleryProof){
+                //go back to Profile
+                startActivity(new Intent(GaleryProof.this, Challenge.class));
             }
         }
     };

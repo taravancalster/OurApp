@@ -6,23 +6,48 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class Profile extends AppCompatActivity {
+
+    Button buttonPro, buttonC, buttonH, buttonS, buttonA;
+    ProgressBar progressbar;
+    TextView progressText;
+    //EditText etUsername;
+    TextView etUsername;
+    ImageView userPicture;
+
+    /*
+    Von der Datenbank die abgeschlossenen Challenges holen
+    int challengeCompleted = ???;
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
+        //etUsername = (EditText) findViewById(R.id.etUsername);
+        etUsername = (TextView) findViewById(R.id.etUsername);
+
 
         //define the buttons
-        Button buttonPro = (Button)findViewById(R.id.button9);
-        Button buttonC = (Button)findViewById(R.id.button5);
-        Button buttonH = (Button)findViewById(R.id.button6);
-        Button buttonS = (Button)findViewById(R.id.button7);
-        Button buttonA = (Button)findViewById(R.id.button8);
+        buttonPro = (Button)findViewById(R.id.button9);
+        buttonC = (Button)findViewById(R.id.button5);
+        buttonH = (Button)findViewById(R.id.button6);
+        buttonS = (Button)findViewById(R.id.button7);
+        buttonA = (Button)findViewById(R.id.button8);
+
+        //define progress bar
+        progressbar = (ProgressBar)findViewById(R.id.progressBar);
+
+        //define textView
+        progressText = (TextView)findViewById(R.id.textViewProgressBar);
+
+        //define image view
+        userPicture = (ImageView) findViewById(R.id.imageView2);
 
         //set an OnClickListener to the buttons
         buttonPro.setOnClickListener(onClickListener);
@@ -30,7 +55,42 @@ public class Profile extends AppCompatActivity {
         buttonH.setOnClickListener(onClickListener);
         buttonS.setOnClickListener(onClickListener);
         buttonA.setOnClickListener(onClickListener);
+
+        //set an OnClickListener to the progress bar
+        progressbar.setOnClickListener(onClickListener);
+
+
+        setUserName();
+        setUserPicture();
+        updateProgressBar();
+        updateProgressText();
     }
+
+    public void setUserName(){
+        // etUsername.setText(*Muss username von Datenbank reintun*);
+        etUsername.setText("Max Mustermann");    //Test ob er den User Namen ändert
+    }
+
+    public void setUserPicture(){
+        // userPicture.setImageResource(R.drawable.*Muss Bild von Datenbank rein*);
+    }
+
+    /**
+     * sets the progress of the progressbar to the number of challenges the user has completed
+     */
+    public void updateProgressBar(){
+        //progressbar.setProgress(completedChallenges);
+        progressbar.setProgress(2); //Test ob er den Wert auf 7 ändert
+    }
+
+    /**
+     * converts the progress of the progressbar to a number and sets this to a string
+     */
+    public void updateProgressText(){
+        //progressText.setText(completedChallenges.toString() + "/12");
+        progressText.setText("2/12");   //Test ob er den Text zu 7/12 ändert
+    }
+
 
     //what happens onClick?
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -45,23 +105,30 @@ public class Profile extends AppCompatActivity {
 
             //show creative Challenge
            if (v.getId() == R.id.button5){
-                startActivity(new Intent(Profile.this, Challenge.class));
+                startActivity(new Intent(Profile.this, ChallengeNew.class));
            }
 
             //show healthy Challenge
-            if (v.getId() == R.id.button5){
-                startActivity(new Intent(Profile.this, Challenge.class));
+            if (v.getId() == R.id.button6){
+                startActivity(new Intent(Profile.this, ChallengeNew.class));
             }
 
             //show social Challenge
-            if (v.getId() == R.id.button5){
-                startActivity(new Intent(Profile.this, Challenge.class));
+            if (v.getId() == R.id.button7){
+                startActivity(new Intent(Profile.this, ChallengeNew.class));
             }
 
             //show adventure Challenge
-            if (v.getId() == R.id.button5){
+            if (v.getId() == R.id.button8){
                 startActivity(new Intent(Profile.this, Challenge.class));
+            }
+
+            //if the user clicks on the progress bar he will be taken to the achievements layout
+            if (v.getId() == R.id.progressBar){
+                startActivity(new Intent(Profile.this, Achievements.class));
             }
         }
     };
+
+
 }

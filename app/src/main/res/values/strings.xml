@@ -31,7 +31,7 @@
     <string name="title_changePW">Change password</string>
     <string name="text_oPW">Old password</string>
     <string name="text_nPW">New password</string>
-    <string name="text_repeat">Repeat the new password</string>
+    <string name="text_repeat">Repeat new password</string>
     <string name="action_cancel">Cancel</string>
     <string name="title_proofPic">Upload your proof picture here!</string>
     <string name="action_notNow">Not now!</string>
@@ -41,5 +41,18 @@
     <string name="camera">Go to camera</string>
     <string name="action_selectPhoto">Select a picture</string>
     <string name="gallery">Gallery</string>
+    <string name="challenge1">CHALLENGE 1</string>
+    <string name="challenge2">CHALLENGE 2</string>
+    <string name="challenge3">CHALLENGE 3</string>
+    <string name="challenge4">CHALLENGE 4</string>
+    <string name="challenge5">CHALLENGE 5</string>
+    <string name="challenge6">CHALLENGE 6</string>
+    <string name="challenge7">CHALLENGE 7</string>
+    <string name="challenge8">CHALLENGE 8</string>
+    <string name="challenge9">CHALLENGE 9</string>
+    <string name="challenge10">CHALLENGE 10</string>
+    <string name="challenge11">CHALLENGE 11</string>
+    <string name="challenge12">CHALLENGE 12</string>
+    <string name="description">Challenge description</string>
 
 </resources>

@@ -26,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
         Button bLogin = (Button) findViewById(R.id.bLogin);
         TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
 
+        //TEST
+        Button testBtn = (Button) findViewById(R.id.testButton);
+
+
+		
+		
+
         /**
          * go to SignUp
          */
@@ -92,50 +99,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+	
+	
+	testBtn.setOnClickListener(new View.OnClickListener){
+		 @Override
+        public void onClick(View v) {
 
+            //change to ChangeProfile
+            if (v.getId() == R.id.testButton) {
+                startActivity(new Intent(MainActivity.this, Profile.class));
+            }
+        }
+	}
 
 }
-
-
-                /*
-
-                //mail aus db holen und in var speichern
-                SQLiteDatabase dbRead = dbh.getReadableDatabase();
-
-
-
-                String suchStr = "email = '" + email.getText().toString() + "'";
-                String[] spalten = new String[] {"username", "email", "pw"};
-
-                //suchanfrage an db geben
-                Cursor cursor = dbRead.query("user", spalten, suchStr, null, null, null, null);
-                //ob es einen eintrag gibt
-                int anzahl = cursor.getCount();
-
-                //daten aus eintrag holen und in var speichern
-                long id;
-                String uname;
-                String pwReal = "";
-
-                cursor.moveToFirst();
-                for(int i = 0; i < anzahl; i++){
-                    id = cursor.getLong(0);
-                    uname = cursor.getString(1);
-                    pwReal = cursor.getString(3);
-                }
-                cursor.close();
-
-
-                //iff all fields are filled
-                if((email.getText().toString() != null) && (password.getText().toString() != null)) {
-                    Toast.makeText(MainActivity.this, "felder voll", Toast.LENGTH_SHORT);
-                    //if email exists and the pws match
-                    if ((anzahl > 0) && ((password.getText().toString()).equals(pwReal))) {
-                        Toast.makeText(MainActivity.this, "email exisitert und pw passen!", Toast.LENGTH_SHORT);
-                        //give var with uname an profile weiter
-
-                        //go to profile
-                        startActivity(new Intent(MainActivity.this, Profile.class));
-                    }
-                }
-                */
