@@ -68,7 +68,7 @@ public class Profile extends AppCompatActivity {
 
     public void setUserName(){
         // etUsername.setText(*Muss username von Datenbank reintun*);
-        etUsername.setText("Max Musterman");    //Test ob er den User Namen ändert
+        etUsername.setText("Max Mustermann");    //Test ob er den User Namen ändert
     }
 
     public void setUserPicture(){
@@ -80,7 +80,7 @@ public class Profile extends AppCompatActivity {
      */
     public void updateProgressBar(){
         //progressbar.setProgress(completedChallenges);
-        progressbar.setProgress(2); //Test ob er den Wert auf 2 ändert
+        progressbar.setProgress(2); //Test ob er den Wert auf 7 ändert
     }
 
     /**
@@ -88,7 +88,7 @@ public class Profile extends AppCompatActivity {
      */
     public void updateProgressText(){
         //progressText.setText(completedChallenges.toString() + "/12");
-        progressText.setText("2/12");   //Test ob er den Text zu 2/12 ändert
+        progressText.setText("2/12");   //Test ob er den Text zu 7/12 ändert
     }
 
 

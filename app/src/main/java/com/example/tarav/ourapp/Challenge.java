@@ -69,6 +69,8 @@ public class Challenge extends AppCompatActivity {
                     startActivity(new Intent(Challenge.this, Profile.class));
                 }
 
+
+                //FUNKTIONIERT NICHT WENN MAN VON GALLERY WIEDER DRAUFKOMMT
                 if (v.getId() == R.id.homeButtonChallenge) {
                     //Takes the user to the GaleryProof layout
                     startActivity(new Intent(Challenge.this, Profile.class));

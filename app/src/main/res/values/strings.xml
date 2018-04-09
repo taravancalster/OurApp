@@ -31,7 +31,7 @@
     <string name="title_changePW">Change password</string>
     <string name="text_oPW">Old password</string>
     <string name="text_nPW">New password</string>
-    <string name="text_repeat">Repeat the new password</string>
+    <string name="text_repeat">Repeat new password</string>
     <string name="action_cancel">Cancel</string>
     <string name="title_proofPic">Upload your proof picture here!</string>
     <string name="action_notNow">Not now!</string>
