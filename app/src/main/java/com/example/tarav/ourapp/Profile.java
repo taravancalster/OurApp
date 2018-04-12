@@ -68,7 +68,13 @@ public class Profile extends AppCompatActivity {
 
     public void setUserName(){
         // etUsername.setText(*Muss username von Datenbank reintun*);
-        etUsername.setText("Max Mustermann");    //Test ob er den User Namen ändert
+        //etUsername.setText("Max Mustermann");    //Test ob er den User Namen ändert
+
+        if(getIntent().hasExtra("username") == true){
+            String name = getIntent().getExtras().getString("username");
+            etUsername.setText(name);
+        }
+
     }
 
     public void setUserPicture(){

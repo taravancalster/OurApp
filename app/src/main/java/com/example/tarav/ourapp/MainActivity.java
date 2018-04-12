@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 DbHelper dbh = new DbHelper(getApplicationContext());
 
                 //get input fields
-                EditText email = (EditText) findViewById(R.id.etMail);
-                EditText password = (EditText) findViewById(R.id.etPassword);
+                EditText email = (EditText) findViewById(R.id.etEmail);
+                EditText password = (EditText) findViewById(R.id.etPW);
 
                 //hole die eingegebene email
                 String mail = email.getText().toString();
@@ -78,13 +77,17 @@ public class MainActivity extends AppCompatActivity {
                     cursor.moveToFirst();
 
                     //speichere email und pw in variable
+                    String readName = cursor.getString(1);
                     String readMail = cursor.getString(2);
                     String readPW = cursor.getString(3);
 
                     //if passwords match
                     if (readPW.equals(pass)) {
                         //go to profile
-                        startActivity(new Intent(MainActivity.this, Profile.class));
+                        Intent toProfile = new Intent(MainActivity.this, Profile.class);
+                        //Benutzername an Profile übergeben
+                        toProfile.putExtra("username", readName);
+                        startActivity(toProfile);
                     } else {
                         Toast toastWrong = Toast.makeText(MainActivity.this, "Falsches Passwort oder falsche Email!", Toast.LENGTH_SHORT);
                         toastWrong.show();
@@ -98,18 +101,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        	 testBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                //change to ChangeProfile
+                if (v.getId() == R.id.testButton) {
+                    startActivity(new Intent(MainActivity.this, Profile.class));
+                }
+            }
+        });
+
+
+
     }
 	
 	
-	testBtn.setOnClickListener(new View.OnClickListener){
-		 @Override
-        public void onClick(View v) {
 
-            //change to ChangeProfile
-            if (v.getId() == R.id.testButton) {
-                startActivity(new Intent(MainActivity.this, Profile.class));
-            }
-        }
-	}
 
 }
