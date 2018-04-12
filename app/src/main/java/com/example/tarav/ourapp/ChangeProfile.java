@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 public class ChangeProfile extends AppCompatActivity {
 
-    Button buttonBack, buttonSave, buttonCPW, buttonLogO, homeButton;
+    Button buttonSave, buttonCPW, buttonLogO, homeButton;
     ImageView userImage;
     EditText changeUsername;
 
@@ -20,7 +20,6 @@ public class ChangeProfile extends AppCompatActivity {
         setContentView(R.layout.activity_change_profile);
 
         //define the buttons
-        buttonBack = (Button)findViewById(R.id.homeButtonChangeProfile);
         buttonSave = (Button)findViewById(R.id.saveButton);
         buttonCPW = (Button)findViewById(R.id.changePwButton);
         buttonLogO = (Button)findViewById(R.id.logoutButton);
@@ -31,7 +30,6 @@ public class ChangeProfile extends AppCompatActivity {
         changeUsername = (EditText)findViewById(R.id.editText7);
 
         //set an OnClickListener to the buttons
-        buttonBack.setOnClickListener(onClickListener);
         buttonSave.setOnClickListener(onClickListener);
         buttonCPW.setOnClickListener(onClickListener);
         buttonLogO.setOnClickListener(onClickListener);
@@ -79,10 +77,6 @@ public class ChangeProfile extends AppCompatActivity {
                 startActivity(new Intent(ChangeProfile.this, ChangePW.class));
             }
 
-            //go back to profile
-            if(v.getId() == R.id.homeButtonChangeProfile){
-                startActivity(new Intent(ChangeProfile.this, Profile.class));
-            }
 
             //Log out!
             if(v.getId() == R.id.logoutButton){
