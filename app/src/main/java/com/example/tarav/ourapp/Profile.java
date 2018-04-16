@@ -77,6 +77,7 @@ public class Profile extends AppCompatActivity {
 
     }
 
+
     public void setUserPicture(){
         // userPicture.setImageResource(R.drawable.*Muss Bild von Datenbank rein*);
     }
@@ -106,7 +107,15 @@ public class Profile extends AppCompatActivity {
 
             //change to ChangeProfile
             if(v.getId() == R.id.button9){
-                startActivity(new Intent(Profile.this, ChangeProfile.class));
+                if(getIntent().hasExtra("username") == true) {
+                    //benutzername holen
+                    String name = getIntent().getExtras().getString("username");
+                    //go to edit profile
+                    Intent toEdit = new Intent(Profile.this, ChangeProfile.class);
+                    //Benutzername an Edit Profile übergeben
+                    toEdit.putExtra("username", name);
+                    startActivity(toEdit);
+                }
             }
 
             //show creative Challenge
