@@ -100,7 +100,13 @@ public class Achievements extends AppCompatActivity {
 
             //change to Profile
             if (v.getId() == R.id.homeButtonAchievements) {
-                startActivity(new Intent(Achievements.this, Profile.class));
+                if(getIntent().hasExtra("username") == true){
+                    String name = getIntent().getExtras().getString("username");
+                    Intent toHome = new Intent(Achievements.this, Profile.class);
+                    //Benutzername an Profile übergeben
+                    toHome.putExtra("username", name);
+                    startActivity(toHome);
+                }
             }
 
         };
