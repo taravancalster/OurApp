@@ -19,6 +19,8 @@ public class ChangeProfile extends AppCompatActivity {
     Button buttonSave, buttonCPW, buttonLogO, homeButton;
     ImageView userImage;
     EditText changeUsername;
+    boolean wasClicked = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +64,29 @@ public class ChangeProfile extends AppCompatActivity {
 
             //back to profile
             if(v.getId() == R.id.homeButtonChangeProfile){
-                //give username to profile
-                Intent toProfile = new Intent(ChangeProfile.this, Profile.class);
-                //Benutzername an Profile übergeben
-                toProfile.putExtra("username", changeUsername.getText().toString());
-                //zu Profile gehen
-                startActivity(toProfile);
+
+                //gives back right username for profile
+                if(wasClicked){
+                    String newN = changeUsername.getText().toString();
+                    //give username to profile
+                    Intent toProfile = new Intent(ChangeProfile.this, Profile.class);
+                    //Benutzername an Profile übergeben
+                    toProfile.putExtra("username", newN);
+                    //zu Profile gehen
+                    startActivity(toProfile);
+                }else{
+                    //alten Benutzernamen abfragen und in variable speichern
+                    String oldN = getIntent().getExtras().getString("username");
+                    //give username to profile
+                    Intent toProfile = new Intent(ChangeProfile.this, Profile.class);
+                    //Benutzername an Profile übergeben
+                    toProfile.putExtra("username", oldN);
+                    //zu Profile gehen
+                    startActivity(toProfile);
+                }
+
+
+
             }
 
             //change picture
@@ -78,18 +97,21 @@ public class ChangeProfile extends AppCompatActivity {
 
             //change Username
             if(v.getId() == R.id.saveButton){
+
+                wasClicked = true;
+
                  //get new username
                 String newName = changeUsername.getText().toString();
                 //check if it is already taken
                 //get the database
                 DbHelper dbh = new DbHelper(getApplicationContext());
                 SQLiteDatabase db = dbh.getWritableDatabase();
-                //SQLiteDatabase dbRead = dbh.getReadableDatabase();
                 //get all usernames that equal the newName
                 String sql = "SELECT * FROM user WHERE username = ?";
                 Cursor cursor = db.rawQuery(sql, new String[]{newName});
 
                 int count = cursor.getCount();
+                cursor.close();
 
                 if(count > 0){
                     cursor.moveToFirst();
@@ -97,15 +119,14 @@ public class ChangeProfile extends AppCompatActivity {
                     Toast existToast = Toast.makeText(ChangeProfile.this, namE  + "is allready taken", Toast.LENGTH_SHORT);
                     existToast.show();
                 }else {
+                    String oldName = getIntent().getExtras().getString("username");
                     //save username
                     ContentValues values = new ContentValues();
                     values.put("username", newName);
-                    db.insert("user", null, values);
+                    db.update("user", values, "username = ?", new String[] {oldName}  );
                     Toast doneToast = Toast.makeText(ChangeProfile.this, "New Username saved!", Toast.LENGTH_SHORT);
                     doneToast.show();
                 }
-                cursor.close();
-                //dbRead.close();
                 db.close();
                 dbh.close();
             }
@@ -114,7 +135,14 @@ public class ChangeProfile extends AppCompatActivity {
 
             //change password
             if(v.getId() == R.id.changePwButton){
-                startActivity(new Intent(ChangeProfile.this, ChangePW.class));
+
+                if(getIntent().hasExtra("username") == true){
+                    String name = getIntent().getExtras().getString("username");
+                    Intent toChangePW = new Intent(ChangeProfile.this, ChangePW.class);
+                    //Benutzername an Profile übergeben
+                    toChangePW.putExtra("username", name);
+                    startActivity(toChangePW);
+                }
             }
 
 
