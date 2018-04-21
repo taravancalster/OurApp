@@ -53,6 +53,8 @@ public class ChangePW extends AppCompatActivity {
 
                     //get opw
                     String oldPW = opw.getText().toString();
+                    String newPw1 = pw1.getText().toString();
+                    String newPw2 = pw2.getText().toString();
 
                     //get the database
                     DbHelper dbh = new DbHelper(getApplicationContext());
@@ -68,11 +70,11 @@ public class ChangePW extends AppCompatActivity {
                     //wenn ja
                     if(count > 0){
                         //schauen ob die pw uebereinstimmen
-                        if(pw1.equals(pw2)) {
+                        if(newPw1.equals(newPw2)) {
                             //neues pw an db uebergeben
                             ContentValues values = new ContentValues();
                             values.put("pw", pw1.getText().toString());
-                            db.insert("user", null, values);
+                            db.update("user", values, "username = ?", new String[]{name} );
                             db.close();
                             dbh.close();
 
@@ -89,19 +91,16 @@ public class ChangePW extends AppCompatActivity {
                     }
 
 
+                    //giving username back in Intent and go to profile
+                    Intent toChangePW = new Intent(ChangePW.this, Profile.class);
+                    //Benutzername an Profile übergeben
+                    toChangePW.putExtra("username", name);
+                    startActivity(toChangePW);
+
 
 
                 }
 
-
-
-
-
-                //save the new password
-
-
-                //go back to changeProfile
-                startActivity(new Intent(ChangePW.this, ChangeProfile.class));
             }
 
             if(v.getId() == R.id.button18){
