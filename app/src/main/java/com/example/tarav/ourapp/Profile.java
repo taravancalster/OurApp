@@ -1,6 +1,10 @@
 package com.example.tarav.ourapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import db.DbHelper;
 
 public class Profile extends AppCompatActivity {
 
@@ -60,10 +66,15 @@ public class Profile extends AppCompatActivity {
         progressbar.setOnClickListener(onClickListener);
 
 
+
+
         setUserName();
         setUserPicture();
         updateProgressBar();
         updateProgressText();
+
+
+
     }
 
     public void setUserName(){
@@ -77,6 +88,63 @@ public class Profile extends AppCompatActivity {
 
     }
 
+
+    public void setLogos(){
+
+            //get ch_status and logo (+ oder laufende_challenge oder finished_category)
+            DbHelper dbh = new DbHelper(getApplicationContext());
+            String sql = "SELECT * FROM challenges WHERE ch_status = ?";
+            SQLiteDatabase db = dbh.getWritableDatabase();
+            //alles wo der username dem geholten username entspricht
+            Cursor cursor = db.rawQuery(sql, new String[]{"doing"});
+            int count = cursor.getCount();
+
+            if(count > 0){
+                cursor.moveToFirst();
+
+                String [] genres = new String[4];
+                String [] logos = new String[4];
+
+                for(int i = 0; i > count; i++) {
+                    //im Array an Position i das gegebene Genre und die passende ch_id speichern speichern
+                    genres[i] = cursor.getString(3);
+                    logos[i] = cursor.getString(5);
+                }
+
+                //bei welchem genre?
+
+
+                String category;
+                //creative, health, social, adventure
+                Context context = buttonC.getContext();
+
+
+                switch(genres[0]){
+                    case "creative":
+                        String logo0 = logos[0];
+                        int id = context.getResources().getIdentifier(logo0, "drawable", context.getPackageName());
+                        buttonC.setBackgroundResource(id);
+                        break;
+
+                    case "health":
+
+                        break;
+
+                    case "social":
+
+                        break;
+
+                    case "adventure":
+
+                        break;
+                }
+
+                //für jede id das logo aus db holen
+                //an richtige position setzen
+
+            }
+
+    }
 
     public void setUserPicture(){
         // userPicture.setImageResource(R.drawable.*Muss Bild von Datenbank rein*);
