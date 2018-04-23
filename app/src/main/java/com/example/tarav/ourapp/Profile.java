@@ -186,6 +186,7 @@ public class Profile extends AppCompatActivity {
                 }
             }
 
+            // put extra , challenge genre
             //show creative Challenge
            if (v.getId() == R.id.button5){
                 startActivity(new Intent(Profile.this, ChallengeNew.class));
@@ -203,7 +204,7 @@ public class Profile extends AppCompatActivity {
 
             //show adventure Challenge
             if (v.getId() == R.id.button8){
-                startActivity(new Intent(Profile.this, Challenge.class));
+                startActivity(new Intent(Profile.this, ChallengeNew.class));
             }
 
             //if the user clicks on the progress bar he will be taken to the achievements layout
