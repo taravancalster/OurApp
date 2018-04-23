@@ -25,12 +25,6 @@ public class MainActivity extends AppCompatActivity {
         Button bLogin = (Button) findViewById(R.id.bLogin);
         TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
 
-        //TEST
-        Button testBtn = (Button) findViewById(R.id.testButton);
-
-
-		
-		
 
         /**
          * go to SignUp
@@ -98,17 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 cursor.close();
                 db.close();
 
-            }
-        });
-
-        	 testBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                //change to ChangeProfile
-                if (v.getId() == R.id.testButton) {
-                    startActivity(new Intent(MainActivity.this, Profile.class));
-                }
             }
         });
 

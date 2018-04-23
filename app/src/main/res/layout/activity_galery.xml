@@ -90,7 +90,7 @@
 
     <Button
         android:id="@+id/saveButtonGallery"
-        android:layout_width="132dp"
+        android:layout_width="162dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -102,16 +102,17 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cancelButtonGallery"
-        app:layout_constraintHorizontal_bias="0.589"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cameraButton" />
+        app:layout_constraintTop_toBottomOf="@+id/cameraButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/cancelButtonGallery"
-        android:layout_width="132dp"
+        android:layout_width="162dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
         android:background="#ffb766"
         android:text="@string/action_cancel"
@@ -120,7 +121,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cameraButton"
-        android:layout_marginRight="48dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>
