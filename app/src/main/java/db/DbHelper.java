@@ -22,8 +22,8 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         UserTable.createTable(db);
-        ChallengeTable.createTable(db);
-
+        ChallengesTable.createTable(db);
+        //AchievementsTable.createTable(db);
     }
 
     @Override

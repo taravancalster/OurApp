@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import db.DbHelper;
 
@@ -71,15 +72,15 @@ public class Profile extends AppCompatActivity {
         setUserName();
         setUserPicture();
         updateProgressBar();
-        updateProgressText();
-
+        setLogos();
 
 
     }
 
+    /**
+     * username wird vom login übergeben
+     */
     public void setUserName(){
-        // etUsername.setText(*Muss username von Datenbank reintun*);
-        //etUsername.setText("Max Mustermann");    //Test ob er den User Namen ändert
 
         if(getIntent().hasExtra("username") == true){
             String name = getIntent().getExtras().getString("username");
@@ -89,65 +90,25 @@ public class Profile extends AppCompatActivity {
     }
 
 
-    public void setLogos(){
-
-            //get ch_status and logo (+ oder laufende_challenge oder finished_category)
-            DbHelper dbh = new DbHelper(getApplicationContext());
-            String sql = "SELECT * FROM challenges WHERE ch_status = ?";
-            SQLiteDatabase db = dbh.getWritableDatabase();
-            //alles wo der username dem geholten username entspricht
-            Cursor cursor = db.rawQuery(sql, new String[]{"doing"});
-            int count = cursor.getCount();
-
-            if(count > 0){
-                cursor.moveToFirst();
-
-                String [] genres = new String[4];
-                String [] logos = new String[4];
-
-                for(int i = 0; i > count; i++) {
-                    //im Array an Position i das gegebene Genre und die passende ch_id speichern speichern
-                    genres[i] = cursor.getString(3);
-                    logos[i] = cursor.getString(5);
-                }
-
-                //bei welchem genre?
-
-
-                String category;
-                //creative, health, social, adventure
-                Context context = buttonC.getContext();
-
-
-                switch(genres[0]){
-                    case "creative":
-                        String logo0 = logos[0];
-                        int id = context.getResources().getIdentifier(logo0, "drawable", context.getPackageName());
-                        buttonC.setBackgroundResource(id);
-                        break;
-
-                    case "health":
-
-                        break;
-
-                    case "social":
-
-                        break;
-
-                    case "adventure":
-
-                        break;
-                }
-
-                //für jede id das logo aus db holen
-                //an richtige position setzen
-
-            }
-
-    }
-
     public void setUserPicture(){
         // userPicture.setImageResource(R.drawable.*Muss Bild von Datenbank rein*);
+    }
+
+    public int countDone(){
+        //zähle alle fertigen challenges
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        String sql = "SELECT * FROM challenges WHERE ch_status = ?";
+
+        Cursor cursor = db.rawQuery(sql, new String[]{"done"});
+        int count = cursor.getCount();
+
+        cursor.close();
+        dbh.close();
+        db.close();
+
+        return count;
     }
 
     /**
@@ -155,16 +116,143 @@ public class Profile extends AppCompatActivity {
      */
     public void updateProgressBar(){
         //progressbar.setProgress(completedChallenges);
-        progressbar.setProgress(2); //Test ob er den Wert auf 7 ändert
+
+        int doneChallenges = countDone();
+
+        progressbar.setProgress(doneChallenges);
+        progressText.setText(doneChallenges + "/12");
+
     }
 
     /**
-     * converts the progress of the progressbar to a number and sets this to a string
+     * sets the images of the logos to the challenge_logos that have the status doing
      */
-    public void updateProgressText(){
-        //progressText.setText(completedChallenges.toString() + "/12");
-        progressText.setText("2/12");   //Test ob er den Text zu 7/12 ändert
+    public void setLogos(){
+
+        //get ch_status and logo (+ oder laufende_challenge oder finished_category)
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        String sql = "SELECT * FROM challenges WHERE ch_status = ?";
+
+        //alles wo der username dem geholten username entspricht
+        Cursor cursor = db.rawQuery(sql, new String[]{"doing"});
+        int count = cursor.getCount();
+
+        if(count > 0){
+            cursor.moveToFirst();
+
+            String [] genres = new String[4];
+            String [] logos = new String[4];
+
+            for(int i = 0; i > count; i++) {
+                //im Array an Position i das gegebene Genre und die passende ch_id speichern speichern
+                genres[i] = cursor.getString(3);
+                logos[i] = cursor.getString(5);
+            }
+
+            //bei welchem genre?
+
+
+            String category;
+            //creative, health, social, adventure
+            Context context = buttonC.getContext();
+
+            String logo0 = logos[0];
+            String logo1 = logos[1];
+            String logo2 = logos[2];
+            String logo3 = logos[3];
+
+            int id0 = context.getResources().getIdentifier(logo0 + ".png", "drawable", context.getPackageName());
+            int id1 = context.getResources().getIdentifier(logo1 + ".png", "drawable", context.getPackageName());
+            int id2 = context.getResources().getIdentifier(logo2 + ".png", "drawable", context.getPackageName());
+            int id3 = context.getResources().getIdentifier(logo3 + ".png", "drawable", context.getPackageName());
+
+
+            //für jede id das logo aus db holen
+            //an richtige position setzen
+            switch(genres[0]){
+                case "creative":
+                    buttonC.setBackgroundResource(id0);
+                    break;
+
+                case "health":
+                    buttonH.setBackgroundResource(id0);
+                    break;
+
+                case "social":
+                    buttonS.setBackgroundResource(id0);
+                    break;
+
+                case "adventure":
+                    buttonA.setBackgroundResource(id0);
+                    break;
+            }
+
+            switch(genres[1]){
+                case "creative":
+                    buttonC.setBackgroundResource(id1);
+                    break;
+
+                case "health":
+                    buttonH.setBackgroundResource(id1);
+                    break;
+
+                case "social":
+                    buttonS.setBackgroundResource(id1);
+                    break;
+
+                case "adventure":
+                    buttonA.setBackgroundResource(id1);
+                    break;
+            }
+
+            switch(genres[2]){
+                case "creative":
+                    buttonC.setBackgroundResource(id2);
+                    break;
+
+                case "health":
+                    buttonH.setBackgroundResource(id2);
+                    break;
+
+                case "social":
+                    buttonS.setBackgroundResource(id2);
+                    break;
+
+                case "adventure":
+                    buttonA.setBackgroundResource(id2);
+                    break;
+            }
+
+            switch(genres[3]){
+                case "creative":
+                    buttonC.setBackgroundResource(id3);
+                    break;
+
+                case "health":
+                    buttonH.setBackgroundResource(id3);
+                    break;
+
+                case "social":
+                    buttonS.setBackgroundResource(id3);
+                    break;
+
+                case "adventure":
+                    buttonA.setBackgroundResource(id3);
+                    break;
+            }
+        }else{
+            //wenn es keine mit doing gibt
+            Toast toastNoDoing = Toast.makeText(Profile.this, "No challenges accepted", Toast.LENGTH_SHORT);
+            toastNoDoing.show();
+        }
+
+        cursor.close();
+        dbh.close();
+        db.close();
     }
+
 
 
     //what happens onClick?
@@ -186,7 +274,7 @@ public class Profile extends AppCompatActivity {
                 }
             }
 
-            // put extra , challenge genre
+            // put extra , challenge genre + ch_id
             //show creative Challenge
            if (v.getId() == R.id.button5){
                 startActivity(new Intent(Profile.this, ChallengeNew.class));

@@ -54,7 +54,7 @@ public class Challenge extends AppCompatActivity {
 
             if (v.getId() == R.id.proofPicButton) {
                 //go to gallery
-                //save the picture in the right ChallengeTable
+                //save the picture in the right ChallengesTable
 
                 if (v.getId() == R.id.proofPicButton) {
                     //Takes the user to the GaleryProof layout
@@ -63,7 +63,7 @@ public class Challenge extends AppCompatActivity {
 
                 if (v.getId() == R.id.button16) {
                     //aks user again if the challenge was completed
-                    //mark ChallengeTable as done
+                    //mark ChallengesTable as done
                     //put it in Achievements
                     //change to Profile --> empty cross
                     startActivity(new Intent(Challenge.this, Profile.class));
