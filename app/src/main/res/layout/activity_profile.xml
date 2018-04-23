@@ -105,12 +105,11 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:text="@string/text_adventure"
         android:textColor="#3d5c5c"
         app:layout_constraintLeft_toRightOf="@+id/textView5"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        tools:layout_editor_absoluteY="292dp" />
 
     <TextView
         android:id="@+id/textView7"
