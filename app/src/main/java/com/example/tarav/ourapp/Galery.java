@@ -102,7 +102,7 @@ public class Galery extends AppCompatActivity {
             }
 
             // CANCEL
-            
+
             //if the cancel button is clicked, the user will be taken back to change profile
             if(v.getId() == R.id.cancelButtonGallery){
                 //stays on the same Activity, but deletes the Image from the ImageView
