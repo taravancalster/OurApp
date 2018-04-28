@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import db.ChallengesTable;
 import db.DbHelper;
 
 public class Profile extends AppCompatActivity {
@@ -71,11 +72,107 @@ public class Profile extends AppCompatActivity {
 
         setUserName();
         setUserPicture();
+
+        fillChallenges();
+        
         updateProgressBar();
         setLogos();
 
 
     }
+
+/*
+    public void testTables(){
+
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        //anstatt challenger sqlite_master?
+        //challenges groß oder klein?
+        String sql = "SELECT DISTINCT tbl_name FROM sqlite_master WHERE tbl_name = ?";
+
+
+        Cursor cursor = db.rawQuery(sql, new String[] {"user"});
+
+        if(cursor != null){
+            if(cursor.getCount() > 0) {
+                Toast there = Toast.makeText(Profile.this, "User exists", Toast.LENGTH_SHORT);
+                there.show();
+            }else{
+                Toast NotThere = Toast.makeText(Profile.this, "User exists NOT", Toast.LENGTH_SHORT);
+                NotThere.show();
+            }
+        }
+        cursor.close();
+
+        Cursor cursor2 = db.rawQuery(sql, new String[]{"challenges"});
+
+        if(cursor2 != null){
+            if(cursor2.getCount() > 0) {
+                Toast there = Toast.makeText(Profile.this, "Challenges exists", Toast.LENGTH_SHORT);
+                there.show();
+            }else{
+                Toast NotThere = Toast.makeText(Profile.this, "Challenges exists NOT", Toast.LENGTH_SHORT);
+                NotThere.show();
+            }
+        }
+        cursor2.close();
+
+        db.close();
+        dbh.close();
+
+    }
+*/
+
+
+    public void fillChallenges(){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        boolean exists = checkTable();
+
+        if(exists == false) {
+            dbh.createChallenges(db);
+            dbh.fillTable(db);
+        }
+        db.close();
+        dbh.close();
+    }
+
+
+
+    /**
+     * checks if challengesTable exists
+     * @return exists
+     */
+    public boolean checkTable(){
+
+        boolean exists = false;
+
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        //anstatt challenger sqlite_master?
+        //challenges groß oder klein?
+        String sql = "SELECT DISTINCT tbl_name FROM sqlite_master WHERE tbl_name = ?";
+
+        Cursor cursor = db.rawQuery(sql, new String[]{"challenges"});
+
+        if(cursor != null){
+            if(cursor.getCount() > 0){
+                exists = true;
+            }else{
+                exists = false;
+            }
+        }
+
+        cursor.close();
+        db.close();
+        dbh.close();
+
+        return exists;
+    }
+
 
     /**
      * username wird vom login übergeben
@@ -97,7 +194,9 @@ public class Profile extends AppCompatActivity {
     public int countDone(){
         //zähle alle fertigen challenges
         DbHelper dbh = new DbHelper(getApplicationContext());
-        SQLiteDatabase db = dbh.getWritableDatabase();
+        SQLiteDatabase db = dbh.getReadableDatabase();
+
+
 
         String sql = "SELECT * FROM challenges WHERE ch_status = ?";
 
@@ -116,6 +215,8 @@ public class Profile extends AppCompatActivity {
      */
     public void updateProgressBar(){
         //progressbar.setProgress(completedChallenges);
+
+
 
         int doneChallenges = countDone();
 

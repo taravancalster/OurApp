@@ -9,11 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 public class ChallengesTable {
 
     private static final String _CREATE = "CREATE TABLE [challenges] ("+
-            "[ch_id] INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , "+
-            "[ch_name] VARCHAR NOT NULL , "+
-            "[ch_genre] VARCHAR NOT NULL , "+
-            "[ch_status] VARCHAR NOT NULL ), " +
-            "[ch_description] VARCHAR NOT NULL), " +
+            "[ch_id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+
+            "[ch_name] VARCHAR NOT NULL, "+
+            "[ch_genre] VARCHAR NOT NULL, "+
+            "[ch_status] VARCHAR NOT NULL, " +
+            "[ch_description] VARCHAR NOT NULL, " +
             "[ch_logo] VARCHAR NOT NULL)";
 
     private static final String _INSERT_CREATIVE1 = "INSERT INTO challenges (ch_name, ch_genre, ch_status, ch_description, ch_logo)" +
@@ -56,6 +56,51 @@ public class ChallengesTable {
 
     public static void createTable(SQLiteDatabase db){
         db.execSQL(_CREATE);
+    }
+
+/*
+    public String getSQLString_C1(){
+        return _INSERT_CREATIVE1;
+    }
+    public String getSQLString_C2(){
+        return _INSERT_CREATIVE2;
+    }
+    public String getSQLString_C3(){
+        return _INSERT_CREATIVE3;
+    }
+
+    public String getSQLString_H1(){
+        return _INSERT_HEALTH1;
+    }
+    public String getSQLString_H2(){
+        return _INSERT_HEALTH2;
+    }
+    public String getSQLString_H3(){
+        return _INSERT_HEALTH3;
+    }
+
+    public String getSQLString_S1(){
+        return _INSERT_SOCIAL1;
+    }
+    public String getSQLString_S2(){
+        return _INSERT_SOCIAL2;
+    }
+    public String getSQLString_S3(){
+        return _INSERT_SOCIAL3;
+    }
+
+    public String getSQLString_A1(){
+        return _INSERT_ADVENTURE1;
+    }
+    public String getSQLString_A2(){
+        return _INSERT_ADVENTURE2;
+    }
+    public String getSQLString_A3(){
+        return _INSERT_ADVENTURE3;
+    }
+    */
+
+    public static void fillTable(SQLiteDatabase db){
         db.execSQL(_INSERT_CREATIVE1);
         db.execSQL(_INSERT_CREATIVE2);
         db.execSQL(_INSERT_CREATIVE3);

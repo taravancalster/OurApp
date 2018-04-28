@@ -12,7 +12,7 @@ public class AchievementsTable {
             "[achievement_id] INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , "+
             "[achievement_date] DATE NOT NULL , "+
             "[ch_id] INTEGER NOT NULL , "+
-            "[user_id] INTEGER NOT NULL ), " +
+            "[user_id] INTEGER NOT NULL, " +
             "[proofImage_url] VARCHAR)";
 
     public static void createTable(SQLiteDatabase db){
