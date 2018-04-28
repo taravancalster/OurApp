@@ -44,6 +44,7 @@ public class Challenge extends AppCompatActivity {
         //set an OnClickListener to the buttons
         buttonProof.setOnClickListener(onClickListener);
         buttonComplete.setOnClickListener(onClickListener);
+        homeButton.setOnClickListener(onClickListener);
     }
 
     //what happens onClick?
@@ -52,14 +53,14 @@ public class Challenge extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            if (v.getId() == R.id.proofPicButton) {
-                //go to gallery
-                //save the picture in the right ChallengesTable
+                //IF PROOFPIC-BUTTON IS CLICKED
 
                 if (v.getId() == R.id.proofPicButton) {
                     //Takes the user to the GaleryProof layout
                     startActivity(new Intent(Challenge.this, GaleryProof.class));
                 }
+
+                 //IF CHALLENGECOMPLETED-BUTTON IS CLICKED
 
                 if (v.getId() == R.id.button16) {
                     //aks user again if the challenge was completed
@@ -69,13 +70,12 @@ public class Challenge extends AppCompatActivity {
                     startActivity(new Intent(Challenge.this, Profile.class));
                 }
 
+                //IF HOME-BUTTON IS CLICKED
 
-                //FUNKTIONIERT NICHT WENN MAN VON GALLERY WIEDER DRAUFKOMMT
                 if (v.getId() == R.id.homeButtonChallenge) {
                     //Takes the user to the GaleryProof layout
                     startActivity(new Intent(Challenge.this, Profile.class));
                 }
-            };
 
         } ;
 

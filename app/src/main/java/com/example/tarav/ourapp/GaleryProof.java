@@ -60,8 +60,8 @@ public class GaleryProof extends AppCompatActivity {
 
             //if the cancel button is clicked, the user will be taken back to profile
             if(v.getId() == R.id.cancelButtonGalleryProof){
-                //go back to Profile
-                startActivity(new Intent(GaleryProof.this, Challenge.class));
+                //stays on the same Activity, but deletes the Image from the ImageView
+                imageView.setImageDrawable(null);
             }
         }
     };
