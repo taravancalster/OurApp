@@ -25,6 +25,7 @@ public class Galery extends AppCompatActivity {
 
     private Button cameraBtn, galleryBtn, homeButton, saveButton, cancelButton;
     private ImageView imageView;
+    private boolean cameraBtnClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,8 @@ public class Galery extends AppCompatActivity {
         homeButton.setOnClickListener(onClickListener);
         saveButton.setOnClickListener(onClickListener);
         cancelButton.setOnClickListener(onClickListener);
+
+        cameraBtnClicked = false;
     }
 
 
@@ -54,8 +57,13 @@ public class Galery extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+
+            //CAMERA
+
             //Opens the camera if the camera button is clicked
             if(v.getId() == R.id.cameraButton){
+                //sets boolean to true
+                cameraBtnClicked = true;
                 //Invokes the camera using an Intent
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent,0);
@@ -95,10 +103,12 @@ public class Galery extends AppCompatActivity {
 
             //if the user clickes the save button the image will be saved, and the user will be taken to changeProfile
             if(v.getId() == R.id.saveButtonGallery){
-                //save image in storage
+                //replace profilepic in drawable with new URL from taken image
                 //???????
-                //go back to Profile
-                startActivity(new Intent(Galery.this, ChangeProfile.class));
+
+
+                //go back to Profile?
+                //startActivity(new Intent(Galery.this, ChangeProfile.class));
             }
 
             // CANCEL
@@ -113,7 +123,15 @@ public class Galery extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK){
+
+        if (cameraBtnClicked ==true) {
+            super.onActivityResult(requestCode, resultCode, data);
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            //Sets the taken picture to the ImageView
+            imageView.setImageBitmap(bitmap);
+        }
+
+        else if (resultCode == RESULT_OK){
             //if we are here, everything processed succesfully
             if (requestCode == IMAGE_GALLERY_REQUEST){
                 //if we are here, we are hearing back from the image gallery
@@ -156,4 +174,5 @@ public class Galery extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
     }
     */
+
 }

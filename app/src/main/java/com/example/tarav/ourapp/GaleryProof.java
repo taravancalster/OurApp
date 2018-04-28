@@ -52,10 +52,12 @@ public class GaleryProof extends AppCompatActivity {
 
             //if the user clickes the save button the image will be saved in achievements, and the user will be taken to achievements
             if(v.getId() == R.id.saveButtonGalleryProof){
-                //save image in storage
+                //replace challengepic in drawable with new URL from taken image
                 //???????
-                //go back to Profile
-                startActivity(new Intent(GaleryProof.this, Challenge.class));
+
+
+                //go back to Profile?
+                //startActivity(new Intent(GaleryProof.this, Challenge.class));
             }
 
             //if the cancel button is clicked, the user will be taken back to profile
