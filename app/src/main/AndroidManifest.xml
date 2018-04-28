@@ -38,7 +38,6 @@
         <activity android:name=".Galery" />
         <activity android:name=".ChangePW" />
         <activity android:name=".ChallengeNew" />
-        <activity android:name=".GaleryProof" />
         <activity android:name=".Achievements"></activity>
 
     </application>
