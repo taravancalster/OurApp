@@ -1,5 +1,6 @@
 package com.example.tarav.ourapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +19,12 @@ public class ChallengeNew extends AppCompatActivity {
     TextView challengeCategory ,challengeTitle, challengeDescription;
     ImageView challengePicture;
     Button tryButton, notNowButton;
+
+    int doingCreative = 0;
+    int doingHealth = 0;
+    int doingSocial = 0;
+    int doingAdventure = 0;
+
     int challengeId;
 
 
@@ -56,6 +63,7 @@ public class ChallengeNew extends AppCompatActivity {
             SQLiteDatabase db = dbh.getReadableDatabase();
 
             String sql = "SELECT * FROM challenges WHERE ch_id = ?";
+
             String[] whereArgs = {String.valueOf(challengeId)};
 
 
@@ -77,10 +85,7 @@ public class ChallengeNew extends AppCompatActivity {
                     challengeTitle.setText(chName);
                     challengeDescription.setText(chDescription);
 
-                    //packagename???
-                    int id = getResources().getIdentifier("res:drawable/" + chLogo + ".png", "drawable", getPackageName());
-                    challengePicture.setImageResource(id);
-
+                   setImage(chLogo);
                 }
             }
             cursor.close();
@@ -88,6 +93,51 @@ public class ChallengeNew extends AppCompatActivity {
             dbh.close();
         }
 
+    }
+
+
+    private void setImage(String chLogo){
+        switch(chLogo){
+            case "creativebtn1":
+                challengePicture.setImageResource(R.drawable.creativebtn1);
+                break;
+            case "creativebtn2":
+                challengePicture.setImageResource(R.drawable.creativebtn2);
+                break;
+            case "creativebtn3":
+                challengePicture.setImageResource(R.drawable.creativebtn3);
+                break;
+
+            case "healthbtn1":
+                challengePicture.setImageResource(R.drawable.healthbtn1);
+                break;
+            case "healthbtn2":
+                challengePicture.setImageResource(R.drawable.healthbtn2);
+                break;
+            case "healthbtn3":
+                challengePicture.setImageResource(R.drawable.healthbtn3);
+                break;
+
+            case "socialbtn1":
+                challengePicture.setImageResource(R.drawable.socialbtn1);
+                break;
+            case "socialbtn2":
+                challengePicture.setImageResource(R.drawable.socialbtn2);
+                break;
+            case "socialbtn3":
+                challengePicture.setImageResource(R.drawable.socialbtn3);
+                break;
+
+            case "adventurebtn1":
+                challengePicture.setImageResource(R.drawable.adventurebtn1);
+                break;
+            case "adventurebtn2":
+                challengePicture.setImageResource(R.drawable.adventurebtn2);
+                break;
+            case "adventurebtn3":
+                challengePicture.setImageResource(R.drawable.adventurebtn3);
+                break;
+        }
     }
 
     private int showChallenge(String genre){
@@ -117,7 +167,7 @@ public class ChallengeNew extends AppCompatActivity {
                 cursorC.close();
                 break;
             case "health":
-                Cursor cursorH = db.rawQuery(sql, new String[]{"health"});
+                Cursor cursorH = db.rawQuery(sql, new String[]{"health", "no"});
                 int countH = cursorH.getCount();
                 switch (countH){
                     case 3:
@@ -133,7 +183,7 @@ public class ChallengeNew extends AppCompatActivity {
                 cursorH.close();
                 break;
             case "social":
-                Cursor cursorS = db.rawQuery(sql, new String[]{"social"});
+                Cursor cursorS = db.rawQuery(sql, new String[]{"social", "no"});
                 int countS = cursorS.getCount();
                 switch (countS){
                     case 3:
@@ -149,7 +199,7 @@ public class ChallengeNew extends AppCompatActivity {
                 cursorS.close();
                 break;
             case "adventure":
-                Cursor cursorA = db.rawQuery(sql, new String[]{"adventure"});
+                Cursor cursorA = db.rawQuery(sql, new String[]{"adventure", "no"});
                 int countA = cursorA.getCount();
                 switch (countA){
                     case 3:
@@ -180,20 +230,38 @@ public class ChallengeNew extends AppCompatActivity {
             return gen;
     }
 
+    /**
+     * setzt die ausgewählte challenge auf den status "doing"
+     * wenn auf "Try" gedrückt wurde
+     * @param chId
+     */
+    private void saveChallengesAsDoing(int chId){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put("ch_status", "doing");
+
+        //doing bei status eintragen, wo die id passt
+        db.update("challenges", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
+
+        db.close();
+        dbh.close();
+    }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            //if tryButton is clicked: change to Challenge
+            //if tryButton is clicked: change to Profile AND save challenge as doing
             if(v.getId() == R.id.button20){
-                Intent toCh = new Intent(ChallengeNew.this, Challenge.class);
+
+                saveChallengesAsDoing(challengeId);
+
+                Intent toP = new Intent(ChallengeNew.this, Profile.class);
                 String name = getIntent().getExtras().getString("username");
-                int chId = challengeId;
-                toCh.putExtra("username", name);
-                toCh.putExtra("chId", chId);
-                startActivity(toCh);
+                toP.putExtra("username", name);
+                startActivity(toP);
 
                 //set new challenge in profile
             }

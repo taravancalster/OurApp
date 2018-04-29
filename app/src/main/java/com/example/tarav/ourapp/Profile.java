@@ -27,6 +27,14 @@ public class Profile extends AppCompatActivity {
     TextView etUsername;
     ImageView userPicture;
 
+    //ids der challenges, die gerade laufen
+    int doingCreative = 0;
+    int doingHealth = 0;
+    int doingSocial = 0;
+    int doingAdventure = 0;
+
+
+
     /*
     Von der Datenbank die abgeschlossenen Challenges holen
     int challengeCompleted = ???;
@@ -80,49 +88,6 @@ public class Profile extends AppCompatActivity {
 
 
     }
-
-/*
-    public void testTables(){
-
-        DbHelper dbh = new DbHelper(getApplicationContext());
-        SQLiteDatabase db = dbh.getWritableDatabase();
-
-        //anstatt challenger sqlite_master?
-        //challenges groß oder klein?
-        String sql = "SELECT DISTINCT tbl_name FROM sqlite_master WHERE tbl_name = ?";
-
-
-        Cursor cursor = db.rawQuery(sql, new String[] {"user"});
-
-        if(cursor != null){
-            if(cursor.getCount() > 0) {
-                Toast there = Toast.makeText(Profile.this, "User exists", Toast.LENGTH_SHORT);
-                there.show();
-            }else{
-                Toast NotThere = Toast.makeText(Profile.this, "User exists NOT", Toast.LENGTH_SHORT);
-                NotThere.show();
-            }
-        }
-        cursor.close();
-
-        Cursor cursor2 = db.rawQuery(sql, new String[]{"challenges"});
-
-        if(cursor2 != null){
-            if(cursor2.getCount() > 0) {
-                Toast there = Toast.makeText(Profile.this, "Challenges exists", Toast.LENGTH_SHORT);
-                there.show();
-            }else{
-                Toast NotThere = Toast.makeText(Profile.this, "Challenges exists NOT", Toast.LENGTH_SHORT);
-                NotThere.show();
-            }
-        }
-        cursor2.close();
-
-        db.close();
-        dbh.close();
-
-    }
-*/
 
 
     public void fillChallenges(){
@@ -216,8 +181,6 @@ public class Profile extends AppCompatActivity {
     public void updateProgressBar(){
         //progressbar.setProgress(completedChallenges);
 
-
-
         int doneChallenges = countDone();
 
         progressbar.setProgress(doneChallenges);
@@ -240,16 +203,20 @@ public class Profile extends AppCompatActivity {
         Cursor cursor = db.rawQuery(sql, new String[]{"doing"});
         int count = cursor.getCount();
 
+
         if(count > 0){
             cursor.moveToFirst();
-
             String [] genres = new String[4];
             String [] logos = new String[4];
 
-            for(int i = 0; i > count; i++) {
-                //im Array an Position i das gegebene Genre und die passende ch_id speichern speichern
-                genres[i] = cursor.getString(3);
+            for(int i = 0; i < count; i++) {
+                //im Array an Position i das gegebene Genre und das logo speichern
+                genres[i] = cursor.getString(2);
                 logos[i] = cursor.getString(5);
+                cursor.moveToNext();
+
+                System.out.println(genres[i]);
+                System.out.println(logos[i]);
             }
 
             //bei welchem genre?
@@ -257,91 +224,81 @@ public class Profile extends AppCompatActivity {
 
             String category;
             //creative, health, social, adventure
-            Context context = buttonC.getContext();
 
-            String logo0 = logos[0];
-            String logo1 = logos[1];
-            String logo2 = logos[2];
-            String logo3 = logos[3];
-
-            int id0 = context.getResources().getIdentifier(logo0 + ".png", "drawable", context.getPackageName());
-            int id1 = context.getResources().getIdentifier(logo1 + ".png", "drawable", context.getPackageName());
-            int id2 = context.getResources().getIdentifier(logo2 + ".png", "drawable", context.getPackageName());
-            int id3 = context.getResources().getIdentifier(logo3 + ".png", "drawable", context.getPackageName());
+            //get the genre --> get the logos for each of the 4 possible buttons
+            for(int gl = 0; gl < count; gl++ ) {
 
 
-            //für jede id das logo aus db holen
-            //an richtige position setzen
-            switch(genres[0]){
-                case "creative":
-                    buttonC.setBackgroundResource(id0);
-                    break;
+                switch (genres[gl]) {
+                    case "creative":
+                        switch (logos[gl]) {
+                            case "creativebtn1":
+                                buttonC.setBackgroundResource(R.drawable.creativebtn1);
+                                doingCreative = 1;
+                                break;
+                            case "creativebtn2":
+                                buttonC.setBackgroundResource(R.drawable.creativebtn2);
+                                doingCreative = 2;
+                                break;
+                            case "creativebtn3":
+                                buttonC.setBackgroundResource(R.drawable.creativebtn3);
+                                doingCreative = 3;
+                                break;
+                        }
+                        break;
 
-                case "health":
-                    buttonH.setBackgroundResource(id0);
-                    break;
+                    case "health":
+                        switch (logos[gl]) {
+                            case "healthbtn1":
+                                buttonH.setBackgroundResource(R.drawable.healthbtn1);
+                                doingHealth = 4;
+                                break;
+                            case "healthbtn2":
+                                buttonH.setBackgroundResource(R.drawable.healthbtn2);
+                                doingHealth = 5;
+                                break;
+                            case "healthbtn3":
+                                buttonH.setBackgroundResource(R.drawable.healthbtn3);
+                                doingHealth = 6;
+                                break;
+                        }
+                        break;
 
-                case "social":
-                    buttonS.setBackgroundResource(id0);
-                    break;
+                    case "social":
+                        switch (logos[gl]) {
+                            case "socialbtn1":
+                                buttonS.setBackgroundResource(R.drawable.socialbtn1);
+                                doingSocial = 7;
+                                break;
+                            case "socialbtn2":
+                                buttonS.setBackgroundResource(R.drawable.socialbtn2);
+                                doingSocial = 8;
+                                break;
+                            case "socialbtn3":
+                                buttonS.setBackgroundResource(R.drawable.socialbtn3);
+                                doingSocial = 9;
+                                break;
+                        }
+                        break;
 
-                case "adventure":
-                    buttonA.setBackgroundResource(id0);
-                    break;
-            }
+                    case "adventure":
+                        switch (logos[gl]) {
+                            case "adventurebtn1":
+                                buttonA.setBackgroundResource(R.drawable.adventurebtn1);
+                                doingAdventure = 10;
+                                break;
+                            case "adventurebtn2":
+                                buttonA.setBackgroundResource(R.drawable.adventurebtn2);
+                                doingAdventure = 11;
+                                break;
+                            case "adventurebtn3":
+                                buttonA.setBackgroundResource(R.drawable.adventurebtn3);
+                                doingAdventure = 12;
+                                break;
+                        }
+                        break;
+                }
 
-            switch(genres[1]){
-                case "creative":
-                    buttonC.setBackgroundResource(id1);
-                    break;
-
-                case "health":
-                    buttonH.setBackgroundResource(id1);
-                    break;
-
-                case "social":
-                    buttonS.setBackgroundResource(id1);
-                    break;
-
-                case "adventure":
-                    buttonA.setBackgroundResource(id1);
-                    break;
-            }
-
-            switch(genres[2]){
-                case "creative":
-                    buttonC.setBackgroundResource(id2);
-                    break;
-
-                case "health":
-                    buttonH.setBackgroundResource(id2);
-                    break;
-
-                case "social":
-                    buttonS.setBackgroundResource(id2);
-                    break;
-
-                case "adventure":
-                    buttonA.setBackgroundResource(id2);
-                    break;
-            }
-
-            switch(genres[3]){
-                case "creative":
-                    buttonC.setBackgroundResource(id3);
-                    break;
-
-                case "health":
-                    buttonH.setBackgroundResource(id3);
-                    break;
-
-                case "social":
-                    buttonS.setBackgroundResource(id3);
-                    break;
-
-                case "adventure":
-                    buttonA.setBackgroundResource(id3);
-                    break;
             }
         }else{
             //wenn es keine mit doing gibt
@@ -380,43 +337,78 @@ public class Profile extends AppCompatActivity {
             // put extra , challenge genre
             //show creative Challenge
            if (v.getId() == R.id.button5){
-                Intent toCh = new Intent(Profile.this, ChallengeNew.class);
-                String genre = "creative";
-                String name = getIntent().getExtras().getString("username");
-                toCh.putExtra("username", name);
-                toCh.putExtra("genre", genre);
-                startActivity(toCh);
-
+                //check if doing, dann diese challenge --> sonst newChallenge
+               String genre = "creative";
+               String name = getIntent().getExtras().getString("username");
+                if(doingCreative != 0) {
+                    Intent toCh = new Intent(Profile.this, Challenge.class);
+                    toCh.putExtra("chId", doingCreative);
+                    toCh.putExtra("username", name);
+                    toCh.putExtra("genre", genre);
+                    startActivity(toCh);
+                }else{
+                    Intent toNCh = new Intent(Profile.this, ChallengeNew.class);
+                    toNCh.putExtra("username", name);
+                    toNCh.putExtra("genre", genre);
+                    startActivity(toNCh);
+                }
            }
 
             //show healthy Challenge
             if (v.getId() == R.id.button6){
+                //check if doing, dann diese challenge --> sonst newChallenge
                 String genre = "health";
-                Intent toCh = new Intent(Profile.this, ChallengeNew.class);
                 String name = getIntent().getExtras().getString("username");
-                toCh.putExtra("username", name);
-                toCh.putExtra("genre", genre);
-                startActivity(toCh);
+                if(doingHealth != 0) {
+                    Intent toCh = new Intent(Profile.this, Challenge.class);
+                    toCh.putExtra("chId", doingHealth);
+                    toCh.putExtra("username", name);
+                    toCh.putExtra("genre", genre);
+                    startActivity(toCh);
+                }else{
+                    Intent toNCh = new Intent(Profile.this, ChallengeNew.class);
+                    toNCh.putExtra("username", name);
+                    toNCh.putExtra("genre", genre);
+                    startActivity(toNCh);
+                }
             }
 
             //show social Challenge
             if (v.getId() == R.id.button7){
+                //check if doing, dann diese challenge --> sonst newChallenge
                 String genre = "social";
-                Intent toCh = new Intent(Profile.this, ChallengeNew.class);
                 String name = getIntent().getExtras().getString("username");
-                toCh.putExtra("username", name);
-                toCh.putExtra("genre", genre);
-                startActivity(toCh);
+                if(doingSocial != 0) {
+                    Intent toCh = new Intent(Profile.this, Challenge.class);
+                    toCh.putExtra("chId", doingSocial);
+                    toCh.putExtra("username", name);
+                    toCh.putExtra("genre", genre);
+                    startActivity(toCh);
+                }else{
+                    Intent toNCh = new Intent(Profile.this, ChallengeNew.class);
+                    toNCh.putExtra("username", name);
+                    toNCh.putExtra("genre", genre);
+                    startActivity(toNCh);
+                }
             }
 
             //show adventure Challenge
             if (v.getId() == R.id.button8){
+                //check if doing, dann diese challenge --> sonst newChallenge
                 String genre = "adventure";
-                Intent toCh = new Intent(Profile.this, ChallengeNew.class);
                 String name = getIntent().getExtras().getString("username");
-                toCh.putExtra("username", name);
-                toCh.putExtra("genre", genre);
-                startActivity(toCh);
+                if(doingAdventure != 0) {
+                    Intent toCh = new Intent(Profile.this, Challenge.class);
+                    toCh.putExtra("chId", doingAdventure);
+                    toCh.putExtra("username", name);
+                    toCh.putExtra("genre", genre);
+                    startActivity(toCh);
+                }else{
+                    Intent toNCh = new Intent(Profile.this, ChallengeNew.class);
+                    toNCh.putExtra("username", name);
+                    toNCh.putExtra("genre", genre);
+                    startActivity(toNCh);
+                }
             }
 
             //if the user clicks on the progress bar he will be taken to the achievements layout
