@@ -1,5 +1,6 @@
 package com.example.tarav.ourapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -222,20 +223,39 @@ public class ChallengeNew extends AppCompatActivity {
             return gen;
     }
 
+    /**
+     * setzt die ausgewählte challenge auf den status "doing"
+     * wenn auf "Try" gedrückt wurde
+     * @param chId
+     */
+    private void saveChallengesAsDoing(int chId){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put("ch_status", "doing");
+
+        //doing bei status eintragen, wo die id passt
+        db.update("challenges", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
+
+        db.close();
+        dbh.close();
+    }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            //if tryButton is clicked: change to Challenge
+            //if tryButton is clicked: change to Profile AND save challenge as doing
             if(v.getId() == R.id.button20){
-                Intent toCh = new Intent(ChallengeNew.this, Challenge.class);
+
+                saveChallengesAsDoing(challengeId);
+
+                Intent toP = new Intent(ChallengeNew.this, Profile.class);
                 String name = getIntent().getExtras().getString("username");
                 int chId = challengeId;
-                toCh.putExtra("username", name);
-                toCh.putExtra("chId", chId);
-                startActivity(toCh);
+                toP.putExtra("username", name);
+                startActivity(toP);
 
                 //set new challenge in profile
             }
