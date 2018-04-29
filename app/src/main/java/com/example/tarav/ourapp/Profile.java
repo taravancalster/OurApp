@@ -74,7 +74,7 @@ public class Profile extends AppCompatActivity {
         setUserPicture();
 
         fillChallenges();
-        
+
         updateProgressBar();
         setLogos();
 
@@ -375,30 +375,54 @@ public class Profile extends AppCompatActivity {
                 }
             }
 
-            // put extra , challenge genre + ch_id
+            // put extra , challenge genre
             //show creative Challenge
            if (v.getId() == R.id.button5){
-                startActivity(new Intent(Profile.this, ChallengeNew.class));
+                Intent toCh = new Intent(Profile.this, ChallengeNew.class);
+                String genre = "creative";
+                String name = getIntent().getExtras().getString("username");
+                toCh.putExtra("username", name);
+                toCh.putExtra("genre", genre);
+                startActivity(toCh);
+
            }
 
             //show healthy Challenge
             if (v.getId() == R.id.button6){
-                startActivity(new Intent(Profile.this, ChallengeNew.class));
+                String genre = "health";
+                Intent toCh = new Intent(Profile.this, ChallengeNew.class);
+                String name = getIntent().getExtras().getString("username");
+                toCh.putExtra("username", name);
+                toCh.putExtra("genre", genre);
+                startActivity(toCh);
             }
 
             //show social Challenge
             if (v.getId() == R.id.button7){
-                startActivity(new Intent(Profile.this, ChallengeNew.class));
+                String genre = "social";
+                Intent toCh = new Intent(Profile.this, ChallengeNew.class);
+                String name = getIntent().getExtras().getString("username");
+                toCh.putExtra("username", name);
+                toCh.putExtra("genre", genre);
+                startActivity(toCh);
             }
 
             //show adventure Challenge
             if (v.getId() == R.id.button8){
-                startActivity(new Intent(Profile.this, ChallengeNew.class));
+                String genre = "adventure";
+                Intent toCh = new Intent(Profile.this, ChallengeNew.class);
+                String name = getIntent().getExtras().getString("username");
+                toCh.putExtra("username", name);
+                toCh.putExtra("genre", genre);
+                startActivity(toCh);
             }
 
             //if the user clicks on the progress bar he will be taken to the achievements layout
             if (v.getId() == R.id.progressBar){
-                startActivity(new Intent(Profile.this, Achievements.class));
+                Intent toAchievements = new Intent(Profile.this, Achievements.class);
+                String name = getIntent().getExtras().getString("username");
+                toAchievements.putExtra("username", name);
+                startActivity(toAchievements);
             }
         }
     };
