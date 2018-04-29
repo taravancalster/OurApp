@@ -77,10 +77,7 @@ public class ChallengeNew extends AppCompatActivity {
                     challengeTitle.setText(chName);
                     challengeDescription.setText(chDescription);
 
-                    //packagename???
-                    int id = getResources().getIdentifier("res:drawable/" + chLogo + ".png", "drawable", getPackageName());
-                    challengePicture.setImageResource(id);
-
+                   setImage(chLogo);
                 }
             }
             cursor.close();
@@ -88,6 +85,51 @@ public class ChallengeNew extends AppCompatActivity {
             dbh.close();
         }
 
+    }
+
+
+    private void setImage(String chLogo){
+        switch(chLogo){
+            case "creativebtn1":
+                challengePicture.setImageResource(R.drawable.creativebtn1);
+                break;
+            case "creativebtn2":
+                challengePicture.setImageResource(R.drawable.creativebtn2);
+                break;
+            case "creativebtn3":
+                challengePicture.setImageResource(R.drawable.creativebtn3);
+                break;
+
+            case "healthbtn1":
+                challengePicture.setImageResource(R.drawable.healthbtn1);
+                break;
+            case "healthbtn2":
+                challengePicture.setImageResource(R.drawable.healthbtn2);
+                break;
+            case "healthbtn3":
+                challengePicture.setImageResource(R.drawable.healthbtn3);
+                break;
+
+            case "socialbtn1":
+                challengePicture.setImageResource(R.drawable.socialbtn1);
+                break;
+            case "socialbtn2":
+                challengePicture.setImageResource(R.drawable.socialbtn2);
+                break;
+            case "socialbtn3":
+                challengePicture.setImageResource(R.drawable.socialbtn3);
+                break;
+
+            case "adventurebtn1":
+                challengePicture.setImageResource(R.drawable.adventurebtn1);
+                break;
+            case "adventurebtn2":
+                challengePicture.setImageResource(R.drawable.adventurebtn2);
+                break;
+            case "adventurebtn3":
+                challengePicture.setImageResource(R.drawable.adventurebtn3);
+                break;
+        }
     }
 
     private int showChallenge(String genre){
