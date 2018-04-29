@@ -54,5 +54,6 @@
     <string name="challenge11">CHALLENGE 11</string>
     <string name="challenge12">CHALLENGE 12</string>
     <string name="description">Challenge description</string>
+    <string name="cannotopencamera">Camera can not be used without permission</string>
 
 </resources>
