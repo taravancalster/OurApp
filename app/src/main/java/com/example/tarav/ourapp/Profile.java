@@ -181,8 +181,6 @@ public class Profile extends AppCompatActivity {
     public void updateProgressBar(){
         //progressbar.setProgress(completedChallenges);
 
-
-
         int doneChallenges = countDone();
 
         progressbar.setProgress(doneChallenges);
@@ -205,9 +203,9 @@ public class Profile extends AppCompatActivity {
         Cursor cursor = db.rawQuery(sql, new String[]{"doing"});
         int count = cursor.getCount();
 
+
         if(count > 0){
             cursor.moveToFirst();
-
             String [] genres = new String[4];
             String [] logos = new String[4];
 
@@ -215,7 +213,10 @@ public class Profile extends AppCompatActivity {
                 //im Array an Position i das gegebene Genre und das logo speichern
                 genres[i] = cursor.getString(2);
                 logos[i] = cursor.getString(5);
+                cursor.moveToNext();
 
+                System.out.println(genres[i]);
+                System.out.println(logos[i]);
             }
 
             //bei welchem genre?
@@ -225,7 +226,7 @@ public class Profile extends AppCompatActivity {
             //creative, health, social, adventure
 
             //get the genre --> get the logos for each of the 4 possible buttons
-            for(int gl = 0; gl <=4; gl++ ) {
+            for(int gl = 0; gl < count; gl++ ) {
 
 
                 switch (genres[gl]) {
@@ -297,7 +298,7 @@ public class Profile extends AppCompatActivity {
                         }
                         break;
                 }
-                break;
+
             }
         }else{
             //wenn es keine mit doing gibt

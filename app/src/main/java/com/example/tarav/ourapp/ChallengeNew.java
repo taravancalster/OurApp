@@ -19,6 +19,12 @@ public class ChallengeNew extends AppCompatActivity {
     TextView challengeCategory ,challengeTitle, challengeDescription;
     ImageView challengePicture;
     Button tryButton, notNowButton;
+
+    int doingCreative = 0;
+    int doingHealth = 0;
+    int doingSocial = 0;
+    int doingAdventure = 0;
+
     int challengeId;
 
 
@@ -57,6 +63,7 @@ public class ChallengeNew extends AppCompatActivity {
             SQLiteDatabase db = dbh.getReadableDatabase();
 
             String sql = "SELECT * FROM challenges WHERE ch_id = ?";
+
             String[] whereArgs = {String.valueOf(challengeId)};
 
 
@@ -160,7 +167,7 @@ public class ChallengeNew extends AppCompatActivity {
                 cursorC.close();
                 break;
             case "health":
-                Cursor cursorH = db.rawQuery(sql, new String[]{"health"});
+                Cursor cursorH = db.rawQuery(sql, new String[]{"health", "no"});
                 int countH = cursorH.getCount();
                 switch (countH){
                     case 3:
@@ -176,7 +183,7 @@ public class ChallengeNew extends AppCompatActivity {
                 cursorH.close();
                 break;
             case "social":
-                Cursor cursorS = db.rawQuery(sql, new String[]{"social"});
+                Cursor cursorS = db.rawQuery(sql, new String[]{"social", "no"});
                 int countS = cursorS.getCount();
                 switch (countS){
                     case 3:
@@ -192,7 +199,7 @@ public class ChallengeNew extends AppCompatActivity {
                 cursorS.close();
                 break;
             case "adventure":
-                Cursor cursorA = db.rawQuery(sql, new String[]{"adventure"});
+                Cursor cursorA = db.rawQuery(sql, new String[]{"adventure", "no"});
                 int countA = cursorA.getCount();
                 switch (countA){
                     case 3:
@@ -253,7 +260,6 @@ public class ChallengeNew extends AppCompatActivity {
 
                 Intent toP = new Intent(ChallengeNew.this, Profile.class);
                 String name = getIntent().getExtras().getString("username");
-                int chId = challengeId;
                 toP.putExtra("username", name);
                 startActivity(toP);
 
