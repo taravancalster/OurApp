@@ -42,11 +42,11 @@ public class Profile extends AppCompatActivity {
 
 
         //define the buttons
-        buttonPro = (Button)findViewById(R.id.button9);
-        buttonC = (Button)findViewById(R.id.button5);
-        buttonH = (Button)findViewById(R.id.button6);
-        buttonS = (Button)findViewById(R.id.button7);
-        buttonA = (Button)findViewById(R.id.button8);
+        buttonPro = (Button)findViewById(R.id.button9); //ChangeProfile
+        buttonC = (Button)findViewById(R.id.button5);   //CreativeButton
+        buttonH = (Button)findViewById(R.id.button6);   //HealthButton
+        buttonS = (Button)findViewById(R.id.button7);   //SocialButton
+        buttonA = (Button)findViewById(R.id.button8);   //AdventureButton
 
         //define progress bar
         progressbar = (ProgressBar)findViewById(R.id.progressBar);
@@ -362,8 +362,10 @@ public class Profile extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            //change to ChangeProfile
+
+            //IF EDIT-PROFILE-BUTTON IS CLICKED
             if(v.getId() == R.id.button9){
+                //change to ChangeProfile
                 if(getIntent().hasExtra("username") == true) {
                     //benutzername holen
                     String name = getIntent().getExtras().getString("username");

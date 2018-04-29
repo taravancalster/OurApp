@@ -79,7 +79,7 @@ public class Achievements extends AppCompatActivity {
      */
     public void updateProgressBar() {
         //progressbar.setProgress(completedChallenges);
-        progressbar.setProgress(2); //Test ob er den Wert auf 2 ändert
+        progressbar.setProgress(0); //Test ob er den Wert auf 2 ändert
     }
 
 
@@ -88,7 +88,7 @@ public class Achievements extends AppCompatActivity {
      */
     public void updateProgressText(){
         //progressText.setText(completedChallenges.toString() + "/12");
-        progressText.setText("2/12");   //Test ob er den Text zu 2/12 ändert
+        progressText.setText("0/12");   //Test ob er den Text zu 2/12 ändert
     }
 
 
@@ -98,7 +98,8 @@ public class Achievements extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            //change to Profile
+            //IF HOME-BUTTON IS CLICKED
+
             if (v.getId() == R.id.homeButtonAchievements) {
                 if(getIntent().hasExtra("username") == true){
                     String name = getIntent().getExtras().getString("username");
