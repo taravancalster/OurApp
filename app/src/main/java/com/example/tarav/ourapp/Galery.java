@@ -69,22 +69,6 @@ public class Galery extends AppCompatActivity {
             //CAMERA
                 if(v.getId() == R.id.cameraButton){
                    invokeCamera();
-                /*
-                    //Invokes the camera using an Intent
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                    //to get the directory of where we later want to save our image
-                    File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                    //to give the picture a name
-                    String pictureName = getPictureName();
-                    //creates a path with that directorz and that name
-                    File imageFile = new File(pictureDirectory, pictureName);
-                    Uri pictureUri = Uri.fromFile(imageFile);
-                    //1st argument: save it, 2nd: where? - we are telling the camera that we want to store this image to this Uri
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
-                    startActivityForResult(cameraIntent,CAMERA_REQUEST);
-
-                 */
                 }
 
 
@@ -114,6 +98,7 @@ public class Galery extends AppCompatActivity {
 
             // SAVE IMAGE
                 if(v.getId() == R.id.saveButtonGallery){
+
                     //save
 
                     //go back to ChangeProfile
@@ -128,68 +113,6 @@ public class Galery extends AppCompatActivity {
                 }
         }
     };
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        Bitmap bitmap, image;
-
-        if (resultCode == RESULT_OK){
-            //if we are here, everything processed succesfully
-
-
-            if (requestCode == CAMERA_REQUEST_CODE){
-                File imageFile = getImageFile();
-                bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                imageView.setImageBitmap(bitmap);
-            }
-
-           /* if (requestCode == CAMERA_REQUEST){
-            //if (cameraBtnClicked) {
-                super.onActivityResult(requestCode, resultCode, data);
-                bitmap = (Bitmap) data.getExtras().get("data");
-                //Sets the taken picture to the ImageView
-                imageView.setImageBitmap(bitmap);
-            }
-            */
-
-            if (requestCode == IMAGE_GALLERY_REQUEST){
-                //if we are here, we are hearing back from the image gallery
-                //The adress of the image on the SD card
-                Uri imageURI = data.getData();
-
-                //declare a stream to read the image data from the SD card
-                InputStream inputStream;
-
-                //we are getting an input stream, based on the URI of the image
-                try {
-                    inputStream = getContentResolver().openInputStream(imageURI);
-                    //get a bitmap from the stream
-                    image = BitmapFactory.decodeStream(inputStream);
-                    //what do we do with the bitmap?
-                    //We give it to an ImageView, to represent it
-                    imageView.setImageBitmap(image);
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    //show a message to the user indicating that the image is unable to open
-                    Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private String getPictureName(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        String timeStamp = sdf.format(new Date());
-        return "Challenger" + timeStamp + ".jpg";
-    }
-
-
-
     private void invokeCamera(){
 
         //get a file reference
@@ -222,13 +145,64 @@ public class Galery extends AppCompatActivity {
         return imageFile;
     }
 
-    //gives us the image path
-    //save this in DB?
-    //set it as profile picture
-    public File getImageFile(){
-        File imageFile = createImageFile();
-       // String imagePath = image.getPath();
 
-        return imageFile;
+    public String getImagePath(){
+        File imageFile = createImageFile();
+        String imagePath = imageFile.getPath();
+        return imagePath;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Bitmap bitmap, imageGallery, imageCamera;
+
+        if (resultCode == RESULT_OK){
+            //if we are here, everything processed succesfully
+
+
+            if (requestCode == CAMERA_REQUEST_CODE){
+              // Toast.makeText(this, "Image saved!" + getImagePath(), Toast.LENGTH_LONG).show();
+
+                String imagePath = getImagePath();
+                bitmap = BitmapFactory.decodeFile(imagePath);
+                imageView.setImageBitmap(bitmap);
+            }
+
+
+            if (requestCode == IMAGE_GALLERY_REQUEST){
+                //if we are here, we are hearing back from the image gallery
+                //The adress of the image on the SD card
+                Uri imageURI = data.getData();
+
+                //declare a stream to read the image data from the SD card
+                InputStream inputStream;
+
+                //we are getting an input stream, based on the URI of the image
+                try {
+                    inputStream = getContentResolver().openInputStream(imageURI);
+                    //get a bitmap from the stream
+                    imageGallery = BitmapFactory.decodeStream(inputStream);
+                    //what do we do with the bitmap?
+                    //We give it to an ImageView, to represent it
+                    imageView.setImageBitmap(imageGallery);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    //show a message to the user indicating that the image is unable to open
+                    Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private String getPictureName(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timeStamp = sdf.format(new Date());
+        return "Challenger" + timeStamp + ".jpg";
+    }
+
 }

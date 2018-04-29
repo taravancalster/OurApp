@@ -160,24 +160,7 @@ public class Challenge extends AppCompatActivity {
 
                 //TAKE A PROOF PICTURE-BUTTON
                     if (v.getId() == R.id.proofPicButton) {
-                        /*//get our camera, as this is an imlicit intent we pass just a string ACTION_IMAGE_CAPTURE that says; we wish to invoke the camera
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(intent, CAMERA_REQUEST_CODE);
-                        */
-
-                        //have we been granted permission to use the camera and to write in the external storage?
-               //             if((checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) && (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)){
-                                //if we have the permissions we want to invoke the camera
-                                    invokeCamera();
-             //               }
-
-               /*         //aks the user for the previous permission
-                            else {
-                                //lets request permission
-                                    String[] permissionRequest = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE} ;
-                                    requestPermissions(permissionRequest, CAMERA_PERMISSION_REQUEST_CODE);
-                            }
-                 */
+                        invokeCamera();
                     }
 
 
@@ -238,31 +221,12 @@ public class Challenge extends AppCompatActivity {
     //gives us the image path
     //save this in DB?
     //set it as profile picture
-    public String getImage(){
-        File image = createImageFile();
-        String imagePath = image.getPath();
-
-        return imagePath;
-    }
-
-    /*
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        //did we hear from CAMERA_PERMISSION_REQUEST_CODE?
-        if(requestCode == CAMERA_PERMISSION_REQUEST_CODE){
-            //we have heard from our request for camera and write external storage
-            if ((grantResults[0] == PackageManager.PERMISSION_GRANTED) && (grantResults[1] == PackageManager.PERMISSION_GRANTED)){
-                invokeCamera();
-            }
-            else {
-                Toast.makeText(this, R.string.cannotopencamera, Toast.LENGTH_LONG).show();
-            }
+        public String getImagePath(){
+            File imageFile = createImageFile();
+            String imagePath = imageFile.getPath();
+            return imagePath;
         }
-    }
 
-*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -270,7 +234,7 @@ public class Challenge extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             //once the camera closes, this activity is opened up
             if (requestCode == CAMERA_REQUEST_CODE) {
-                Toast.makeText(this, "Image saved", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Image saved!", Toast.LENGTH_LONG).show();
             }
         }
     }
