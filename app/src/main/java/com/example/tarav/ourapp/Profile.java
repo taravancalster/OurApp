@@ -295,10 +295,6 @@ public class Profile extends AppCompatActivity {
                 }
 
             }
-        }else{
-            //wenn es keine mit doing gibt
-            Toast toastNoDoing = Toast.makeText(Profile.this, "No challenges accepted", Toast.LENGTH_SHORT);
-            toastNoDoing.show();
         }
 
 
