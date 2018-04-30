@@ -348,18 +348,21 @@ public class Profile extends AppCompatActivity {
                 if(genres[g].equals("creative") && !creativeDone) {
                     buttonC.setBackgroundResource(R.drawable.pluszeichen);
                 }
+
                 else if(genres[g].equals("creative") && creativeDone) {
                     buttonC.setBackgroundResource(R.drawable.challenge_done);
                 }
                 else if (genres[g].equals("health") && !healthDone) {
                     buttonH.setBackgroundResource(R.drawable.pluszeichen);
                 }
+
                 else if (genres[g].equals("health") && healthDone) {
                     buttonH.setBackgroundResource(R.drawable.challenge_done);
                 }
                 else if(genres[g].equals("social") && !socialDone) {
                     buttonS.setBackgroundResource(R.drawable.pluszeichen);
                 }
+
                 else if(genres[g].equals("social") && socialDone) {
                     buttonS.setBackgroundResource(R.drawable.challenge_done);
                 }
@@ -370,7 +373,6 @@ public class Profile extends AppCompatActivity {
                     buttonA.setBackgroundResource(R.drawable.challenge_done);
                 }
             }
-
         }
 
         cursor.close();
