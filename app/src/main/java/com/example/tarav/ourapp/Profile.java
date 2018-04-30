@@ -348,31 +348,28 @@ public class Profile extends AppCompatActivity {
                 if(genres[g].equals("creative") && !creativeDone) {
                     buttonC.setBackgroundResource(R.drawable.pluszeichen);
                 }
+                else if(genres[0].equals("creative") && creativeDone){
+                    buttonC.setBackgroundResource(R.drawable.challenge_done);
+                }
                 else if (genres[g].equals("health") && !healthDone) {
                     buttonH.setBackgroundResource(R.drawable.pluszeichen);
+                }
+                else if(genres[0].equals("health") && healthDone){
+                    buttonH.setBackgroundResource(R.drawable.challenge_done);
                 }
                 else if(genres[g].equals("social") && !socialDone) {
                     buttonS.setBackgroundResource(R.drawable.pluszeichen);
                 }
-                else if(genres[g].equals("adventure")) {
+                else if(genres[0].equals("social") && socialDone){
+                    buttonS.setBackgroundResource(R.drawable.challenge_done);
+                }
+                else if(genres[g].equals("adventure") && !adventureDone) {
                     buttonA.setBackgroundResource(R.drawable.pluszeichen);
                 }
+                else if(genres[0].equals("adventure") && adventureDone){
+                    buttonA.setBackgroundResource(R.drawable.challenge_done);
+                }
             }
-
-
-            if(creativeDone){
-                buttonC.setBackgroundResource(R.drawable.challenge_done);
-            }
-            else if(healthDone){
-                buttonH.setBackgroundResource(R.drawable.challenge_done);
-            }
-            else if(socialDone){
-                buttonS.setBackgroundResource(R.drawable.challenge_done);
-            }
-            else if(adventureDone){
-                buttonA.setBackgroundResource(R.drawable.challenge_done);
-            }
-
         }
 
         cursor.close();
