@@ -245,8 +245,8 @@ public class Profile extends AppCompatActivity {
                     case "health":
                         switch (logos[gl]) {
                             case "healthbtn1":
-                                buttonH.setBackgroundResource(R.drawable.healthbtn1);
                                 doingHealth = 4;
+                                buttonH.setBackgroundResource(R.drawable.healthbtn1);
                                 break;
                             case "healthbtn2":
                                 buttonH.setBackgroundResource(R.drawable.healthbtn2);
@@ -348,29 +348,27 @@ public class Profile extends AppCompatActivity {
                 if(genres[g].equals("creative") && !creativeDone) {
                     buttonC.setBackgroundResource(R.drawable.pluszeichen);
                 }
+                else if(genres[g].equals("creative") && creativeDone) {
+                    buttonC.setBackgroundResource(R.drawable.challenge_done);
+                }
                 else if (genres[g].equals("health") && !healthDone) {
                     buttonH.setBackgroundResource(R.drawable.pluszeichen);
+                }
+                else if (genres[g].equals("health") && healthDone) {
+                    buttonH.setBackgroundResource(R.drawable.challenge_done);
                 }
                 else if(genres[g].equals("social") && !socialDone) {
                     buttonS.setBackgroundResource(R.drawable.pluszeichen);
                 }
-                else if(genres[g].equals("adventure")) {
+                else if(genres[g].equals("social") && socialDone) {
+                    buttonS.setBackgroundResource(R.drawable.challenge_done);
+                }
+                else if(genres[g].equals("adventure") && !adventureDone) {
                     buttonA.setBackgroundResource(R.drawable.pluszeichen);
                 }
-            }
-
-
-            if(creativeDone){
-                buttonC.setBackgroundResource(R.drawable.challenge_done);
-            }
-            else if(healthDone){
-                buttonH.setBackgroundResource(R.drawable.challenge_done);
-            }
-            else if(socialDone){
-                buttonS.setBackgroundResource(R.drawable.challenge_done);
-            }
-            else if(adventureDone){
-                buttonA.setBackgroundResource(R.drawable.challenge_done);
+                else if(genres[g].equals("adventure") && adventureDone) {
+                    buttonA.setBackgroundResource(R.drawable.challenge_done);
+                }
             }
 
         }
@@ -421,6 +419,7 @@ public class Profile extends AppCompatActivity {
                String genre = "creative";
                String name = getIntent().getExtras().getString("username");
                 if(doingCreative != 0) {
+                    int chId = doingCreative;
                     Intent toCh = new Intent(Profile.this, Challenge.class);
                     toCh.putExtra("chId", doingCreative);
                     toCh.putExtra("username", name);
@@ -437,11 +436,12 @@ public class Profile extends AppCompatActivity {
             //show healthy Challenge
             if (v.getId() == R.id.button6){
                 //check if doing, dann diese challenge --> sonst newChallenge
+                int chId = doingHealth;
                 String genre = "health";
                 String name = getIntent().getExtras().getString("username");
                 if(doingHealth != 0) {
                     Intent toCh = new Intent(Profile.this, Challenge.class);
-                    toCh.putExtra("chId", doingHealth);
+                    toCh.putExtra("chId", chId);
                     toCh.putExtra("username", name);
                     toCh.putExtra("genre", genre);
                     startActivity(toCh);
@@ -459,6 +459,7 @@ public class Profile extends AppCompatActivity {
                 String genre = "social";
                 String name = getIntent().getExtras().getString("username");
                 if(doingSocial != 0) {
+                    int chId = doingSocial;
                     Intent toCh = new Intent(Profile.this, Challenge.class);
                     toCh.putExtra("chId", doingSocial);
                     toCh.putExtra("username", name);
@@ -478,6 +479,7 @@ public class Profile extends AppCompatActivity {
                 String genre = "adventure";
                 String name = getIntent().getExtras().getString("username");
                 if(doingAdventure != 0) {
+                    int chId = doingAdventure;
                     Intent toCh = new Intent(Profile.this, Challenge.class);
                     toCh.putExtra("chId", doingAdventure);
                     toCh.putExtra("username", name);
