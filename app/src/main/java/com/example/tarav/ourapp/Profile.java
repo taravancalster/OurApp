@@ -87,6 +87,7 @@ public class Profile extends AppCompatActivity {
         setUserName();
 
         fillChallenges();
+        createUserChTable();
 
         updateProgressBar();
         setLogos();
@@ -106,7 +107,7 @@ public class Profile extends AppCompatActivity {
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
 
-        boolean exists = checkTable();
+        boolean exists = checkTable("challenges");
 
         if(exists == false) {
             dbh.createChallenges(db);
@@ -117,14 +118,29 @@ public class Profile extends AppCompatActivity {
     }
 
 
+    public void createUserChTable(){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        boolean exists = checkTable("ch_user");
+
+        if(exists == false) {
+            dbh.createChUser(db);
+        }
+        db.close();
+        dbh.close();
+    }
+
 
     /**
      * checks if challengesTable exists
      * @return exists
      */
-    public boolean checkTable(){
+    public boolean checkTable(String table){
 
         boolean exists = false;
+
+        String t = table;
 
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
@@ -133,7 +149,7 @@ public class Profile extends AppCompatActivity {
         //challenges groß oder klein?
         String sql = "SELECT DISTINCT tbl_name FROM sqlite_master WHERE tbl_name = ?";
 
-        Cursor cursor = db.rawQuery(sql, new String[]{"challenges"});
+        Cursor cursor = db.rawQuery(sql, new String[]{t});
         int count = cursor.getCount();
 
             if(count > 0){
@@ -221,15 +237,34 @@ public class Profile extends AppCompatActivity {
     }
 
 
+    public String getUserId(String username){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+        String uId = "";
+        String sql = "SELECT * FROM user WHERE username = ?";
+
+        Cursor cursor = db.rawQuery(sql, new String[]{username});
+        int count = cursor.getCount();
+
+        if(count > 0){
+            uId = cursor.getString(0);
+        }
+
+        return uId;
+    }
+
+
     private void setDoingLogo(){
         //get ch_status and logo (+ oder laufende_challenge oder finished_category)
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
-
-        String sql = "SELECT * FROM user, challenges WHERE user.username = ? AND challenges.ch_status = ?";
         String name = getGiven();
+        String uId = getUserId(name);
+
+        String sql = "SELECT * FROM ch_user WHERE user_id = ? AND ch_status = ?";
+
         //alles wo der username dem geholten username entspricht
-        Cursor cursor = db.rawQuery(sql, new String[]{name, "doing"});
+        Cursor cursor = db.rawQuery(sql, new String[]{uId, "doing"});
         int count = cursor.getCount();
 
 
