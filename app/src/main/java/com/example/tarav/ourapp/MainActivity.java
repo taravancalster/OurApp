@@ -90,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 else{
-                   Toast.makeText(MainActivity.this,  mail + " doesn't exist. Please sign up first.", Toast.LENGTH_SHORT).show();
+                    if (mail != "") {
+                        Toast.makeText(MainActivity.this, "Please check your email and password again", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 //beende cursor
