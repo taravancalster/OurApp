@@ -85,13 +85,14 @@ public class Profile extends AppCompatActivity {
 
 
         setUserName();
-        setUserPicture();
+
 
         fillChallenges();
 
         updateProgressBar();
         setLogos();
 
+        //setUserPicture();
 
     }
 
@@ -134,14 +135,13 @@ public class Profile extends AppCompatActivity {
         String sql = "SELECT DISTINCT tbl_name FROM sqlite_master WHERE tbl_name = ?";
 
         Cursor cursor = db.rawQuery(sql, new String[]{"challenges"});
+        int count = cursor.getCount();
 
-        if(cursor != null){
-            if(cursor.getCount() > 0){
+            if(count > 0){
                 exists = true;
             }else{
                 exists = false;
             }
-        }
 
         cursor.close();
         db.close();

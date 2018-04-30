@@ -157,22 +157,42 @@ public class Challenge extends AppCompatActivity {
         }
     }
 
-    /**
-     * saves the challenge as done
-     */
-    private void setDone(int chId){
+    public String getUserId(String username){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+        String uId = "";
+        String sql = "SELECT * FROM user WHERE username = ?";
+
+        Cursor cursor = db.rawQuery(sql, new String[]{username});
+        int count = cursor.getCount();
+
+        if(count > 0){
+            uId = cursor.getString(0);
+        }
+
+        return uId;
+    }
+
+    private void saveChallengesAsDone(int chId){
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
 
+        String uId = getUserId(getIntent().getExtras().getString("username"));
+
         ContentValues values = new ContentValues();
         values.put("ch_status", "done");
+        values.put("ch_id", chId);
+        values.put("user_id", uId);
 
         //doing bei status eintragen, wo die id passt
-        db.update("challenges", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
+        db.update("ch_user", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
 
         db.close();
         dbh.close();
     }
+
+
+
 
     //what happens onClick?
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -194,7 +214,7 @@ public class Challenge extends AppCompatActivity {
                         //put it in Achievements
                         //change to Profile --> empty cross
 
-                        setDone(challengeId);
+                        saveChallengesAsDone(challengeId);
                         Intent toP = new Intent(Challenge.this, Profile.class);
                         String name = getIntent().getExtras().getString("username");
                         toP.putExtra("username", name);

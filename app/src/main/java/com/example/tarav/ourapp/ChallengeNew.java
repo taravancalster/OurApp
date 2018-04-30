@@ -230,6 +230,23 @@ public class ChallengeNew extends AppCompatActivity {
             return gen;
     }
 
+
+    public String getUserId(String username){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+        String uId = "";
+        String sql = "SELECT * FROM user WHERE username = ?";
+
+        Cursor cursor = db.rawQuery(sql, new String[]{username});
+        int count = cursor.getCount();
+
+        if(count > 0){
+            uId = cursor.getString(0);
+        }
+
+        return uId;
+    }
+
     /**
      * setzt die ausgewählte challenge auf den status "doing"
      * wenn auf "Try" gedrückt wurde
@@ -239,11 +256,15 @@ public class ChallengeNew extends AppCompatActivity {
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
 
+        String uId = getUserId(getIntent().getExtras().getString("username"));
+
         ContentValues values = new ContentValues();
         values.put("ch_status", "doing");
+        values.put("ch_id", chId);
+        values.put("user_id", uId);
 
         //doing bei status eintragen, wo die id passt
-        db.update("challenges", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
+        db.update("ch_user", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
 
         db.close();
         dbh.close();
