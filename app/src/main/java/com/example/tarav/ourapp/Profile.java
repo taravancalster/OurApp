@@ -15,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 import db.ChallengesTable;
 import db.DbHelper;
 
@@ -161,8 +163,6 @@ public class Profile extends AppCompatActivity {
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-
-
         String sql = "SELECT * FROM challenges WHERE ch_status = ?";
 
         Cursor cursor = db.rawQuery(sql, new String[]{"done"});
@@ -188,11 +188,8 @@ public class Profile extends AppCompatActivity {
 
     }
 
-    /**
-     * sets the images of the logos to the challenge_logos that have the status doing
-     */
-    public void setLogos(){
 
+    private void setDoingLogo(){
         //get ch_status and logo (+ oder laufende_challenge oder finished_category)
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
@@ -222,9 +219,7 @@ public class Profile extends AppCompatActivity {
             //bei welchem genre?
 
 
-            String category;
             //creative, health, social, adventure
-
             //get the genre --> get the logos for each of the 4 possible buttons
             for(int gl = 0; gl < count; gl++ ) {
 
@@ -306,9 +301,98 @@ public class Profile extends AppCompatActivity {
             toastNoDoing.show();
         }
 
+
+
         cursor.close();
         dbh.close();
         db.close();
+    }
+
+
+
+    private void setDoneLogo(){
+        //get ch_status and logo (+ oder laufende_challenge oder finished_category)
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+
+        String sql = "SELECT * FROM challenges WHERE ch_status = ?";
+
+        //alles wo der username dem geholten username entspricht
+        Cursor cursor = db.rawQuery(sql, new String[]{"done"});
+        int count = cursor.getCount();
+
+        if(count > 0) {
+            cursor.moveToFirst();
+            String[] ids = new String[12];
+            String[] genres = new String[12];
+
+            for (int i = 0; i < count; i++) {
+                //im Array an Position i das gegebene Genre speichern
+                ids[i] = cursor.getString(0);
+                genres[i] = cursor.getString(2);
+                cursor.moveToNext();
+            }
+
+            boolean creativeDone = ((Arrays.asList(ids).contains("1")) &&
+                    (Arrays.asList(ids).contains("2") && (Arrays.asList(ids).contains("3"))));
+
+            boolean healthDone = ((Arrays.asList(ids).contains("4")) &&
+                    (Arrays.asList(ids).contains("5") && (Arrays.asList(ids).contains("6"))));
+
+            boolean socialDone = ((Arrays.asList(ids).contains("7")) &&
+                    (Arrays.asList(ids).contains("8") && (Arrays.asList(ids).contains("9"))));
+
+            boolean adventureDone = ((Arrays.asList(ids).contains("10")) &&
+                    (Arrays.asList(ids).contains("11") && (Arrays.asList(ids).contains("12"))));
+
+
+
+
+            for (int g = 0; g < count; g++) {
+                if(genres[g].equals("creative") && !creativeDone) {
+                    buttonC.setBackgroundResource(R.drawable.pluszeichen);
+                }
+                else if (genres[g].equals("health") && !healthDone) {
+                    buttonH.setBackgroundResource(R.drawable.pluszeichen);
+                }
+                else if(genres[g].equals("social") && !socialDone) {
+                    buttonS.setBackgroundResource(R.drawable.pluszeichen);
+                }
+                else if(genres[g].equals("adventure")) {
+                    buttonA.setBackgroundResource(R.drawable.pluszeichen);
+                }
+            }
+
+
+            if(creativeDone){
+                buttonC.setBackgroundResource(R.drawable.challenge_done);
+            }
+            else if(healthDone){
+                buttonH.setBackgroundResource(R.drawable.challenge_done);
+            }
+            else if(socialDone){
+                buttonS.setBackgroundResource(R.drawable.challenge_done);
+            }
+            else if(adventureDone){
+                buttonA.setBackgroundResource(R.drawable.challenge_done);
+            }
+
+        }
+
+        cursor.close();
+        db.close();
+        dbh.close();
+    }
+
+
+    /**
+     * sets the images of the logos to the challenge_logos that have the status doing
+     */
+    public void setLogos(){
+
+        setDoingLogo();
+        setDoneLogo();
+
     }
 
 

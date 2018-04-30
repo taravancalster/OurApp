@@ -1,5 +1,6 @@
 package com.example.tarav.ourapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -32,6 +33,9 @@ public class Challenge extends AppCompatActivity {
     TextView challengeCategory ,challengeTitle, challengeDescription;
     ImageView challengePicture;
 
+    int challengeId = getIntent().getExtras().getInt("chId");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +64,6 @@ public class Challenge extends AppCompatActivity {
 
     private void setChallenge(){
         //id von newChallenge übernehmen
-        int challengeId = getIntent().getExtras().getInt("chId");
 
         //get challenge + anzeigen
         DbHelper dbh = new DbHelper(getApplicationContext());
@@ -146,6 +149,23 @@ public class Challenge extends AppCompatActivity {
         }
     }
 
+    /**
+     * saves the challenge as done
+     */
+    private void setDone(int chId){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("ch_status", "done");
+
+        //doing bei status eintragen, wo die id passt
+        db.update("challenges", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
+
+        db.close();
+        dbh.close();
+    }
+
     //what happens onClick?
     private View.OnClickListener onClickListener = new View.OnClickListener() {
 
@@ -162,11 +182,16 @@ public class Challenge extends AppCompatActivity {
 
                  //CHALLENGE COMPLETED-BUTTON
                     if (v.getId() == R.id.button16) {
-                        //aks user again if the challenge was completed
+                        //ask user again if the challenge was completed
                         //mark ChallengesTable as done
                         //put it in Achievements
                         //change to Profile --> empty cross
-                        startActivity(new Intent(Challenge.this, Profile.class));
+
+                        setDone(challengeId);
+                        Intent toP = new Intent(Challenge.this, Profile.class);
+                        String name = getIntent().getExtras().getString("username");
+                        toP.putExtra("username", name);
+                        startActivity(toP);
                     }
 
                 //HOME-BUTTON
