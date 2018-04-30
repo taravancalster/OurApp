@@ -259,11 +259,11 @@ public class Challenge extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        // super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+       // if (resultCode == RESULT_OK) {
             //once the camera closes, this activity is opened up
             if (requestCode == CAMERA_REQUEST_CODE) {
                 Toast.makeText(this, "Image saved!", Toast.LENGTH_LONG).show();
             }
         }
-    }
+   // }
 }

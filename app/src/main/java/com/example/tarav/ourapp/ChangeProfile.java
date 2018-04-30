@@ -188,7 +188,7 @@ public class ChangeProfile extends AppCompatActivity {
 
         Bitmap bitmap, imageGallery, imageCamera;
 
-        if (resultCode == RESULT_OK){
+       // if (resultCode == RESULT_OK){
             //if we are here, everything processed succesfully
 
             if (requestCode == IMAGE_GALLERY_REQUEST){
@@ -214,7 +214,7 @@ public class ChangeProfile extends AppCompatActivity {
                     Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
                 }
             }
-        }
+      //  }
 
     }
 
