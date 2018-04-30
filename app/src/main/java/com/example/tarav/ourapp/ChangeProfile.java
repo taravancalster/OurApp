@@ -29,11 +29,12 @@ import db.DbHelper;
 public class ChangeProfile extends AppCompatActivity {
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
+    public static final int PROFILE_REQUEST = 21;
     Button buttonSave, buttonCPW, buttonLogO, homeButton;
     ImageView userImage;
     EditText changeUsername;
     boolean wasClicked = false;
-    String name;
+
 
 
     @Override
@@ -62,26 +63,31 @@ public class ChangeProfile extends AppCompatActivity {
         //changeUsername.setOnClickListener(onClickListener);
 
 
-        //set username in the textfield for changing the username
-        if(getIntent().hasExtra("username") == true){
-            name = getIntent().getExtras().getString("username");
-            changeUsername.setText(name);
-        }
+        changeUsername.setText(getGiven());
 
-        setPic();
+        //setPic();
 
     }
 
 
+
+    public String getGiven(){
+        String name = getIntent().getExtras().getString("username");
+        return name;
+    }
+/*
     public void setPic(){
+
+
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String sql = "SELECT * FROM user WHERE username = ?";
-        Cursor cursor = db.rawQuery(sql, new String[]{name});
+        String sql = "SELECT * FROM user WHERE username = ? AND pic != ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{getGiven(), ""});
         int count = cursor.getCount();
 
         if(count > 0){
+            cursor.moveToFirst();
             String pic = cursor.getString(4);
             Uri picURI = Uri.parse(pic);
 
@@ -95,9 +101,38 @@ public class ChangeProfile extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        }else{
+            userImage.setImageResource(R.drawable.profilepic);
         }
 
     }
+*/
+
+    /**
+     * gibt true zurück, wenn user noch kein pic hat
+     * @return
+     */
+    /*
+    public boolean checkPicFilled(){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+
+        String sql = "SELECT * FROM user WHERE username = ? AND pic = ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{getGiven(), ""});
+        int count = cursor.getCount();
+
+        cursor.close();
+        db.close();
+        dbh.close();
+
+        if(count > 0){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    */
 
     /**
      * speichert URI als Stirng in der userTabelle
@@ -110,7 +145,7 @@ public class ChangeProfile extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put("pic", uri);
 
-        db.update("user", values, "user_name = ?", new String[]{name});
+        db.update("user", values, "username = ?", new String[]{getGiven()});
 
         db.close();
         dbh.close();
@@ -267,6 +302,8 @@ public class ChangeProfile extends AppCompatActivity {
                     Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
                 }
             }
+
+
       //  }
 
     }

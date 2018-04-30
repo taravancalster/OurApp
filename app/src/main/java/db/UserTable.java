@@ -13,7 +13,7 @@ public class UserTable {
             "[username] VARCHAR NOT NULL , "+
             "[email] VARCHAR NOT NULL , "+
             "[pw] VARCHAR NOT NULL," +
-            "[pic] VARCHAR)";
+            "[pic] VARCHAR NULL)";
 
     public static void createTable(SQLiteDatabase db){
         db.execSQL(_CREATE);

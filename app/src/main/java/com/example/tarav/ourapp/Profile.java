@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 import db.ChallengesTable;
@@ -92,6 +96,12 @@ public class Profile extends AppCompatActivity {
     }
 
 
+    public String getGiven(){
+            String name = getIntent().getExtras().getString("username");
+            return  name;
+    }
+
+
     public void fillChallenges(){
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
@@ -145,18 +155,41 @@ public class Profile extends AppCompatActivity {
      * username wird vom login übergeben
      */
     public void setUserName(){
-
-        if(getIntent().hasExtra("username") == true){
-            String name = getIntent().getExtras().getString("username");
-            etUsername.setText(name);
-        }
-
+            etUsername.setText(getGiven());
     }
 
 
     public void setUserPicture(){
         // userPicture.setImageResource(R.drawable.*Muss Bild von Datenbank rein*);
+
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+
+        String sql = "SELECT * FROM user WHERE username = ? AND pic != ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{getGiven(), ""});
+        int count = cursor.getCount();
+
+        if(count > 0){
+            cursor.moveToFirst();
+            String pic = cursor.getString(4);
+            Uri picURI = Uri.parse(pic);
+
+            try{
+                InputStream inputStream = getContentResolver().openInputStream(picURI);
+                //get a bitmap from the stream
+                Bitmap imageGallery = BitmapFactory.decodeStream(inputStream);
+                //what do we do with the bitmap?
+                //We give it to an ImageView, to represent it
+                userPicture.setImageBitmap(imageGallery);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else{
+            userPicture.setImageResource(R.drawable.profilepic);
+        }
+
     }
+
 
     public int countDone(){
         //zähle alle fertigen challenges
