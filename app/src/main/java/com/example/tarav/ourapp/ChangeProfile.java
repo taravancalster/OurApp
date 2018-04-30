@@ -4,6 +4,13 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +19,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Date;
+
 import db.DbHelper;
 
 public class ChangeProfile extends AppCompatActivity {
 
+    public static final int IMAGE_GALLERY_REQUEST = 20;
     Button buttonSave, buttonCPW, buttonLogO, homeButton;
     ImageView userImage;
     EditText changeUsername;
@@ -92,7 +105,20 @@ public class ChangeProfile extends AppCompatActivity {
             //change picture
             if(v.getId() == R.id.imageView3){
                 //takes the user to the Gallery layout
-               startActivity(new Intent(ChangeProfile.this, Galery.class));
+              // startActivity(new Intent(ChangeProfile.this, Galery.class));
+
+                //Invokes the gallery using an implicit Intent
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                //Where do we want to find the data?
+                File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                String pictureDirectoryPath = pictureDirectory.getPath();
+                //Get a URI representation
+                Uri data = Uri.parse(pictureDirectoryPath);
+                //Set the data and type.
+                //Data : where we want to look for this media / Type: what media do we want to look for
+                //With "image/*" we get all image types
+                photoPickerIntent.setDataAndType(data, "image/*");
+                startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
             }
 
             //change Username
@@ -155,4 +181,49 @@ public class ChangeProfile extends AppCompatActivity {
             }
         }
     };
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Bitmap bitmap, imageGallery, imageCamera;
+
+        if (resultCode == RESULT_OK){
+            //if we are here, everything processed succesfully
+
+            if (requestCode == IMAGE_GALLERY_REQUEST){
+                //if we are here, we are hearing back from the image gallery
+                //The adress of the image on the SD card
+                Uri imageURI = data.getData();
+
+                //declare a stream to read the image data from the SD card
+                InputStream inputStream;
+
+                //we are getting an input stream, based on the URI of the image
+                try {
+                    inputStream = getContentResolver().openInputStream(imageURI);
+                    //get a bitmap from the stream
+                    imageGallery = BitmapFactory.decodeStream(inputStream);
+                    //what do we do with the bitmap?
+                    //We give it to an ImageView, to represent it
+                    userImage.setImageBitmap(imageGallery);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    //show a message to the user indicating that the image is unable to open
+                    Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private String getPictureName(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timeStamp = sdf.format(new Date());
+        return "Challenger" + timeStamp + ".jpg";
+    }
+
 }
