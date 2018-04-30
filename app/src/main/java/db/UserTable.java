@@ -12,7 +12,8 @@ public class UserTable {
             "[user_id] INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , "+
             "[username] VARCHAR NOT NULL , "+
             "[email] VARCHAR NOT NULL , "+
-            "[pw] VARCHAR NOT NULL )";
+            "[pw] VARCHAR NOT NULL," +
+            "[pic] VARCHAR)";
 
     public static void createTable(SQLiteDatabase db){
         db.execSQL(_CREATE);

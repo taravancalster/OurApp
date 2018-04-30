@@ -33,6 +33,7 @@ public class ChangeProfile extends AppCompatActivity {
     ImageView userImage;
     EditText changeUsername;
     boolean wasClicked = false;
+    String name;
 
 
     @Override
@@ -63,11 +64,58 @@ public class ChangeProfile extends AppCompatActivity {
 
         //set username in the textfield for changing the username
         if(getIntent().hasExtra("username") == true){
-            String name = getIntent().getExtras().getString("username");
+            name = getIntent().getExtras().getString("username");
             changeUsername.setText(name);
         }
 
+        setPic();
+
     }
+
+
+    public void setPic(){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+
+        String sql = "SELECT * FROM user WHERE username = ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{name});
+        int count = cursor.getCount();
+
+        if(count > 0){
+            String pic = cursor.getString(4);
+            Uri picURI = Uri.parse(pic);
+
+            try{
+                InputStream inputStream = getContentResolver().openInputStream(picURI);
+                //get a bitmap from the stream
+                Bitmap imageGallery = BitmapFactory.decodeStream(inputStream);
+                //what do we do with the bitmap?
+                //We give it to an ImageView, to represent it
+                userImage.setImageBitmap(imageGallery);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    /**
+     * speichert URI als Stirng in der userTabelle
+     * @param uri
+     */
+    public void saveUri(String uri){
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("pic", uri);
+
+        db.update("user", values, "user_name = ?", new String[]{name});
+
+        db.close();
+        dbh.close();
+    }
+
 
     //what happens onClick?
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -196,11 +244,16 @@ public class ChangeProfile extends AppCompatActivity {
                 //The adress of the image on the SD card
                 Uri imageURI = data.getData();
 
+                String uri = imageURI.toString();
+
+                saveUri(uri);
+
                 //declare a stream to read the image data from the SD card
                 InputStream inputStream;
 
                 //we are getting an input stream, based on the URI of the image
                 try {
+                    //imageURI
                     inputStream = getContentResolver().openInputStream(imageURI);
                     //get a bitmap from the stream
                     imageGallery = BitmapFactory.decodeStream(inputStream);
