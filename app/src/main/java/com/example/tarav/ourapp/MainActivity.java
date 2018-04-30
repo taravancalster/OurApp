@@ -64,10 +64,11 @@ public class MainActivity extends AppCompatActivity {
                 //uebergebe sql mit variable mail als parameter
                 Cursor cursor = db.rawQuery(sql, new String[]{mail});
 
+                int count = cursor.getCount();
                 //gehe zum Anfang des Ergebnisses
                 //cursor.moveToFirst();
 
-                if(cursor != null){
+                if(count != 0){
                     cursor.moveToFirst();
 
                     //speichere email und pw in variable
@@ -83,9 +84,13 @@ public class MainActivity extends AppCompatActivity {
                         toProfile.putExtra("username", readName);
                         startActivity(toProfile);
                     } else {
-                        Toast toastWrong = Toast.makeText(MainActivity.this, "Falsches Passwort oder falsche Email!", Toast.LENGTH_SHORT);
+                        Toast toastWrong = Toast.makeText(MainActivity.this, "Wrong password or email", Toast.LENGTH_SHORT);
                         toastWrong.show();
                     }
+                }
+
+                else{
+                   Toast.makeText(MainActivity.this,  mail + "Doesn't exist. Please sign up first.", Toast.LENGTH_SHORT).show();
                 }
 
                 //beende cursor

@@ -52,30 +52,37 @@ public class SignUp extends AppCompatActivity {
                EditText password = (EditText) findViewById(R.id.etPW);
                EditText password2 = (EditText) findViewById(R.id.etPassword2);
 
+               String mail = email.getText().toString();
+               String name = username.getText().toString();
+               String pw = password.getText().toString();
+               String pw2 = password2.getText().toString();
+
+
+
                DbHelper dbh = new DbHelper(getApplicationContext());
                SQLiteDatabase db = dbh.getWritableDatabase();
 
                //if alle felder sind voll
-               if(email != null && username != null && password != null && password2 != null){
+               if((mail != "") &&(name != "") && (pw != "") && (pw2 != "")){
                    //if email hat @
-                   if(email.getText().toString().contains("@")){
+                   if(mail.contains("@")){
                        //if email exists
                        SQLiteDatabase dbRead = dbh.getReadableDatabase();
-                        String suchStr = "email = '" + email.getText().toString() + "'";
-                        String[] spalten = new String[] {"username", "email"};
-                        Cursor cursor = dbRead.query("user", spalten, suchStr, null, null, null, null);
+                        String suchStr = "SELECT * FROM user WHERE email = ?";
+                        Cursor cursor = dbRead.rawQuery(suchStr, new String[]{mail});
                         int anzahl = cursor.getCount();
                         cursor.close();
                         if(anzahl == 0){
                            //if pws match
-                           if(password.getText().toString().equals(password2.getText().toString())) {
+                           if(pw.equals(pw2)) {
                                //values zuordnen
                                ContentValues values = new ContentValues();
-                               values.put("email", email.getText().toString());
-                               values.put("username", username.getText().toString());
-                               values.put("pw", password.getText().toString());
+                               values.put("email", mail);
+                               values.put("username", name);
+                               values.put("pw", pw);
 
                                //füge input in die db ein
+                               cursor.close();
                                db.insert("user", null, values);
                                db.close();
                                dbh.close();
@@ -86,7 +93,7 @@ public class SignUp extends AppCompatActivity {
                                toastPW.show();
                            }
                         } else{
-                            Toast toastE = Toast.makeText(SignUp.this, "Your email allready exists!", Toast.LENGTH_SHORT);
+                            Toast toastE = Toast.makeText(SignUp.this, "Your email already exists!", Toast.LENGTH_SHORT);
                             toastE.show();
                         }
                     } else{
