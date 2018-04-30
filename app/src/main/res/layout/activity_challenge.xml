@@ -14,6 +14,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
+        android:textSize="20dp"
         android:text="TextView"
         android:textColor="#3d5c5c"
         app:layout_constraintLeft_toLeftOf="parent"

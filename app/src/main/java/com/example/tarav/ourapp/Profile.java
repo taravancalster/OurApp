@@ -86,7 +86,6 @@ public class Profile extends AppCompatActivity {
 
         setUserName();
 
-
         fillChallenges();
 
         updateProgressBar();
@@ -225,12 +224,12 @@ public class Profile extends AppCompatActivity {
     private void setDoingLogo(){
         //get ch_status and logo (+ oder laufende_challenge oder finished_category)
         DbHelper dbh = new DbHelper(getApplicationContext());
-        SQLiteDatabase db = dbh.getWritableDatabase();
+        SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String sql = "SELECT * FROM challenges WHERE ch_status = ?";
-
+        String sql = "SELECT * FROM user, challenges WHERE user.username = ? AND challenges.ch_status = ?";
+        String name = getGiven();
         //alles wo der username dem geholten username entspricht
-        Cursor cursor = db.rawQuery(sql, new String[]{"doing"});
+        Cursor cursor = db.rawQuery(sql, new String[]{name, "doing"});
         int count = cursor.getCount();
 
 
