@@ -1,7 +1,10 @@
 package com.example.tarav.ourapp;
 
+
 import android.content.ContentValues;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -9,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.io.File;
@@ -28,7 +33,8 @@ import db.DbHelper;
 
 public class Challenge extends AppCompatActivity {
 
-    public static final int CAMERA_REQUEST = 0;
+    public static final int CAMERA_REQUEST_CODE = 228;
+    public static final int CAMERA_PERMISSION_REQUEST_CODE = 4192;
     Button buttonProof, buttonComplete, homeButton;
     TextView challengeCategory ,challengeTitle, challengeDescription;
     ImageView challengePicture;
@@ -175,10 +181,9 @@ public class Challenge extends AppCompatActivity {
 
                 //TAKE A PROOF PICTURE-BUTTON
                     if (v.getId() == R.id.proofPicButton) {
-                        //Invokes the camera using an Intent
-                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent,CAMERA_REQUEST);
+                        invokeCamera();
                     }
+
 
                  //CHALLENGE COMPLETED-BUTTON
                     if (v.getId() == R.id.button16) {
@@ -205,4 +210,58 @@ public class Challenge extends AppCompatActivity {
 
     };
 
+
+
+    private void invokeCamera(){
+
+        //get a file reference
+            Uri pictureUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", createImageFile());
+
+        //get our camera, as this is an imlicit intent we pass just a string ACTION_IMAGE_CAPTURE that says; we wish to invoke the camera
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        //tell the camera where to save the image. We want to save the image at EXTRA_OUTPUT location
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
+
+        //tell the camera to request WRITE permission
+            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+            startActivityForResult(intent, CAMERA_REQUEST_CODE);
+    }
+
+    private File createImageFile() {
+
+        //get public pictures directory where all apps can access
+            File picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        //make a timestamp that makes unique name
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            String timestamp = sdf.format(new Date());
+
+        //put together the directory and the timestamp to make a unique image location
+            File imageFile = new File(picturesDirectory, "challengerPicture" + timestamp + ".jpg");
+
+            return imageFile;
+    }
+
+    //gives us the image path
+    //save this in DB?
+    //set it as profile picture
+        public String getImagePath(){
+            File imageFile = createImageFile();
+            String imagePath = imageFile.getPath();
+            return imagePath;
+        }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       // super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            //once the camera closes, this activity is opened up
+            if (requestCode == CAMERA_REQUEST_CODE) {
+                Toast.makeText(this, "Image saved!", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }
