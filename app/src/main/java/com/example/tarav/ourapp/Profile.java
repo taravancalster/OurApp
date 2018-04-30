@@ -422,16 +422,16 @@ public class Profile extends AppCompatActivity {
                String name = getIntent().getExtras().getString("username");
                 if(doingCreative != 0) {
                     int chId = doingCreative;
-                    Intent toCh = new Intent(Profile.this, Challenge.class);
-                    toCh.putExtra("chId", doingCreative);
-                    toCh.putExtra("username", name);
-                    toCh.putExtra("genre", genre);
-                    startActivity(toCh);
+                    Intent toChC = new Intent(Profile.this, Challenge.class);
+                    toChC.putExtra("chId", doingCreative);
+                    toChC.putExtra("username", name);
+                    toChC.putExtra("genre", genre);
+                    startActivity(toChC);
                 }else{
-                    Intent toNCh = new Intent(Profile.this, ChallengeNew.class);
-                    toNCh.putExtra("username", name);
-                    toNCh.putExtra("genre", genre);
-                    startActivity(toNCh);
+                    Intent toNChC = new Intent(Profile.this, ChallengeNew.class);
+                    toNChC.putExtra("username", name);
+                    toNChC.putExtra("genre", genre);
+                    startActivity(toNChC);
                 }
            }
 
@@ -442,16 +442,16 @@ public class Profile extends AppCompatActivity {
                 String genre = "health";
                 String name = getIntent().getExtras().getString("username");
                 if(doingHealth != 0) {
-                    Intent toCh = new Intent(Profile.this, Challenge.class);
-                    toCh.putExtra("chId", chId);
-                    toCh.putExtra("username", name);
-                    toCh.putExtra("genre", genre);
-                    startActivity(toCh);
+                    Intent toChH = new Intent(Profile.this, Challenge.class);
+                    toChH.putExtra("chId", chId);
+                    toChH.putExtra("username", name);
+                    toChH.putExtra("genre", genre);
+                    startActivity(toChH);
                 }else{
-                    Intent toNCh = new Intent(Profile.this, ChallengeNew.class);
-                    toNCh.putExtra("username", name);
-                    toNCh.putExtra("genre", genre);
-                    startActivity(toNCh);
+                    Intent toNChH = new Intent(Profile.this, ChallengeNew.class);
+                    toNChH.putExtra("username", name);
+                    toNChH.putExtra("genre", genre);
+                    startActivity(toNChH);
                 }
             }
 
@@ -462,16 +462,16 @@ public class Profile extends AppCompatActivity {
                 String name = getIntent().getExtras().getString("username");
                 if(doingSocial != 0) {
                     int chId = doingSocial;
-                    Intent toCh = new Intent(Profile.this, Challenge.class);
-                    toCh.putExtra("chId", doingSocial);
-                    toCh.putExtra("username", name);
-                    toCh.putExtra("genre", genre);
-                    startActivity(toCh);
+                    Intent toChS = new Intent(Profile.this, Challenge.class);
+                    toChS.putExtra("chId", doingSocial);
+                    toChS.putExtra("username", name);
+                    toChS.putExtra("genre", genre);
+                    startActivity(toChS);
                 }else{
-                    Intent toNCh = new Intent(Profile.this, ChallengeNew.class);
-                    toNCh.putExtra("username", name);
-                    toNCh.putExtra("genre", genre);
-                    startActivity(toNCh);
+                    Intent toNChS = new Intent(Profile.this, ChallengeNew.class);
+                    toNChS.putExtra("username", name);
+                    toNChS.putExtra("genre", genre);
+                    startActivity(toNChS);
                 }
             }
 
@@ -482,16 +482,16 @@ public class Profile extends AppCompatActivity {
                 String name = getIntent().getExtras().getString("username");
                 if(doingAdventure != 0) {
                     int chId = doingAdventure;
-                    Intent toCh = new Intent(Profile.this, Challenge.class);
-                    toCh.putExtra("chId", doingAdventure);
-                    toCh.putExtra("username", name);
-                    toCh.putExtra("genre", genre);
-                    startActivity(toCh);
+                    Intent toChA = new Intent(Profile.this, Challenge.class);
+                    toChA.putExtra("chId", doingAdventure);
+                    toChA.putExtra("username", name);
+                    toChA.putExtra("genre", genre);
+                    startActivity(toChA);
                 }else{
-                    Intent toNCh = new Intent(Profile.this, ChallengeNew.class);
-                    toNCh.putExtra("username", name);
-                    toNCh.putExtra("genre", genre);
-                    startActivity(toNCh);
+                    Intent toNChA = new Intent(Profile.this, ChallengeNew.class);
+                    toNChA.putExtra("username", name);
+                    toNChA.putExtra("genre", genre);
+                    startActivity(toNChA);
                 }
             }
 

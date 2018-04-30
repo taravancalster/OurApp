@@ -39,13 +39,15 @@ public class Challenge extends AppCompatActivity {
     TextView challengeCategory ,challengeTitle, challengeDescription;
     ImageView challengePicture;
 
-    int challengeId = getIntent().getExtras().getInt("chId");
+    int challengeId = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge);
+
+        challengeId = getIntent().getExtras().getInt("chId");
 
         //define the Buttons
             buttonProof = (Button) findViewById(R.id.proofPicButton);
