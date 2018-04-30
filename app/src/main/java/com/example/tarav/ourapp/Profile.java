@@ -227,10 +227,10 @@ public class Profile extends AppCompatActivity {
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String sql = "SELECT * FROM challenges WHERE ch_status = ? AND username = ?";
+        String sql = "SELECT * FROM user, challenges WHERE user.username = ? AND challenges.ch_status = ?";
         String name = getGiven();
         //alles wo der username dem geholten username entspricht
-        Cursor cursor = db.rawQuery(sql, new String[]{"doing", name});
+        Cursor cursor = db.rawQuery(sql, new String[]{name, "doing"});
         int count = cursor.getCount();
 
 
