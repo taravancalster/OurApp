@@ -182,15 +182,18 @@ public class Challenge extends AppCompatActivity {
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
 
-        String uId = getUserId(getIntent().getExtras().getString("username"));
+        String uName = getUserId(getIntent().getExtras().getString("username"));
+        String uId = getUserId(uName);
 
         ContentValues values = new ContentValues();
         values.put("ch_status", "done");
         values.put("ch_id", chId);
         values.put("user_id", uId);
 
+        String ch_id = String.valueOf(chId);
+
         //doing bei status eintragen, wo die id passt
-        db.update("ch_user", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
+        db.update("ch_user", values, "WHERE ch_id = ?", new String[]{ch_id} );
 
         db.close();
         dbh.close();

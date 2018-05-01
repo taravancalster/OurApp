@@ -261,12 +261,13 @@ public class Profile extends AppCompatActivity {
     }
 
 
-    private void setDoingLogo(){
-        //get ch_status and logo (+ oder laufende_challenge oder finished_category)
+    public String[] getChallengeIds(){
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
         String name = getGiven();
         String uId = getUserId(name);
+
+        String[] ch_ids = new String[4];
 
         String sql = "SELECT * FROM ch_user WHERE user_id = ? AND ch_status = ?";
 
@@ -274,13 +275,55 @@ public class Profile extends AppCompatActivity {
         Cursor cursor = db.rawQuery(sql, new String[]{uId, "doing"});
         int count = cursor.getCount();
 
-
-        if(count > 0){
+        if(count > 0) {
             cursor.moveToFirst();
-            String [] genres = new String[4];
-            String [] logos = new String[4];
 
-            for(int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++) {
+                ch_ids[i] = cursor.getString(1);
+            }
+        }else{
+            Toast toastNo = Toast.makeText(Profile.this, "No challenges accepted yet", Toast.LENGTH_SHORT);
+            toastNo.show();
+        }
+
+
+        cursor.close();
+        db.close();
+        dbh.close();
+
+        return ch_ids;
+    }
+
+    private void setDoingLogo() {
+        //get ch_status and logo (+ oder laufende_challenge oder finished_category)
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+
+        String[] chIds = getChallengeIds();
+
+        String[] genres = new String[4];
+        String[] logos = new String[4];
+
+        String sql = "SELECT * FROM challenges WHERE ch_id = ?";
+
+        //count inhalt von chIds
+        int countor = 0;
+        for(int s = 0; s < 4; s++) {
+            if (chIds[s] != null) {
+               countor++;
+            }
+        }
+
+        //alles wo der username dem geholten username entspricht
+        for (int i = 0; i < countor; i++) {
+
+            String chId = chIds[i];
+
+            Cursor cursor = db.rawQuery(sql, new String[]{chId});
+            int count = cursor.getCount();
+
+            if (count > 0) {
+                cursor.moveToFirst();
                 //im Array an Position i das gegebene Genre und das logo speichern
                 genres[i] = cursor.getString(2);
                 logos[i] = cursor.getString(5);
@@ -289,90 +332,97 @@ public class Profile extends AppCompatActivity {
                 System.out.println(genres[i]);
                 System.out.println(logos[i]);
             }
-
-            //bei welchem genre?
-
-
-            //creative, health, social, adventure
-            //get the genre --> get the logos for each of the 4 possible buttons
-            for(int gl = 0; gl < count; gl++ ) {
+            cursor.close();
+        }
 
 
-                switch (genres[gl]) {
-                    case "creative":
-                        switch (logos[gl]) {
-                            case "creativebtn1":
-                                buttonC.setBackgroundResource(R.drawable.creativebtn1);
-                                doingCreative = 1;
-                                break;
-                            case "creativebtn2":
-                                buttonC.setBackgroundResource(R.drawable.creativebtn2);
-                                doingCreative = 2;
-                                break;
-                            case "creativebtn3":
-                                buttonC.setBackgroundResource(R.drawable.creativebtn3);
-                                doingCreative = 3;
-                                break;
-                        }
-                        break;
+        db.close();
+        dbh.close();
 
-                    case "health":
-                        switch (logos[gl]) {
-                            case "healthbtn1":
-                                doingHealth = 4;
-                                buttonH.setBackgroundResource(R.drawable.healthbtn1);
-                                break;
-                            case "healthbtn2":
-                                buttonH.setBackgroundResource(R.drawable.healthbtn2);
-                                doingHealth = 5;
-                                break;
-                            case "healthbtn3":
-                                buttonH.setBackgroundResource(R.drawable.healthbtn3);
-                                doingHealth = 6;
-                                break;
-                        }
-                        break;
 
-                    case "social":
-                        switch (logos[gl]) {
-                            case "socialbtn1":
-                                buttonS.setBackgroundResource(R.drawable.socialbtn1);
-                                doingSocial = 7;
-                                break;
-                            case "socialbtn2":
-                                buttonS.setBackgroundResource(R.drawable.socialbtn2);
-                                doingSocial = 8;
-                                break;
-                            case "socialbtn3":
-                                buttonS.setBackgroundResource(R.drawable.socialbtn3);
-                                doingSocial = 9;
-                                break;
-                        }
-                        break;
-
-                    case "adventure":
-                        switch (logos[gl]) {
-                            case "adventurebtn1":
-                                buttonA.setBackgroundResource(R.drawable.adventurebtn1);
-                                doingAdventure = 10;
-                                break;
-                            case "adventurebtn2":
-                                buttonA.setBackgroundResource(R.drawable.adventurebtn2);
-                                doingAdventure = 11;
-                                break;
-                            case "adventurebtn3":
-                                buttonA.setBackgroundResource(R.drawable.adventurebtn3);
-                                doingAdventure = 12;
-                                break;
-                        }
-                        break;
-                }
-
+        //count inhalt von chIds
+        int countorGl = 0;
+        for(int s = 0; s < 4; s++) {
+            if (genres[s] != null) {
+                countorGl++;
             }
         }
-        cursor.close();
-        dbh.close();
-        db.close();
+        //creative, health, social, adventure
+        //get the genre --> get the logos for each of the 4 possible buttons
+        for (int gl = 0; gl < countorGl ; gl++) {
+
+
+            switch (genres[gl]) {
+                case "creative":
+                    switch (logos[gl]) {
+                        case "creativebtn1":
+                            buttonC.setBackgroundResource(R.drawable.creativebtn1);
+                            doingCreative = 1;
+                            break;
+                        case "creativebtn2":
+                            buttonC.setBackgroundResource(R.drawable.creativebtn2);
+                            doingCreative = 2;
+                            break;
+                        case "creativebtn3":
+                            buttonC.setBackgroundResource(R.drawable.creativebtn3);
+                            doingCreative = 3;
+                            break;
+                    }
+                    break;
+
+                case "health":
+                    switch (logos[gl]) {
+                        case "healthbtn1":
+                            doingHealth = 4;
+                            buttonH.setBackgroundResource(R.drawable.healthbtn1);
+                            break;
+                        case "healthbtn2":
+                            buttonH.setBackgroundResource(R.drawable.healthbtn2);
+                            doingHealth = 5;
+                            break;
+                        case "healthbtn3":
+                            buttonH.setBackgroundResource(R.drawable.healthbtn3);
+                            doingHealth = 6;
+                            break;
+                    }
+                    break;
+
+                case "social":
+                    switch (logos[gl]) {
+                        case "socialbtn1":
+                            buttonS.setBackgroundResource(R.drawable.socialbtn1);
+                            doingSocial = 7;
+                            break;
+                        case "socialbtn2":
+                            buttonS.setBackgroundResource(R.drawable.socialbtn2);
+                            doingSocial = 8;
+                            break;
+                        case "socialbtn3":
+                            buttonS.setBackgroundResource(R.drawable.socialbtn3);
+                            doingSocial = 9;
+                            break;
+                    }
+                    break;
+
+                case "adventure":
+                    switch (logos[gl]) {
+                        case "adventurebtn1":
+                            buttonA.setBackgroundResource(R.drawable.adventurebtn1);
+                            doingAdventure = 10;
+                            break;
+                        case "adventurebtn2":
+                            buttonA.setBackgroundResource(R.drawable.adventurebtn2);
+                            doingAdventure = 11;
+                            break;
+                        case "adventurebtn3":
+                            buttonA.setBackgroundResource(R.drawable.adventurebtn3);
+                            doingAdventure = 12;
+                            break;
+                    }
+                    break;
+            }
+
+        }
     }
 
 
