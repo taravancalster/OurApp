@@ -102,6 +102,7 @@ public class ChangePW extends AppCompatActivity {
 
             }
 
+            //CANCEL BUTTON
             if(v.getId() == R.id.button18){
                 //go back to Change Profile
                 startActivity(new Intent(ChangePW.this, ChangeProfile.class));
