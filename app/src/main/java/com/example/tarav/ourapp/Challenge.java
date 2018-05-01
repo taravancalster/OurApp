@@ -50,7 +50,7 @@ public class Challenge extends AppCompatActivity {
         challengeId = getIntent().getExtras().getInt("chId");
 
         //define the Buttons
-            buttonProof = (Button) findViewById(R.id.proofPicButton);
+           // buttonProof = (Button) findViewById(R.id.proofPicButton);
             buttonComplete = (Button) findViewById(R.id.button16);
             homeButton = (Button) findViewById(R.id.homeButtonChallenge);
         //define TextViews
@@ -206,10 +206,12 @@ public class Challenge extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+            /*
                 //TAKE A PROOF PICTURE-BUTTON
                     if (v.getId() == R.id.proofPicButton) {
                         invokeCamera();
                     }
+                    */
 
 
                  //CHALLENGE COMPLETED-BUTTON

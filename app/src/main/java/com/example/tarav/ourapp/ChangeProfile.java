@@ -189,24 +189,31 @@ public class ChangeProfile extends AppCompatActivity {
 
             }
 
+            /*
             //change picture
             if(v.getId() == R.id.imageView3){
-                //takes the user to the Gallery layout
-              // startActivity(new Intent(ChangeProfile.this, Galery.class));
 
                 //Invokes the gallery using an implicit Intent
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                //Where do we want to find the data?
+
+                //Where do we want to find the data? - Environment provides access to environment variables
                 File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                //Gives us the path from where we are looking for the data
                 String pictureDirectoryPath = pictureDirectory.getPath();
+
                 //Get a URI representation
                 Uri data = Uri.parse(pictureDirectoryPath);
+
                 //Set the data and type.
                 //Data : where we want to look for this media / Type: what media do we want to look for
                 //With "image/*" we get all image types
                 photoPickerIntent.setDataAndType(data, "image/*");
+
+                //we will invoke this activity and get something back from it
                 startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
+                //we will recieve that result in onActivityResult
             }
+            */
 
             //change Username
             if(v.getId() == R.id.saveButton){
@@ -270,17 +277,24 @@ public class ChangeProfile extends AppCompatActivity {
     };
 
 
+    /*
     @Override
+    //unique requestCode for different actions
+    //resultCode, did de user accept or cancelled the progress?
+    //Intent data, do we get any data back from the invoked intent?
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Bitmap bitmap, imageGallery, imageCamera;
 
-       // if (resultCode == RESULT_OK){
+       if (resultCode == RESULT_OK){
             //if we are here, everything processed succesfully
 
             if (requestCode == IMAGE_GALLERY_REQUEST){
                 //if we are here, we are hearing back from the image gallery
-                //The adress of the image on the SD card
+
+                //if we got any data back from the intent we call up data.getData() to get it
+                //Ur is the adress of the image we selected on the SD card
                 Uri imageURI = data.getData();
 
                 String uri = imageURI.toString();
@@ -290,16 +304,21 @@ public class ChangeProfile extends AppCompatActivity {
                 //declare a stream to read the image data from the SD card
                 InputStream inputStream;
 
-                //we are getting an input stream, based on the URI of the image
+
+                    //in case we are able to open this Uri and get data:
                 try {
-                    //imageURI
+
+                    //we are getting an input stream, based on the URI of the image
                     inputStream = getContentResolver().openInputStream(imageURI);
+
                     //get a bitmap from the stream
                     imageGallery = BitmapFactory.decodeStream(inputStream);
+
                     //what do we do with the bitmap?
                     //We give it to an ImageView, to represent it
                     userImage.setImageBitmap(imageGallery);
 
+                    //in case it fails
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     //show a message to the user indicating that the image is unable to open
@@ -308,7 +327,7 @@ public class ChangeProfile extends AppCompatActivity {
             }
 
 
-      //  }
+        }
 
     }
 
@@ -319,5 +338,6 @@ public class ChangeProfile extends AppCompatActivity {
         String timeStamp = sdf.format(new Date());
         return "Challenger" + timeStamp + ".jpg";
     }
+    */
 
 }
