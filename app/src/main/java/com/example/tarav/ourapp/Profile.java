@@ -400,6 +400,17 @@ public class Profile extends AppCompatActivity {
                 case "creative":
                     int resId1 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
                     buttonC.setBackgroundResource(resId1);
+                    switch (ch_ids[gl]){
+                        case "1":
+                            doingCreative = 1;
+                            break;
+                        case "2":
+                            doingCreative = 2;
+                            break;
+                        case "3":
+                            doingCreative = 3;
+                            break;
+                    }
                    /*
                     switch (logos[gl]) {
                         case "creativebtn1":
@@ -421,6 +432,17 @@ public class Profile extends AppCompatActivity {
                 case "health":
                     int resId2 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
                     buttonH.setBackgroundResource(resId2);
+                    switch (ch_ids[gl]){
+                        case "4":
+                            doingHealth = 4;
+                            break;
+                        case "5":
+                            doingHealth = 5;
+                            break;
+                        case "6":
+                            doingHealth = 6;
+                            break;
+                    }
                     /*
                     switch (logos[gl]) {
                         case "healthbtn1":
@@ -442,6 +464,17 @@ public class Profile extends AppCompatActivity {
                 case "social":
                     int resId3 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
                     buttonS.setBackgroundResource(resId3);
+                    switch (ch_ids[gl]){
+                        case "7":
+                            doingSocial = 7;
+                            break;
+                        case "8":
+                            doingSocial = 8;
+                            break;
+                        case "9":
+                            doingSocial = 9;
+                            break;
+                    }
                     /*
                     switch (logos[gl]) {
                         case "socialbtn1":
@@ -463,6 +496,17 @@ public class Profile extends AppCompatActivity {
                 case "adventure":
                     int resId4 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
                     buttonA.setBackgroundResource(resId4);
+                    switch (ch_ids[gl]){
+                        case "10":
+                            doingCreative = 10;
+                            break;
+                        case "11":
+                            doingCreative = 11;
+                            break;
+                        case "12":
+                            doingCreative = 12;
+                            break;
+                    }
                     /*
                     switch (logos[gl]) {
                         case "adventurebtn1":

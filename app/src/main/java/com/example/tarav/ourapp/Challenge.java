@@ -60,7 +60,7 @@ public class Challenge extends AppCompatActivity {
         //define ImageView
             challengePicture = (ImageView) findViewById(R.id.imageView5);
         //set an OnClickListener to the buttons
-            buttonProof.setOnClickListener(onClickListener);
+            //buttonProof.setOnClickListener(onClickListener);
             buttonComplete.setOnClickListener(onClickListener);
             homeButton.setOnClickListener(onClickListener);
 
