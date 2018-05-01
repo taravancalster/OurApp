@@ -69,6 +69,10 @@ public class Challenge extends AppCompatActivity {
 
     }
 
+    public String getGiven(){
+        String name = getIntent().getExtras().getString("username");
+        return name;
+    }
 
     private void setChallenge(){
         //id von newChallenge übernehmen
@@ -82,17 +86,17 @@ public class Challenge extends AppCompatActivity {
 
 
         Cursor cursor = db.rawQuery(sql, whereArgs);
-
         int counter = cursor.getCount();
-        if (cursor != null) {
+
+        if (counter > 0) {
             if(counter == 1) {
                 cursor.moveToFirst();
 
                 //speichere email und pw in variable
                 String chName = cursor.getString(1);
                 String chGenre = cursor.getString(2);
-                String chDescription = cursor.getString(4);
-                String chLogo = cursor.getString(5);
+                String chDescription = cursor.getString(3);
+                String chLogo = cursor.getString(4);
 
 
                 challengeCategory.setText(chGenre);
@@ -182,15 +186,17 @@ public class Challenge extends AppCompatActivity {
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
 
-        String uId = getUserId(getIntent().getExtras().getString("username"));
+        String uName = getGiven();
+        String uId = getUserId(uName);
+        String ch_id = String.valueOf(chId);
 
         ContentValues values = new ContentValues();
         values.put("ch_status", "done");
-        values.put("ch_id", chId);
-        values.put("user_id", uId);
+
+
 
         //doing bei status eintragen, wo die id passt
-        db.update("ch_user", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
+        db.update("ch_user", values, "ch_id = ? AND user_id = ?", new String[]{ch_id, uId} );
 
         db.close();
         dbh.close();
@@ -223,7 +229,7 @@ public class Challenge extends AppCompatActivity {
 
                         saveChallengesAsDone(challengeId);
                         Intent toP = new Intent(Challenge.this, Profile.class);
-                        String name = getIntent().getExtras().getString("username");
+                        String name = getGiven();
                         toP.putExtra("username", name);
                         startActivity(toP);
                     }
@@ -231,7 +237,7 @@ public class Challenge extends AppCompatActivity {
                 //HOME-BUTTON
                     if (v.getId() == R.id.homeButtonChallenge) {
                         Intent toP = new Intent(Challenge.this, Profile.class);
-                        String name = getIntent().getExtras().getString("username");
+                        String name = getGiven();
                         toP.putExtra("username", name);
                         startActivity(toP);
                     }
@@ -239,7 +245,7 @@ public class Challenge extends AppCompatActivity {
 
     };
 
-
+//------------------------CAMERA---------------------------------
 
     private void invokeCamera(){
 

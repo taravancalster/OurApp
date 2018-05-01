@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 import db.DbHelper;
 
 public class ChallengeNew extends AppCompatActivity {
@@ -77,8 +79,8 @@ public class ChallengeNew extends AppCompatActivity {
                     //speichere email und pw in variable
                     String chName = cursor.getString(1);
                     String chGenre = cursor.getString(2);
-                    String chDescription = cursor.getString(4);
-                    String chLogo = cursor.getString(5);
+                    String chDescription = cursor.getString(3);
+                    String chLogo = cursor.getString(4);
 
 
                     challengeCategory.setText(chGenre);
@@ -146,75 +148,91 @@ public class ChallengeNew extends AppCompatActivity {
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String sql = "SELECT * FROM challenges WHERE ch_genre = ? AND ch_status = ?";
+        //get chIds of challenges that are not in the ch_user table
+        String uId = getUserId(getGiven()); //NAME
+        String sql = "SELECT * FROM ch_user WHERE user_id = ?";
 
+        String[] chIds = new String[12];
 
-        switch (genre){
-            case "creative":
-                Cursor cursorC = db.rawQuery(sql, new String[]{"creative", "no"});
-                int countC = cursorC.getCount();
-                switch (countC){
-                    case 3:
-                        challengeId = 1;
-                        break;
-                    case 2:
-                        challengeId = 2;
-                        break;
-                    case 1:
-                        challengeId = 3;
-                        break;
-                }
-                cursorC.close();
-                break;
-            case "health":
-                Cursor cursorH = db.rawQuery(sql, new String[]{"health", "no"});
-                int countH = cursorH.getCount();
-                switch (countH){
-                    case 3:
-                        challengeId = 4;
-                        break;
-                    case 2:
-                        challengeId = 5;
-                        break;
-                    case 1:
-                        challengeId = 6;
-                        break;
-                }
-                cursorH.close();
-                break;
-            case "social":
-                Cursor cursorS = db.rawQuery(sql, new String[]{"social", "no"});
-                int countS = cursorS.getCount();
-                switch (countS){
-                    case 3:
-                        challengeId = 7;
-                        break;
-                    case 2:
-                        challengeId = 8;
-                        break;
-                    case 1:
-                        challengeId = 9;
-                        break;
-                }
-                cursorS.close();
-                break;
-            case "adventure":
-                Cursor cursorA = db.rawQuery(sql, new String[]{"adventure", "no"});
-                int countA = cursorA.getCount();
-                switch (countA){
-                    case 3:
-                        challengeId = 10;
-                        break;
-                    case 2:
-                        challengeId = 11;
-                        break;
-                    case 1:
-                        challengeId = 12;
-                        break;
-                }
-                cursorA.close();
-                break;
+        Cursor cursor = db.rawQuery(sql, new String[]{uId});
+        int count = cursor.getCount();
+
+        for(int i = 0; i < 12; i++) {
+            if (count > 0) {
+                cursor.moveToFirst();
+                    //im Array an Position i das gegebene Genre und das logo speichern
+                    chIds[i] = cursor.getString(1);
+                    cursor.moveToNext();
+
+                    System.out.println(chIds[i]);
+            }
         }
+        cursor.close();
+
+
+            //alle die nicht aufgelistet sind zählen, nach bestimmten ids und dann switch mit genre zuweisung
+            boolean doneOrDoingC1 = ((Arrays.asList(chIds).contains("1")));
+            boolean doneOrDoingC2 = ((Arrays.asList(chIds).contains("2")));
+            boolean doneOrDoingC3 = (Arrays.asList(chIds).contains("3"));
+
+            boolean doneOrDoingH1 = ((Arrays.asList(chIds).contains("1")));
+            boolean doneOrDoingH2 = ((Arrays.asList(chIds).contains("2")));
+            boolean doneOrDoingH3 = (Arrays.asList(chIds).contains("3"));
+
+            boolean doneOrDoingS1 = ((Arrays.asList(chIds).contains("1")));
+            boolean doneOrDoingS2 = ((Arrays.asList(chIds).contains("2")));
+            boolean doneOrDoingS3 = (Arrays.asList(chIds).contains("3"));
+
+            boolean doneOrDoingA1 = ((Arrays.asList(chIds).contains("1")));
+            boolean doneOrDoingA2 = ((Arrays.asList(chIds).contains("2")));
+            boolean doneOrDoingA3 = (Arrays.asList(chIds).contains("3"));
+
+
+        if(genre.equals("creative")){
+            if(!doneOrDoingC1 && !doneOrDoingC2 && !doneOrDoingC3){
+                challengeId = 1;
+            }
+            else if(doneOrDoingC1 && !doneOrDoingC2 && !doneOrDoingC3){
+                challengeId = 2;
+            }
+            else if(doneOrDoingC1 && doneOrDoingC2 && doneOrDoingC3){
+                challengeId = 3;
+            }
+        }
+        else if(genre.equals("health")){
+            if(!doneOrDoingH1 && !doneOrDoingH2 && !doneOrDoingH3){
+                challengeId = 4;
+            }
+            else if(doneOrDoingH1 && !doneOrDoingH2 && !doneOrDoingH3){
+                challengeId = 5;
+            }
+            else if(doneOrDoingH1 && doneOrDoingH2 && doneOrDoingH3){
+                challengeId = 6;
+            }
+        }
+        else if(genre.equals("social")){
+            if(!doneOrDoingS1 && !doneOrDoingS2 && !doneOrDoingS3){
+                challengeId = 7;
+            }
+            else if(doneOrDoingS1 && !doneOrDoingS2 && !doneOrDoingS3){
+                challengeId = 8;
+            }
+            else if(doneOrDoingS1 && doneOrDoingS2 && doneOrDoingS3){
+                challengeId = 9;
+            }
+        }
+        else if(genre.equals("adventure")){
+            if(!doneOrDoingA1 && !doneOrDoingA2 && !doneOrDoingA3){
+                challengeId = 10;
+            }
+            else if(doneOrDoingA1 && !doneOrDoingA2 && !doneOrDoingA3){
+                challengeId = 11;
+            }
+            else if(doneOrDoingA1 && doneOrDoingA2 && doneOrDoingA3){
+                challengeId = 12;
+            }
+        }
+
 
         db.close();
         dbh.close();
@@ -223,6 +241,10 @@ public class ChallengeNew extends AppCompatActivity {
     }
 
 
+    private String getGiven(){
+        String name = getIntent().getExtras().getString("username");
+        return name;
+    }
 
     private String getGenre(){
         //genre abfragen
@@ -261,7 +283,9 @@ public class ChallengeNew extends AppCompatActivity {
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
 
-        String uId = getUserId(getIntent().getExtras().getString("username"));
+        String uName = getGiven();
+
+        String uId = getUserId(uName);
 
         ContentValues values = new ContentValues();
         values.put("ch_status", "doing");
@@ -269,7 +293,7 @@ public class ChallengeNew extends AppCompatActivity {
         values.put("user_id", uId);
 
         //doing bei status eintragen, wo die id passt
-        db.update("ch_user", values, "ch_id = ?", new String[] {String.valueOf(chId)}  );
+        db.insert("ch_user", null, values);
 
         db.close();
         dbh.close();
@@ -285,7 +309,7 @@ public class ChallengeNew extends AppCompatActivity {
                 saveChallengesAsDoing(challengeId);
 
                 Intent toP = new Intent(ChallengeNew.this, Profile.class);
-                String name = getIntent().getExtras().getString("username");
+                String name = getGiven();
                 toP.putExtra("username", name);
                 startActivity(toP);
 
@@ -295,7 +319,7 @@ public class ChallengeNew extends AppCompatActivity {
             //if notNotButton is clicked: change to Profile
             if (v.getId() == R.id.button19){
                 Intent toCh = new Intent(ChallengeNew.this, Profile.class);
-                String name = getIntent().getExtras().getString("username");
+                String name = getGiven();
                 toCh.putExtra("username", name);
                 startActivity(toCh);
             }
