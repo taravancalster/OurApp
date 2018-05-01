@@ -1,6 +1,8 @@
 package com.example.tarav.ourapp;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import db.DbHelper;
 
 public class Achievements extends AppCompatActivity {
 
@@ -69,26 +73,216 @@ public class Achievements extends AppCompatActivity {
         homeButton.setOnClickListener(onClickListener);
 
         updateProgressBar();
-        updateProgressText();
+        setDoneChallenges();
 
     }
 
+
+    /**
+     * returns the username
+     *
+     * @return
+     */
+    public String getGiven() {
+        String name = getIntent().getExtras().getString("username");
+        return name;
+    }
+
+
+    /**
+     * returnes userId from user table
+     * searches it with username
+     *
+     * @param username
+     * @return
+     */
+    public String getUserId(String username) {
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+        String uId = "0";
+        String sql = "SELECT * FROM user WHERE username = ?";
+
+        Cursor cursor = db.rawQuery(sql, new String[]{username});
+        int count = cursor.getCount();
+
+        if (count > 0) {
+            cursor.moveToFirst();
+            uId = cursor.getString(0);
+        }
+
+        cursor.close();
+        db.close();
+        dbh.close();
+        return uId;
+    }
+
+    /**
+     * zählt die fertigen Challenges in ch_user
+     *
+     * @return
+     */
+    public int countDone() {
+        //zähle alle fertigen challenges
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+
+
+        String uName = getGiven();
+        String uId = getUserId(uName);
+
+        String sql = "SELECT * FROM ch_user WHERE ch_status = ? AND user_id = ?";
+
+        Cursor cursor = db.rawQuery(sql, new String[]{"done", uId});
+        int count = cursor.getCount();
+
+        cursor.close();
+        dbh.close();
+        db.close();
+
+        return count;
+    }
 
     /**
      * sets the progress of the progressbar to the number of challenges the user has completed
      */
     public void updateProgressBar() {
         //progressbar.setProgress(completedChallenges);
-        progressbar.setProgress(0); //Test ob er den Wert auf 2 ändert
+
+        int doneChallenges = countDone();
+
+        progressbar.setProgress(doneChallenges);
+        progressText.setText(doneChallenges + "/12");
+
     }
 
 
-    /**
-     * converts the progress of the progressbar to a number and sets this to a string
-     */
-    public void updateProgressText(){
-        //progressText.setText(completedChallenges.toString() + "/12");
-        progressText.setText("0/12");   //Test ob er den Text zu 2/12 ändert
+    public void setDoneChallenges() {
+        //holt sich donechallenges_ids
+        String uName = getGiven();
+        String uId = getUserId(uName);
+
+        //für die challengeIds
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+
+        //für je pic und title
+        DbHelper dbh2 = new DbHelper(getApplicationContext());
+        SQLiteDatabase db2 = dbh2.getReadableDatabase();
+
+        String getChallengeIds = "SELECT * FROM ch_user WHERE user_id = ? AND ch_status = ?";
+        Cursor cursorGetChallenges = db.rawQuery(getChallengeIds, new String[]{uId, "done"});
+        int countChallenges = cursorGetChallenges.getCount();
+
+        String[] chIds = new String[12];
+        String[] logos = new String[12];
+        String[] chNames = new String[12];
+
+        if (countChallenges > 0) {
+            cursorGetChallenges.moveToFirst();
+
+            for (int i = 0; i < countChallenges; i++) {
+                chIds[i] = cursorGetChallenges.getString(1);
+                System.out.println(chIds[i]);
+
+                //hole ch_name und ch_logo je ch_id
+
+                String chIdNow = chIds[i];
+                String getChallengePicAndTitle = "SELECT * FROM challenges WHERE ch_id = ?";
+                Cursor cursorGetPicAndTitle = db2.rawQuery(getChallengePicAndTitle, new String[]{chIdNow});
+                int countPicAndTitle = cursorGetPicAndTitle.getCount();
+
+                if (countPicAndTitle > 0) {
+                    cursorGetPicAndTitle.moveToFirst();
+
+                    logos[i] = cursorGetPicAndTitle.getString(4);
+                    chNames[i] = cursorGetPicAndTitle.getString(1);
+
+                    System.out.println(logos[i]);
+                    System.out.println(chNames[i]);
+
+                    cursorGetPicAndTitle.moveToNext();
+                }
+                cursorGetChallenges.moveToNext();
+            }
+
+        }
+
+        db2.close();
+        dbh2.close();
+
+        cursorGetChallenges.close();
+        db.close();
+        dbh.close();
+
+
+        if(logos[0] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[0], "drawable", Achievements.this.getPackageName());
+            imgChallenge1.setImageResource(resId);
+            txtChallenge1.setText(chNames[0]);
+        }
+        else if(logos[1] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[1], "drawable", Achievements.this.getPackageName());
+            imgChallenge2.setImageResource(resId);
+            txtChallenge2.setText(chNames[1]);
+        }
+        else if(logos[2] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[2], "drawable", Achievements.this.getPackageName());
+            imgChallenge3.setImageResource(resId);
+            txtChallenge3.setText(chNames[2]);
+        }
+        else if(logos[3] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[3], "drawable", Achievements.this.getPackageName());
+            imgChallenge4.setImageResource(resId);
+            txtChallenge4.setText(chNames[3]);
+        }
+        else if(logos[4] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[4], "drawable", Achievements.this.getPackageName());
+            imgChallenge5.setImageResource(resId);
+            txtChallenge5.setText(chNames[4]);
+        }
+        else if(logos[5] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[5], "drawable", Achievements.this.getPackageName());
+            imgChallenge6.setImageResource(resId);
+            txtChallenge6.setText(chNames[5]);
+        }
+        else if(logos[6] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[6], "drawable", Achievements.this.getPackageName());
+            imgChallenge7.setImageResource(resId);
+            txtChallenge7.setText(chNames[6]);
+        }
+        else if(logos[7] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[7], "drawable", Achievements.this.getPackageName());
+            imgChallenge8.setImageResource(resId);
+            txtChallenge8.setText(chNames[7]);
+        }
+        else if(logos[8] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[8], "drawable", Achievements.this.getPackageName());
+            imgChallenge9.setImageResource(resId);
+            txtChallenge9.setText(chNames[8]);
+        }
+        else if(logos[9] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[9], "drawable", Achievements.this.getPackageName());
+            imgChallenge10.setImageResource(resId);
+            txtChallenge10.setText(chNames[9]);
+        }
+        else if(logos[10] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[10], "drawable", Achievements.this.getPackageName());
+            imgChallenge11.setImageResource(resId);
+            txtChallenge11.setText(chNames[10]);
+        }
+        else if(logos[11] != null) {
+            int resId = Achievements.this.getResources().getIdentifier(logos[11], "drawable", Achievements.this.getPackageName());
+            imgChallenge12.setImageResource(resId);
+            txtChallenge12.setText(chNames[11]);
+        }
+
+
+
+
+        //setzt die reihe runter die Bilder auf das richtige bild und die titel
+        //alles andere bleibt ein Fragezeichen
+
+
     }
 
 
@@ -101,21 +295,13 @@ public class Achievements extends AppCompatActivity {
             //IF HOME-BUTTON IS CLICKED
 
             if (v.getId() == R.id.homeButtonAchievements) {
-                if(getIntent().hasExtra("username") == true){
-                    String name = getIntent().getExtras().getString("username");
-                    Intent toHome = new Intent(Achievements.this, Profile.class);
-                    //Benutzername an Profile übergeben
-                    toHome.putExtra("username", name);
-                    startActivity(toHome);
-                }
+                String name = getGiven();
+                Intent toHome = new Intent(Achievements.this, Profile.class);
+                //Benutzername an Profile übergeben
+                toHome.putExtra("username", name);
+                startActivity(toHome);
             }
 
-        };
+        }
     };
-
-
 }
-
-
-    //muss die leeren oder Fragezeichen-Bilder durch Bilder aus der DB ersetzten
-

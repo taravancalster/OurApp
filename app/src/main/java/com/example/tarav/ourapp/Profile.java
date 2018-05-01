@@ -96,13 +96,19 @@ public class Profile extends AppCompatActivity {
 
     }
 
-
+    /**
+     * returns the username
+     * @return
+     */
     public String getGiven(){
             String name = getIntent().getExtras().getString("username");
             return  name;
     }
 
 
+    /**
+     * fills the challengesdb with challenges
+     */
     public void fillChallenges(){
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
@@ -117,7 +123,9 @@ public class Profile extends AppCompatActivity {
         dbh.close();
     }
 
-
+    /**
+     * creates the ch_user Table
+     */
     public void createUserChTable(){
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getWritableDatabase();
@@ -167,6 +175,7 @@ public class Profile extends AppCompatActivity {
 
 
     /**
+     * setzt das userName Feld
      * username wird vom login übergeben
      */
     public void setUserName(){
@@ -174,6 +183,9 @@ public class Profile extends AppCompatActivity {
     }
 
 
+    /**
+     * setzt das UserPic
+     */
     public void setUserPicture(){
         // userPicture.setImageResource(R.drawable.*Muss Bild von Datenbank rein*);
 
@@ -209,14 +221,22 @@ public class Profile extends AppCompatActivity {
     }
 
 
+    /**
+     * zählt die fertigen Challenges in ch_user
+     * @return
+     */
     public int countDone(){
         //zähle alle fertigen challenges
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String sql = "SELECT * FROM challenges WHERE ch_status = ?";
 
-        Cursor cursor = db.rawQuery(sql, new String[]{"done"});
+        String uName = getGiven();
+        String uId = getUserId(uName);
+
+        String sql = "SELECT * FROM ch_user WHERE ch_status = ? AND user_id = ?";
+
+        Cursor cursor = db.rawQuery(sql, new String[]{"done", uId});
         int count = cursor.getCount();
 
         cursor.close();
@@ -240,10 +260,17 @@ public class Profile extends AppCompatActivity {
     }
 
 
+    /**
+     * returnes userId from user table
+     * searches it with username
+     *
+     * @param username
+     * @return
+     */
     public String getUserId(String username){
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
-        String uId = "";
+        String uId = "0";
         String sql = "SELECT * FROM user WHERE username = ?";
 
         Cursor cursor = db.rawQuery(sql, new String[]{username});
@@ -260,10 +287,15 @@ public class Profile extends AppCompatActivity {
         return uId;
     }
 
-
-    public String[] getChallengeIds(){
+    /**
+     * returns the ch_id from ch_user table
+     * where ch_status is doing
+     * @return
+     */
+    public String[] getChallengeIdsDoing(){
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
+
         String name = getGiven();
         String uId = getUserId(name);
 
@@ -280,12 +312,9 @@ public class Profile extends AppCompatActivity {
 
             for (int i = 0; i < count; i++) {
                 ch_ids[i] = cursor.getString(1);
+                System.out.println(ch_ids[i]);
             }
-        }else{
-            Toast toastNo = Toast.makeText(Profile.this, "No challenges accepted yet", Toast.LENGTH_SHORT);
-            toastNo.show();
         }
-
 
         cursor.close();
         db.close();
@@ -294,12 +323,14 @@ public class Profile extends AppCompatActivity {
         return ch_ids;
     }
 
+
+
     private void setDoingLogo() {
         //get ch_status and logo (+ oder laufende_challenge oder finished_category)
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String[] chIds = getChallengeIds();
+        String[] chIds = getChallengeIdsDoing();
 
         String[] genres = new String[4];
         String[] logos = new String[4];
@@ -326,7 +357,7 @@ public class Profile extends AppCompatActivity {
                 cursor.moveToFirst();
                 //im Array an Position i das gegebene Genre und das logo speichern
                 genres[i] = cursor.getString(2);
-                logos[i] = cursor.getString(5);
+                logos[i] = cursor.getString(4);
                 cursor.moveToNext();
 
                 System.out.println(genres[i]);
@@ -426,79 +457,137 @@ public class Profile extends AppCompatActivity {
     }
 
 
-
-    private void setDoneLogo(){
-        //get ch_status and logo (+ oder laufende_challenge oder finished_category)
+    /**
+     * returns the ch_id from ch_user table
+     * where ch_status is doing
+     * @return
+     */
+    public String[] getChallengeIdsDone(){
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String sql = "SELECT * FROM challenges WHERE ch_status = ?";
+        String name = getGiven();
+        String uId = getUserId(name);
+
+        String[] ch_ids = new String[12];
+
+        String sql = "SELECT * FROM ch_user WHERE user_id = ? AND ch_status = ?";
 
         //alles wo der username dem geholten username entspricht
-        Cursor cursor = db.rawQuery(sql, new String[]{"done"});
+        Cursor cursor = db.rawQuery(sql, new String[]{uId, "done"});
         int count = cursor.getCount();
 
         if(count > 0) {
             cursor.moveToFirst();
-            String[] ids = new String[12];
-            String[] genres = new String[12];
 
             for (int i = 0; i < count; i++) {
-                //im Array an Position i das gegebene Genre speichern
-                ids[i] = cursor.getString(0);
-                genres[i] = cursor.getString(2);
-                cursor.moveToNext();
-            }
-
-            boolean creativeDone = ((Arrays.asList(ids).contains("1")) &&
-                    (Arrays.asList(ids).contains("2") && (Arrays.asList(ids).contains("3"))));
-
-            boolean healthDone = ((Arrays.asList(ids).contains("4")) &&
-                    (Arrays.asList(ids).contains("5") && (Arrays.asList(ids).contains("6"))));
-
-            boolean socialDone = ((Arrays.asList(ids).contains("7")) &&
-                    (Arrays.asList(ids).contains("8") && (Arrays.asList(ids).contains("9"))));
-
-            boolean adventureDone = ((Arrays.asList(ids).contains("10")) &&
-                    (Arrays.asList(ids).contains("11") && (Arrays.asList(ids).contains("12"))));
-
-
-
-
-            for (int g = 0; g < count; g++) {
-                if(genres[g].equals("creative") && !creativeDone) {
-                    buttonC.setBackgroundResource(R.drawable.pluszeichen);
-                }
-
-                else if(genres[g].equals("creative") && creativeDone) {
-                    buttonC.setBackgroundResource(R.drawable.challenge_done);
-                }
-                else if (genres[g].equals("health") && !healthDone) {
-                    buttonH.setBackgroundResource(R.drawable.pluszeichen);
-                }
-
-                else if (genres[g].equals("health") && healthDone) {
-                    buttonH.setBackgroundResource(R.drawable.challenge_done);
-                }
-                else if(genres[g].equals("social") && !socialDone) {
-                    buttonS.setBackgroundResource(R.drawable.pluszeichen);
-                }
-
-                else if(genres[g].equals("social") && socialDone) {
-                    buttonS.setBackgroundResource(R.drawable.challenge_done);
-                }
-                else if(genres[g].equals("adventure") && !adventureDone) {
-                    buttonA.setBackgroundResource(R.drawable.pluszeichen);
-                }
-                else if(genres[g].equals("adventure") && adventureDone) {
-                    buttonA.setBackgroundResource(R.drawable.challenge_done);
-                }
+                ch_ids[i] = cursor.getString(1);
             }
         }
 
         cursor.close();
         db.close();
         dbh.close();
+
+        return ch_ids;
+    }
+
+
+
+
+    private void setDoneLogo(){
+        //get ch_status and ch_id (+ finished_category)
+        DbHelper dbh = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
+
+        String sql = "SELECT * FROM ch_user WHERE ch_status = ? AND ch_id = ?";
+
+        String uName = getGiven();
+        String[] cIds = getChallengeIdsDone();
+        String[] genres = new String[12];
+
+        //count inhalt von chIds
+        int countor = 0;
+        for(int s = 0; s < 12; s++) {
+            if (cIds[s] != null) {
+                countor++;
+            }
+        }
+
+        //alles wo der username dem geholten username entspricht
+        for (int i = 0; i < countor; i++) {
+
+            String chId = cIds[i];
+
+            Cursor cursor = db.rawQuery(sql, new String[]{"done", chId});
+            int count = cursor.getCount();
+
+
+            if (count > 0) {
+                cursor.moveToFirst();
+                //im Array an Position i das gegebene Genre und das logo speichern
+                genres[i] = cursor.getString(2);
+                cursor.moveToNext();
+
+                System.out.println(genres[i]);
+            }
+
+        }
+        db.close();
+        dbh.close();
+
+
+
+        boolean creativeDone = ((Arrays.asList(cIds).contains("1")) &&
+                (Arrays.asList(cIds).contains("2") && (Arrays.asList(cIds).contains("3"))));
+
+        boolean healthDone = ((Arrays.asList(cIds).contains("4")) &&
+                (Arrays.asList(cIds).contains("5") && (Arrays.asList(cIds).contains("6"))));
+
+        boolean socialDone = ((Arrays.asList(cIds).contains("7")) &&
+                (Arrays.asList(cIds).contains("8") && (Arrays.asList(cIds).contains("9"))));
+
+        boolean adventureDone = ((Arrays.asList(cIds).contains("10")) &&
+                (Arrays.asList(cIds).contains("11") && (Arrays.asList(cIds).contains("12"))));
+
+
+        //count inhalt von chIds
+        int countorG = 0;
+        for(int s = 0; s < 12; s++) {
+            if (genres[s] != null) {
+                countorG++;
+            }
+        }
+
+        for (int g = 0; g < countorG; g++) {
+            if(genres[g].equals("creative") && !creativeDone) {
+                buttonC.setBackgroundResource(R.drawable.pluszeichen);
+            }
+
+            else if(genres[g].equals("creative") && creativeDone) {
+                buttonC.setBackgroundResource(R.drawable.challenge_done);
+            }
+            else if (genres[g].equals("health") && !healthDone) {
+                buttonH.setBackgroundResource(R.drawable.pluszeichen);
+            }
+
+            else if (genres[g].equals("health") && healthDone) {
+                buttonH.setBackgroundResource(R.drawable.challenge_done);
+            }
+            else if(genres[g].equals("social") && !socialDone) {
+                buttonS.setBackgroundResource(R.drawable.pluszeichen);
+            }
+
+            else if(genres[g].equals("social") && socialDone) {
+                buttonS.setBackgroundResource(R.drawable.challenge_done);
+            }
+            else if(genres[g].equals("adventure") && !adventureDone) {
+                buttonA.setBackgroundResource(R.drawable.pluszeichen);
+            }
+            else if(genres[g].equals("adventure") && adventureDone) {
+                buttonA.setBackgroundResource(R.drawable.challenge_done);
+            }
+        }
     }
 
 
@@ -540,7 +629,7 @@ public class Profile extends AppCompatActivity {
            if (v.getId() == R.id.button5){
                 //check if doing, dann diese challenge --> sonst newChallenge
                String genre = "creative";
-               String name = getIntent().getExtras().getString("username");
+               String name = getGiven();
                 if(doingCreative != 0) {
                     int chId = doingCreative;
                     Intent toChC = new Intent(Profile.this, Challenge.class);
@@ -561,7 +650,7 @@ public class Profile extends AppCompatActivity {
                 //check if doing, dann diese challenge --> sonst newChallenge
                 int chId = doingHealth;
                 String genre = "health";
-                String name = getIntent().getExtras().getString("username");
+                String name = getGiven();
                 if(doingHealth != 0) {
                     Intent toChH = new Intent(Profile.this, Challenge.class);
                     toChH.putExtra("chId", chId);
@@ -580,7 +669,7 @@ public class Profile extends AppCompatActivity {
             if (v.getId() == R.id.button7){
                 //check if doing, dann diese challenge --> sonst newChallenge
                 String genre = "social";
-                String name = getIntent().getExtras().getString("username");
+                String name = getGiven();
                 if(doingSocial != 0) {
                     int chId = doingSocial;
                     Intent toChS = new Intent(Profile.this, Challenge.class);
@@ -600,7 +689,7 @@ public class Profile extends AppCompatActivity {
             if (v.getId() == R.id.button8){
                 //check if doing, dann diese challenge --> sonst newChallenge
                 String genre = "adventure";
-                String name = getIntent().getExtras().getString("username");
+                String name = getGiven();
                 if(doingAdventure != 0) {
                     int chId = doingAdventure;
                     Intent toChA = new Intent(Profile.this, Challenge.class);
@@ -619,7 +708,7 @@ public class Profile extends AppCompatActivity {
             //if the user clicks on the progress bar he will be taken to the achievements layout
             if (v.getId() == R.id.progressBar){
                 Intent toAchievements = new Intent(Profile.this, Achievements.class);
-                String name = getIntent().getExtras().getString("username");
+                String name = getGiven();
                 toAchievements.putExtra("username", name);
                 startActivity(toAchievements);
             }
