@@ -87,14 +87,14 @@
 
         <TextView
             android:id="@+id/textChallenge1"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="124dp"
-            android:layout_marginTop="64dp"
+            android:gravity="center"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="52dp"
             android:text="@string/challenge1"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewProgress"
-            android:layout_marginRight="124dp" />
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="171dp" />
 
         <!-- 2. Challenge completed  !-->
 
@@ -115,14 +115,14 @@
 
         <TextView
             android:id="@+id/textChallenge2"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="124dp"
-            android:layout_marginTop="72dp"
+            android:gravity="center"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="32dp"
             android:text="@string/challenge2"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textChallenge1"
-            android:layout_marginRight="124dp" />
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="171dp" />
 
         <!-- 3. Challenge completed  !-->
 
@@ -143,14 +143,14 @@
 
         <TextView
             android:id="@+id/textChallenge3"
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:layout_marginEnd="124dp"
-            android:layout_marginTop="60dp"
+            android:gravity="center"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="28dp"
             android:text="@string/challenge3"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textChallenge2"
-            android:layout_marginRight="124dp" />
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="171dp" />
 
         <!-- 4. Challenge completed  !-->
 
@@ -171,16 +171,14 @@
 
         <TextView
             android:id="@+id/textChallenge4"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="128dp"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
             android:text="@string/challenge4"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageChallenge4"
             app:layout_constraintTop_toBottomOf="@+id/textChallenge3"
-            android:layout_marginRight="128dp"
             android:layout_marginLeft="8dp" />
 
         <!-- 5. Challenge completed  !-->
@@ -202,18 +200,15 @@
 
         <TextView
             android:id="@+id/textChallenge5"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="128dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="60dp"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
             android:text="@string/challenge5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageChallenge5"
             app:layout_constraintTop_toBottomOf="@+id/textChallenge4"
-            android:layout_marginRight="128dp"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="16dp" />
 
         <!-- 6. Challenge completed  !-->
 
@@ -234,18 +229,14 @@
 
         <TextView
             android:id="@+id/textChallenge6"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="128dp"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
             android:text="@string/challenge6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageChallenge5"
-            app:layout_constraintTop_toBottomOf="@+id/textChallenge5"
-            android:layout_marginRight="128dp"
-            android:layout_marginLeft="8dp" />
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge6"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge5" />
 
         <!-- 7. Challenge completed  !-->
 
@@ -266,18 +257,14 @@
 
         <TextView
             android:id="@+id/textChallenge7"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="128dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
             android:text="@string/challenge7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageChallenge6"
-            app:layout_constraintTop_toBottomOf="@+id/textChallenge6"
-            android:layout_marginRight="128dp"
-            android:layout_marginLeft="8dp" />
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge7"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge6" />
 
         <!-- 8. Challenge completed  !-->
 
@@ -298,18 +285,14 @@
 
         <TextView
             android:id="@+id/textChallenge8"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="128dp"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
             android:text="@string/challenge8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageChallenge7"
-            app:layout_constraintTop_toBottomOf="@+id/textChallenge7"
-            android:layout_marginRight="128dp"
-            android:layout_marginLeft="8dp" />
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge8"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge7" />
 
         <!-- 9. Challenge completed  !-->
 
@@ -330,18 +313,14 @@
 
         <TextView
             android:id="@+id/textChallenge9"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="128dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="62dp"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
             android:text="@string/challenge9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageChallenge8"
-            app:layout_constraintTop_toBottomOf="@+id/textChallenge8"
-            android:layout_marginRight="128dp"
-            android:layout_marginLeft="8dp" />
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge9"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge8" />
 
         <!-- 10. Challenge completed  !-->
 
@@ -362,18 +341,14 @@
 
         <TextView
             android:id="@+id/textChallenge10"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="128dp"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
             android:text="@string/challenge10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageChallenge9"
-            app:layout_constraintTop_toBottomOf="@+id/textChallenge9"
-            android:layout_marginRight="128dp"
-            android:layout_marginLeft="8dp" />
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge10"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge9" />
 
         <!-- 11. Challenge completed  !-->
 
@@ -394,18 +369,14 @@
 
         <TextView
             android:id="@+id/textChallenge11"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="128dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="62dp"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
             android:text="@string/challenge11"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageChallenge10"
-            app:layout_constraintTop_toBottomOf="@+id/textChallenge10"
-            android:layout_marginRight="128dp"
-            android:layout_marginLeft="8dp" />
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge11"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge10" />
 
         <!-- 12. Challenge completed  !-->
 
@@ -426,18 +397,14 @@
 
         <TextView
             android:id="@+id/textChallenge12"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="128dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_width="162dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
             android:text="@string/challenge12"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageChallenge11"
-            app:layout_constraintTop_toBottomOf="@+id/textChallenge11"
-            android:layout_marginRight="128dp"
-            android:layout_marginLeft="8dp" />
+            app:layout_constraintStart_toEndOf="@+id/imageChallenge12"
+            app:layout_constraintTop_toBottomOf="@+id/textChallenge11" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
