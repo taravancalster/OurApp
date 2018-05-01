@@ -104,10 +104,18 @@ public class ChangePW extends AppCompatActivity {
 
             //CANCEL BUTTON
             if(v.getId() == R.id.button18){
-                //go back to Change Profile
-                startActivity(new Intent(ChangePW.this, ChangeProfile.class));
+                String name = getGiven();
+                Intent toHome = new Intent(ChangePW.this, Profile.class);
+                //Benutzername an Profile übergeben
+                toHome.putExtra("username", name);
+                startActivity(toHome);
             }
 
         }
     };
+
+    public String getGiven(){
+        String name = getIntent().getExtras().getString("username");
+        return name;
+    }
 }
