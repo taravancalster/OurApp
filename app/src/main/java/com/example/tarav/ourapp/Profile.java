@@ -293,11 +293,14 @@ public class Profile extends AppCompatActivity {
      * @return
      */
     public String[] getChallengeIdsDoing(){
+        String name = getGiven();
+        String uId = getUserId(name);
+
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String name = getGiven();
-        String uId = getUserId(name);
+
+
 
         String[] ch_ids = new String[4];
 
@@ -326,49 +329,61 @@ public class Profile extends AppCompatActivity {
 
 
     private void setDoingLogo() {
-        //get ch_status and logo (+ oder laufende_challenge oder finished_category)
+        String name = getGiven();
+        String uId = getUserId(name);
+
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String[] chIds = getChallengeIdsDoing();
+        //get ch_status and logo (+ oder laufende_challenge oder finished_category)
+        DbHelper dbh2 = new DbHelper(getApplicationContext());
+        SQLiteDatabase db2 = dbh.getReadableDatabase();
 
+        String[] ch_ids = new String[4];
         String[] genres = new String[4];
         String[] logos = new String[4];
 
-        String sql = "SELECT * FROM challenges WHERE ch_id = ?";
+        String sqlChIds = "SELECT * FROM ch_user WHERE user_id = ? AND ch_status = ?";
+        Cursor cursorChIds = db.rawQuery(sqlChIds, new String[]{uId, "doing"});
+        int countChIds = cursorChIds.getCount();
 
-        //count inhalt von chIds
-        int countor = 0;
-        for(int s = 0; s < 4; s++) {
-            if (chIds[s] != null) {
-               countor++;
+        if(countChIds > 0){
+            cursorChIds.moveToFirst();
+
+            for(int i = 0; i < countChIds; i++){
+                ch_ids[i] = cursorChIds.getString(1);
+                System.out.println(ch_ids[i]);
+
+                String chIdNow = ch_ids[i];
+                String sqlGenreAndLogo = "SELECT * FROM challenges WHERE ch_id = ?";
+                Cursor cursorGenreAndLogo = db.rawQuery(sqlGenreAndLogo, new String[]{chIdNow});
+                int countGenreAndLogo = cursorGenreAndLogo.getCount();
+
+                if(countGenreAndLogo > 0){
+                    cursorGenreAndLogo.moveToFirst();
+
+                    genres[i] = cursorGenreAndLogo.getString(2);
+                    logos[i] = cursorGenreAndLogo.getString(4);
+
+                    System.out.println(genres[i]);
+                    System.out.println(logos[i]);
+
+                    cursorGenreAndLogo.moveToNext();
+                }
+                cursorChIds.moveToNext();
             }
         }
 
-        //alles wo der username dem geholten username entspricht
-        for (int i = 0; i < countor; i++) {
+        db2.close();
+        dbh2.close();
 
-            String chId = chIds[i];
-
-            Cursor cursor = db.rawQuery(sql, new String[]{chId});
-            int count = cursor.getCount();
-
-            if (count > 0) {
-                cursor.moveToFirst();
-                //im Array an Position i das gegebene Genre und das logo speichern
-                genres[i] = cursor.getString(2);
-                logos[i] = cursor.getString(4);
-                cursor.moveToNext();
-
-                System.out.println(genres[i]);
-                System.out.println(logos[i]);
-            }
-            cursor.close();
-        }
-
-
+        cursorChIds.close();
         db.close();
         dbh.close();
+
+        //int resId = Achievements.this.getResources().getIdentifier(logos[0], "drawable", Achievements.this.getPackageName());
+        //imgChallenge1.setImageResource(resId);
+
 
 
         //count inhalt von chIds
@@ -381,10 +396,11 @@ public class Profile extends AppCompatActivity {
         //creative, health, social, adventure
         //get the genre --> get the logos for each of the 4 possible buttons
         for (int gl = 0; gl < countorGl ; gl++) {
-
-
             switch (genres[gl]) {
                 case "creative":
+                    int resId1 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
+                    buttonC.setBackgroundResource(resId1);
+                   /*
                     switch (logos[gl]) {
                         case "creativebtn1":
                             buttonC.setBackgroundResource(R.drawable.creativebtn1);
@@ -399,9 +415,13 @@ public class Profile extends AppCompatActivity {
                             doingCreative = 3;
                             break;
                     }
+                    */
                     break;
 
                 case "health":
+                    int resId2 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
+                    buttonH.setBackgroundResource(resId2);
+                    /*
                     switch (logos[gl]) {
                         case "healthbtn1":
                             doingHealth = 4;
@@ -416,9 +436,13 @@ public class Profile extends AppCompatActivity {
                             doingHealth = 6;
                             break;
                     }
+                    */
                     break;
 
                 case "social":
+                    int resId3 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
+                    buttonS.setBackgroundResource(resId3);
+                    /*
                     switch (logos[gl]) {
                         case "socialbtn1":
                             buttonS.setBackgroundResource(R.drawable.socialbtn1);
@@ -433,9 +457,13 @@ public class Profile extends AppCompatActivity {
                             doingSocial = 9;
                             break;
                     }
+                    */
                     break;
 
                 case "adventure":
+                    int resId4 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
+                    buttonA.setBackgroundResource(resId4);
+                    /*
                     switch (logos[gl]) {
                         case "adventurebtn1":
                             buttonA.setBackgroundResource(R.drawable.adventurebtn1);
@@ -450,6 +478,7 @@ public class Profile extends AppCompatActivity {
                             doingAdventure = 12;
                             break;
                     }
+                    */
                     break;
             }
 
@@ -496,59 +525,67 @@ public class Profile extends AppCompatActivity {
 
 
     private void setDoneLogo(){
-        //get ch_status and ch_id (+ finished_category)
+        String uName = getGiven();
+        String uId = getUserId(uName);
+
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        String sql = "SELECT * FROM ch_user WHERE ch_status = ? AND ch_id = ?";
+        DbHelper dbh2 = new DbHelper(getApplicationContext());
+        SQLiteDatabase db2 = dbh2.getReadableDatabase();
 
-        String uName = getGiven();
-        String[] cIds = getChallengeIdsDone();
+        String sqlChIds = "SELECT * FROM ch_user WHERE user_id = ? AND ch_status = ?";
+        Cursor cursorGetChallenges = db.rawQuery(sqlChIds, new String[]{uId, "done"});
+        int countChallenges = cursorGetChallenges.getCount();
+
+        //ch_id zur prüfung der challenges und  genre für button
         String[] genres = new String[12];
+        String[] chIds = new String[12];
 
-        //count inhalt von chIds
-        int countor = 0;
-        for(int s = 0; s < 12; s++) {
-            if (cIds[s] != null) {
-                countor++;
+        if(countChallenges > 0){
+            cursorGetChallenges.moveToFirst();
+
+            for(int i = 0; i < countChallenges; i++){
+                chIds[i] = cursorGetChallenges.getString(1);
+                System.out.println(chIds[i]);
+
+                String chIdNow = chIds[i];
+
+                String sqlGenre = "SELECT * FROM challenges WHERE ch_id = ?";
+                Cursor cursorGenre = db2.rawQuery(sqlGenre, new String[]{chIdNow});
+                int countGenre = cursorGenre.getCount();
+
+                if(countGenre > 0){
+                    cursorGenre.moveToFirst();
+
+                    genres[i] = cursorGenre.getString(2);
+                    System.out.println(genres[i]);
+
+                    cursorGenre.moveToNext();
+                }
+                cursorGetChallenges.moveToNext();
             }
         }
 
-        //alles wo der username dem geholten username entspricht
-        for (int i = 0; i < countor; i++) {
+        db2.close();
+        dbh2.close();
 
-            String chId = cIds[i];
-
-            Cursor cursor = db.rawQuery(sql, new String[]{"done", chId});
-            int count = cursor.getCount();
-
-
-            if (count > 0) {
-                cursor.moveToFirst();
-                //im Array an Position i das gegebene Genre und das logo speichern
-                genres[i] = cursor.getString(2);
-                cursor.moveToNext();
-
-                System.out.println(genres[i]);
-            }
-
-        }
+        cursorGetChallenges.close();
         db.close();
         dbh.close();
 
 
+        boolean creativeDone = ((Arrays.asList(chIds).contains("1")) &&
+                (Arrays.asList(chIds).contains("2") && (Arrays.asList(chIds).contains("3"))));
 
-        boolean creativeDone = ((Arrays.asList(cIds).contains("1")) &&
-                (Arrays.asList(cIds).contains("2") && (Arrays.asList(cIds).contains("3"))));
+        boolean healthDone = ((Arrays.asList(chIds).contains("4")) &&
+                (Arrays.asList(chIds).contains("5") && (Arrays.asList(chIds).contains("6"))));
 
-        boolean healthDone = ((Arrays.asList(cIds).contains("4")) &&
-                (Arrays.asList(cIds).contains("5") && (Arrays.asList(cIds).contains("6"))));
+        boolean socialDone = ((Arrays.asList(chIds).contains("7")) &&
+                (Arrays.asList(chIds).contains("8") && (Arrays.asList(chIds).contains("9"))));
 
-        boolean socialDone = ((Arrays.asList(cIds).contains("7")) &&
-                (Arrays.asList(cIds).contains("8") && (Arrays.asList(cIds).contains("9"))));
-
-        boolean adventureDone = ((Arrays.asList(cIds).contains("10")) &&
-                (Arrays.asList(cIds).contains("11") && (Arrays.asList(cIds).contains("12"))));
+        boolean adventureDone = ((Arrays.asList(chIds).contains("10")) &&
+                (Arrays.asList(chIds).contains("11") && (Arrays.asList(chIds).contains("12"))));
 
 
         //count inhalt von chIds
@@ -559,33 +596,37 @@ public class Profile extends AppCompatActivity {
             }
         }
 
+
         for (int g = 0; g < countorG; g++) {
-            if(genres[g].equals("creative") && !creativeDone) {
-                buttonC.setBackgroundResource(R.drawable.pluszeichen);
-            }
-
-            else if(genres[g].equals("creative") && creativeDone) {
-                buttonC.setBackgroundResource(R.drawable.challenge_done);
-            }
-            else if (genres[g].equals("health") && !healthDone) {
-                buttonH.setBackgroundResource(R.drawable.pluszeichen);
-            }
-
-            else if (genres[g].equals("health") && healthDone) {
-                buttonH.setBackgroundResource(R.drawable.challenge_done);
-            }
-            else if(genres[g].equals("social") && !socialDone) {
-                buttonS.setBackgroundResource(R.drawable.pluszeichen);
-            }
-
-            else if(genres[g].equals("social") && socialDone) {
-                buttonS.setBackgroundResource(R.drawable.challenge_done);
-            }
-            else if(genres[g].equals("adventure") && !adventureDone) {
-                buttonA.setBackgroundResource(R.drawable.pluszeichen);
-            }
-            else if(genres[g].equals("adventure") && adventureDone) {
-                buttonA.setBackgroundResource(R.drawable.challenge_done);
+            switch (genres[g]) {
+                case "creative":
+                    if (creativeDone) {
+                        buttonC.setBackgroundResource(R.drawable.challenge_done);
+                    } else {
+                        buttonC.setBackgroundResource(R.drawable.pluszeichen);
+                    }
+                    break;
+                case "health":
+                    if (healthDone) {
+                        buttonH.setBackgroundResource(R.drawable.challenge_done);
+                    } else {
+                        buttonH.setBackgroundResource(R.drawable.pluszeichen);
+                    }
+                    break;
+                case "social":
+                    if (socialDone) {
+                        buttonS.setBackgroundResource(R.drawable.challenge_done);
+                    } else {
+                        buttonS.setBackgroundResource(R.drawable.pluszeichen);
+                    }
+                    break;
+                case "adventure":
+                    if (adventureDone) {
+                        buttonA.setBackgroundResource(R.drawable.challenge_done);
+                    } else {
+                        buttonA.setBackgroundResource(R.drawable.pluszeichen);
+                    }
+                    break;
             }
         }
     }
