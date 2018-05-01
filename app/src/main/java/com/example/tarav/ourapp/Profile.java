@@ -41,6 +41,7 @@ public class Profile extends AppCompatActivity {
 
 
 
+
     /*
     Von der Datenbank die abgeschlossenen Challenges holen
     int challengeCompleted = ???;
@@ -90,10 +91,32 @@ public class Profile extends AppCompatActivity {
         createUserChTable();
 
         updateProgressBar();
+        checkGivenGenre();
         setLogos();
 
         //setUserPicture();
 
+    }
+
+
+    public void checkGivenGenre(){
+        if(getIntent().getExtras().getString("genre") != null){
+            String genre = getIntent().getExtras().getString("genre");
+            switch (genre){
+                case "creative":
+                    doingCreative = 0;
+                    break;
+                case "health":
+                    doingHealth = 0;
+                    break;
+                case "social":
+                    doingSocial = 0;
+                    break;
+                case "adventure":
+                    doingAdventure = 0;
+                    break;
+            }
+        }
     }
 
     /**

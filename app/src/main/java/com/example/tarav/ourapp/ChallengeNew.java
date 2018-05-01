@@ -27,7 +27,7 @@ public class ChallengeNew extends AppCompatActivity {
     int doingSocial = 0;
     int doingAdventure = 0;
 
-    int challengeId;
+    int challengeId = 0;
 
 
     @Override
@@ -53,6 +53,7 @@ public class ChallengeNew extends AppCompatActivity {
         //genre feststellen
         String genre = getGenre();
         //challengeId holen
+
         challengeId = showChallenge(genre);
 
         if(challengeId == 0){
@@ -97,59 +98,21 @@ public class ChallengeNew extends AppCompatActivity {
 
     }
 
-
-    private void setImage(String chLogo){
-        switch(chLogo){
-            case "creativebtn1":
-                challengePicture.setImageResource(R.drawable.creativebtn1);
-                break;
-            case "creativebtn2":
-                challengePicture.setImageResource(R.drawable.creativebtn2);
-                break;
-            case "creativebtn3":
-                challengePicture.setImageResource(R.drawable.creativebtn3);
-                break;
-
-            case "healthbtn1":
-                challengePicture.setImageResource(R.drawable.healthbtn1);
-                break;
-            case "healthbtn2":
-                challengePicture.setImageResource(R.drawable.healthbtn2);
-                break;
-            case "healthbtn3":
-                challengePicture.setImageResource(R.drawable.healthbtn3);
-                break;
-
-            case "socialbtn1":
-                challengePicture.setImageResource(R.drawable.socialbtn1);
-                break;
-            case "socialbtn2":
-                challengePicture.setImageResource(R.drawable.socialbtn2);
-                break;
-            case "socialbtn3":
-                challengePicture.setImageResource(R.drawable.socialbtn3);
-                break;
-
-            case "adventurebtn1":
-                challengePicture.setImageResource(R.drawable.adventurebtn1);
-                break;
-            case "adventurebtn2":
-                challengePicture.setImageResource(R.drawable.adventurebtn2);
-                break;
-            case "adventurebtn3":
-                challengePicture.setImageResource(R.drawable.adventurebtn3);
-                break;
-        }
+    private void setImage(String chLogo) {
+        int resId = ChallengeNew.this.getResources().getIdentifier(chLogo, "drawable", ChallengeNew.this.getPackageName());
+        challengePicture.setImageResource(resId);
     }
 
     private int showChallenge(String genre){
         int challengeId = 0;
 
+        //sammle alle chids, die nicht in ch_user sind, weil die nicht gerade gemacht werden oder fertig sind
+
         DbHelper dbh = new DbHelper(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
 
         //get chIds of challenges that are not in the ch_user table
-        String uId = getUserId(getGiven()); //NAME
+        String uId = getUserId(getGiven());
         String sql = "SELECT * FROM ch_user WHERE user_id = ?";
 
         String[] chIds = new String[12];
@@ -157,35 +120,37 @@ public class ChallengeNew extends AppCompatActivity {
         Cursor cursor = db.rawQuery(sql, new String[]{uId});
         int count = cursor.getCount();
 
-        for(int i = 0; i < 12; i++) {
             if (count > 0) {
                 cursor.moveToFirst();
+
+                for(int i = 0; i < count; i++){
                     //im Array an Position i das gegebene Genre und das logo speichern
                     chIds[i] = cursor.getString(1);
-                    cursor.moveToNext();
-
                     System.out.println(chIds[i]);
+
+                    cursor.moveToNext();
+                }
             }
-        }
         cursor.close();
+        db.close();
+        dbh.close();
 
+        //alle die nicht aufgelistet sind zählen, nach bestimmten ids und dann switch mit genre zuweisung
+        boolean doneOrDoingC1 = ((Arrays.asList(chIds).contains("1")));
+        boolean doneOrDoingC2 = ((Arrays.asList(chIds).contains("2")));
+        boolean doneOrDoingC3 = (Arrays.asList(chIds).contains("3"));
 
-            //alle die nicht aufgelistet sind zählen, nach bestimmten ids und dann switch mit genre zuweisung
-            boolean doneOrDoingC1 = ((Arrays.asList(chIds).contains("1")));
-            boolean doneOrDoingC2 = ((Arrays.asList(chIds).contains("2")));
-            boolean doneOrDoingC3 = (Arrays.asList(chIds).contains("3"));
+        boolean doneOrDoingH1 = ((Arrays.asList(chIds).contains("4")));
+        boolean doneOrDoingH2 = ((Arrays.asList(chIds).contains("5")));
+        boolean doneOrDoingH3 = (Arrays.asList(chIds).contains("6"));
 
-            boolean doneOrDoingH1 = ((Arrays.asList(chIds).contains("1")));
-            boolean doneOrDoingH2 = ((Arrays.asList(chIds).contains("2")));
-            boolean doneOrDoingH3 = (Arrays.asList(chIds).contains("3"));
+        boolean doneOrDoingS1 = ((Arrays.asList(chIds).contains("7")));
+        boolean doneOrDoingS2 = ((Arrays.asList(chIds).contains("8")));
+        boolean doneOrDoingS3 = (Arrays.asList(chIds).contains("9"));
 
-            boolean doneOrDoingS1 = ((Arrays.asList(chIds).contains("1")));
-            boolean doneOrDoingS2 = ((Arrays.asList(chIds).contains("2")));
-            boolean doneOrDoingS3 = (Arrays.asList(chIds).contains("3"));
-
-            boolean doneOrDoingA1 = ((Arrays.asList(chIds).contains("1")));
-            boolean doneOrDoingA2 = ((Arrays.asList(chIds).contains("2")));
-            boolean doneOrDoingA3 = (Arrays.asList(chIds).contains("3"));
+        boolean doneOrDoingA1 = ((Arrays.asList(chIds).contains("10")));
+        boolean doneOrDoingA2 = ((Arrays.asList(chIds).contains("11")));
+        boolean doneOrDoingA3 = (Arrays.asList(chIds).contains("12"));
 
 
         if(genre.equals("creative")){
@@ -195,7 +160,7 @@ public class ChallengeNew extends AppCompatActivity {
             else if(doneOrDoingC1 && !doneOrDoingC2 && !doneOrDoingC3){
                 challengeId = 2;
             }
-            else if(doneOrDoingC1 && doneOrDoingC2 && doneOrDoingC3){
+            else if(doneOrDoingC1 && doneOrDoingC2 && !doneOrDoingC3){
                 challengeId = 3;
             }
         }
@@ -206,7 +171,7 @@ public class ChallengeNew extends AppCompatActivity {
             else if(doneOrDoingH1 && !doneOrDoingH2 && !doneOrDoingH3){
                 challengeId = 5;
             }
-            else if(doneOrDoingH1 && doneOrDoingH2 && doneOrDoingH3){
+            else if(doneOrDoingH1 && doneOrDoingH2 && !doneOrDoingH3){
                 challengeId = 6;
             }
         }
@@ -217,7 +182,7 @@ public class ChallengeNew extends AppCompatActivity {
             else if(doneOrDoingS1 && !doneOrDoingS2 && !doneOrDoingS3){
                 challengeId = 8;
             }
-            else if(doneOrDoingS1 && doneOrDoingS2 && doneOrDoingS3){
+            else if(doneOrDoingS1 && doneOrDoingS2 && !doneOrDoingS3){
                 challengeId = 9;
             }
         }
@@ -228,7 +193,7 @@ public class ChallengeNew extends AppCompatActivity {
             else if(doneOrDoingA1 && !doneOrDoingA2 && !doneOrDoingA3){
                 challengeId = 11;
             }
-            else if(doneOrDoingA1 && doneOrDoingA2 && doneOrDoingA3){
+            else if(doneOrDoingA1 && doneOrDoingA2 && !doneOrDoingA3){
                 challengeId = 12;
             }
         }
@@ -305,6 +270,7 @@ public class ChallengeNew extends AppCompatActivity {
         public void onClick(View v) {
             //if tryButton is clicked: change to Profile AND save challenge as doing
             if(v.getId() == R.id.button20){
+
 
                 saveChallengesAsDoing(challengeId);
 

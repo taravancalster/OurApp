@@ -118,47 +118,9 @@ public class Challenge extends AppCompatActivity {
      * @param chLogo
      */
     private void setImage(String chLogo){
-        switch(chLogo){
-            case "creativebtn1":
-                challengePicture.setImageResource(R.drawable.creativebtn1);
-                break;
-            case "creativebtn2":
-                challengePicture.setImageResource(R.drawable.creativebtn2);
-                break;
-            case "creativebtn3":
-                challengePicture.setImageResource(R.drawable.creativebtn3);
-                break;
 
-            case "healthbtn1":
-                challengePicture.setImageResource(R.drawable.healthbtn1);
-                break;
-            case "healthbtn2":
-                challengePicture.setImageResource(R.drawable.healthbtn2);
-                break;
-            case "healthbtn3":
-                challengePicture.setImageResource(R.drawable.healthbtn3);
-                break;
-
-            case "socialbtn1":
-                challengePicture.setImageResource(R.drawable.socialbtn1);
-                break;
-            case "socialbtn2":
-                challengePicture.setImageResource(R.drawable.socialbtn2);
-                break;
-            case "socialbtn3":
-                challengePicture.setImageResource(R.drawable.socialbtn3);
-                break;
-
-            case "adventurebtn1":
-                challengePicture.setImageResource(R.drawable.adventurebtn1);
-                break;
-            case "adventurebtn2":
-                challengePicture.setImageResource(R.drawable.adventurebtn2);
-                break;
-            case "adventurebtn3":
-                challengePicture.setImageResource(R.drawable.adventurebtn3);
-                break;
-        }
+        int resId = Challenge.this.getResources().getIdentifier(chLogo, "drawable", Challenge.this.getPackageName());
+        challengePicture.setImageResource(resId);
     }
 
     public String getUserId(String username){
@@ -200,6 +162,9 @@ public class Challenge extends AppCompatActivity {
 
         db.close();
         dbh.close();
+
+
+
     }
 
 
@@ -230,7 +195,9 @@ public class Challenge extends AppCompatActivity {
                         saveChallengesAsDone(challengeId);
                         Intent toP = new Intent(Challenge.this, Profile.class);
                         String name = getGiven();
+                        String genre = getIntent().getExtras().getString("genre");
                         toP.putExtra("username", name);
+                        toP.putExtra("genre", genre);
                         startActivity(toP);
                     }
 
