@@ -15,7 +15,7 @@ import db.DbHelper;
 
 public class ChangePW extends AppCompatActivity {
 
-    Button buttonSave, buttonCancel, homeButton;
+    Button buttonSave, buttonCancel;
     EditText opw, pw1, pw2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +25,10 @@ public class ChangePW extends AppCompatActivity {
         //define the buttons
         buttonSave = (Button)findViewById(R.id.button17);
         buttonCancel = (Button)findViewById(R.id.button18);
-        homeButton = (Button)findViewById(R.id.homeButtonChangePw);
 
         //set an OnClickListener to the buttons
         buttonSave.setOnClickListener(onClickListener);
         buttonCancel.setOnClickListener(onClickListener);
-        homeButton.setOnClickListener(onClickListener);
 
         opw = (EditText) findViewById(R.id.editText8);
         pw1 = (EditText) findViewById(R.id.editText9);
@@ -104,15 +102,12 @@ public class ChangePW extends AppCompatActivity {
 
             }
 
+            //CANCEL BUTTON
             if(v.getId() == R.id.button18){
                 //go back to Change Profile
                 startActivity(new Intent(ChangePW.this, ChangeProfile.class));
             }
 
-            if(v.getId() == R.id.homeButtonChangePw){
-                //go back to Profile
-                startActivity(new Intent(ChangePW.this, Profile.class));
-            }
         }
     };
 }
