@@ -241,8 +241,13 @@ public class ChallengeNew extends AppCompatActivity {
         int count = cursor.getCount();
 
         if(count > 0){
+            cursor.moveToFirst();
             uId = cursor.getString(0);
         }
+
+        cursor.close();
+        db.close();
+        dbh.close();
 
         return uId;
     }

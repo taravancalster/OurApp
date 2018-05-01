@@ -66,6 +66,7 @@ public class ChangePW extends AppCompatActivity {
 
                     //schauen ob es einen passenden user gibt
                     int count = cursor.getCount();
+                    cursor.close();
 
                     //wenn ja
                     if(count > 0){

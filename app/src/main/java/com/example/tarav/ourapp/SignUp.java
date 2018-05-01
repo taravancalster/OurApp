@@ -84,6 +84,8 @@ public class SignUp extends AppCompatActivity {
                                //füge input in die db ein
                                cursor.close();
                                db.insert("user", null, values);
+
+                               dbRead.close();
                                db.close();
                                dbh.close();
                                //zu Login

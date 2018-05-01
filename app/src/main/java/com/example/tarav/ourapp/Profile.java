@@ -203,6 +203,9 @@ public class Profile extends AppCompatActivity {
             userPicture.setImageResource(R.drawable.profilepic);
         }
 
+        cursor.close();
+        db.close();
+        dbh.close();
     }
 
 
@@ -247,9 +250,13 @@ public class Profile extends AppCompatActivity {
         int count = cursor.getCount();
 
         if(count > 0){
+            cursor.moveToFirst();
             uId = cursor.getString(0);
         }
 
+        cursor.close();
+        db.close();
+        dbh.close();
         return uId;
     }
 
@@ -363,9 +370,6 @@ public class Profile extends AppCompatActivity {
 
             }
         }
-
-
-
         cursor.close();
         dbh.close();
         db.close();

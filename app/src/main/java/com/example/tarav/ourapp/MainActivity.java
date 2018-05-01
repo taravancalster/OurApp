@@ -98,15 +98,10 @@ public class MainActivity extends AppCompatActivity {
                 //beende cursor
                 cursor.close();
                 db.close();
+                dbh.close();
 
             }
         });
 
-
-
     }
-	
-	
-
-
 }

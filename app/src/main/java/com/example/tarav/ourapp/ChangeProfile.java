@@ -105,6 +105,10 @@ public class ChangeProfile extends AppCompatActivity {
             userImage.setImageResource(R.drawable.profilepic);
         }
 
+        cursor.close();
+        db.close();
+        dbh.close();
+
     }
 */
 
@@ -220,7 +224,6 @@ public class ChangeProfile extends AppCompatActivity {
                 Cursor cursor = db.rawQuery(sql, new String[]{newName});
 
                 int count = cursor.getCount();
-                cursor.close();
 
                 if(count > 0){
                     cursor.moveToFirst();
@@ -236,6 +239,7 @@ public class ChangeProfile extends AppCompatActivity {
                     Toast doneToast = Toast.makeText(ChangeProfile.this, "New Username saved!", Toast.LENGTH_SHORT);
                     doneToast.show();
                 }
+                cursor.close();
                 db.close();
                 dbh.close();
             }
