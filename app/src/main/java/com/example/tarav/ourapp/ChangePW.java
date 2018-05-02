@@ -37,6 +37,10 @@ public class ChangePW extends AppCompatActivity {
 
     }
 
+    public String getGiven(){
+        String name = getIntent().getExtras().getString("username");
+        return name;
+    }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
 
@@ -113,9 +117,4 @@ public class ChangePW extends AppCompatActivity {
 
         }
     };
-
-    public String getGiven(){
-        String name = getIntent().getExtras().getString("username");
-        return name;
-    }
 }

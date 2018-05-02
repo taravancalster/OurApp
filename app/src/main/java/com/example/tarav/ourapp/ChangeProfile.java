@@ -257,7 +257,7 @@ public class ChangeProfile extends AppCompatActivity {
             if(v.getId() == R.id.changePwButton){
 
                 if(getIntent().hasExtra("username") == true){
-                    String name = getIntent().getExtras().getString("username");
+                    String name =getGiven();
                     Intent toChangePW = new Intent(ChangeProfile.this, ChangePW.class);
                     //Benutzername an Profile übergeben
                     toChangePW.putExtra("username", name);
