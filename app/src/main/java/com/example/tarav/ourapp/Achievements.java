@@ -200,6 +200,8 @@ public class Achievements extends AppCompatActivity {
                     System.out.println(logos[i]);
                     System.out.println(chNames[i]);
 
+
+
                     cursorGetPicAndTitle.moveToNext();
                 }
                 cursorGetChallenges.moveToNext();
@@ -215,72 +217,81 @@ public class Achievements extends AppCompatActivity {
         dbh.close();
 
 
+        //setzt die reihe runter die Bilder auf das richtige bild und die titel
+        //alles andere bleibt ein Fragezeichen
+
+
         if(logos[0] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[0], "drawable", Achievements.this.getPackageName());
             imgChallenge1.setImageResource(resId);
             txtChallenge1.setText(chNames[0]);
         }
-        else if(logos[1] != null) {
+
+        if(logos[1] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[1], "drawable", Achievements.this.getPackageName());
             imgChallenge2.setImageResource(resId);
             txtChallenge2.setText(chNames[1]);
         }
-        else if(logos[2] != null) {
+
+        if(logos[2] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[2], "drawable", Achievements.this.getPackageName());
             imgChallenge3.setImageResource(resId);
             txtChallenge3.setText(chNames[2]);
         }
-        else if(logos[3] != null) {
+
+        if(logos[3] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[3], "drawable", Achievements.this.getPackageName());
             imgChallenge4.setImageResource(resId);
             txtChallenge4.setText(chNames[3]);
         }
-        else if(logos[4] != null) {
+
+        if(logos[4] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[4], "drawable", Achievements.this.getPackageName());
             imgChallenge5.setImageResource(resId);
             txtChallenge5.setText(chNames[4]);
         }
-        else if(logos[5] != null) {
+
+        if(logos[5] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[5], "drawable", Achievements.this.getPackageName());
             imgChallenge6.setImageResource(resId);
             txtChallenge6.setText(chNames[5]);
         }
-        else if(logos[6] != null) {
+
+        if(logos[6] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[6], "drawable", Achievements.this.getPackageName());
             imgChallenge7.setImageResource(resId);
             txtChallenge7.setText(chNames[6]);
         }
-        else if(logos[7] != null) {
+
+        if(logos[7] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[7], "drawable", Achievements.this.getPackageName());
             imgChallenge8.setImageResource(resId);
             txtChallenge8.setText(chNames[7]);
         }
-        else if(logos[8] != null) {
+
+        if(logos[8] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[8], "drawable", Achievements.this.getPackageName());
             imgChallenge9.setImageResource(resId);
             txtChallenge9.setText(chNames[8]);
         }
-        else if(logos[9] != null) {
+
+        if(logos[9] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[9], "drawable", Achievements.this.getPackageName());
             imgChallenge10.setImageResource(resId);
             txtChallenge10.setText(chNames[9]);
         }
-        else if(logos[10] != null) {
+
+        if(logos[10] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[10], "drawable", Achievements.this.getPackageName());
             imgChallenge11.setImageResource(resId);
             txtChallenge11.setText(chNames[10]);
         }
-        else if(logos[11] != null) {
+
+        if(logos[11] != null) {
             int resId = Achievements.this.getResources().getIdentifier(logos[11], "drawable", Achievements.this.getPackageName());
             imgChallenge12.setImageResource(resId);
             txtChallenge12.setText(chNames[11]);
         }
-
-
-
-
-        //setzt die reihe runter die Bilder auf das richtige bild und die titel
-        //alles andere bleibt ein Fragezeichen
 
 
     }
