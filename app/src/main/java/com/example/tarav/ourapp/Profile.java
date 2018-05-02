@@ -310,45 +310,6 @@ public class Profile extends AppCompatActivity {
         return uId;
     }
 
-    /**
-     * returns the ch_id from ch_user table
-     * where ch_status is doing
-     * @return
-     */
-    public String[] getChallengeIdsDoing(){
-        String name = getGiven();
-        String uId = getUserId(name);
-
-        DbHelper dbh = new DbHelper(getApplicationContext());
-        SQLiteDatabase db = dbh.getReadableDatabase();
-
-
-
-
-        String[] ch_ids = new String[4];
-
-        String sql = "SELECT * FROM ch_user WHERE user_id = ? AND ch_status = ?";
-
-        //alles wo der username dem geholten username entspricht
-        Cursor cursor = db.rawQuery(sql, new String[]{uId, "doing"});
-        int count = cursor.getCount();
-
-        if(count > 0) {
-            cursor.moveToFirst();
-
-            for (int i = 0; i < count; i++) {
-                ch_ids[i] = cursor.getString(1);
-                System.out.println(ch_ids[i]);
-            }
-        }
-
-        cursor.close();
-        db.close();
-        dbh.close();
-
-        return ch_ids;
-    }
-
 
 
     private void setDoingLogo() {
@@ -450,13 +411,13 @@ public class Profile extends AppCompatActivity {
                             buttonA.setBackgroundResource(resId4);
                             switch (ch_ids[i]){
                                 case "10":
-                                    doingCreative = 10;
+                                    doingAdventure = 10;
                                     break;
                                 case "11":
-                                    doingCreative = 11;
+                                    doingAdventure= 11;
                                     break;
                                 case "12":
-                                    doingCreative = 12;
+                                    doingAdventure = 12;
                                     break;
                             }
                             break;
