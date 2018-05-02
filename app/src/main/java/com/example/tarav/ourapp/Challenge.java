@@ -82,10 +82,10 @@ public class Challenge extends AppCompatActivity {
         SQLiteDatabase db = dbh.getReadableDatabase();
 
         String sql = "SELECT * FROM challenges WHERE ch_id = ?";
-        String[] whereArgs = {String.valueOf(challengeId)};
+        String whereArg = String.valueOf(challengeId);
 
 
-        Cursor cursor = db.rawQuery(sql, whereArgs);
+        Cursor cursor = db.rawQuery(sql, new String[]{whereArg});
         int counter = cursor.getCount();
 
         if (counter > 0) {

@@ -391,7 +391,79 @@ public class Profile extends AppCompatActivity {
                     System.out.println(genres[i]);
                     System.out.println(logos[i]);
 
+
+                    //creative, health, social, adventure
+                    //get the genre --> get the logos for each of the 4 possible buttons
+
+
+                    switch (genres[i]) {
+                        case "creative":
+                            int resId1 = Profile.this.getResources().getIdentifier(logos[i], "drawable", Profile.this.getPackageName());
+                            buttonC.setBackgroundResource(resId1);
+                            switch (ch_ids[i]){
+                                case "1":
+                                    doingCreative = 1;
+                                    break;
+                                case "2":
+                                    doingCreative = 2;
+                                    break;
+                                case "3":
+                                    doingCreative = 3;
+                                    break;
+                            }
+                            break;
+
+                        case "health":
+                            int resId2 = Profile.this.getResources().getIdentifier(logos[i], "drawable", Profile.this.getPackageName());
+                            buttonH.setBackgroundResource(resId2);
+                            switch (ch_ids[i]){
+                                case "4":
+                                    doingHealth = 4;
+                                    break;
+                                case "5":
+                                    doingHealth = 5;
+                                    break;
+                                case "6":
+                                    doingHealth = 6;
+                                    break;
+                            }
+                            break;
+
+                        case "social":
+                            int resId3 = Profile.this.getResources().getIdentifier(logos[i], "drawable", Profile.this.getPackageName());
+                            buttonS.setBackgroundResource(resId3);
+                            switch (ch_ids[i]){
+                                case "7":
+                                    doingSocial = 7;
+                                    break;
+                                case "8":
+                                    doingSocial = 8;
+                                    break;
+                                case "9":
+                                    doingSocial = 9;
+                                    break;
+                            }
+                            break;
+
+                        case "adventure":
+                            int resId4 = Profile.this.getResources().getIdentifier(logos[i], "drawable", Profile.this.getPackageName());
+                            buttonA.setBackgroundResource(resId4);
+                            switch (ch_ids[i]){
+                                case "10":
+                                    doingCreative = 10;
+                                    break;
+                                case "11":
+                                    doingCreative = 11;
+                                    break;
+                                case "12":
+                                    doingCreative = 12;
+                                    break;
+                            }
+                            break;
+                    }
+
                     cursorGenreAndLogo.moveToNext();
+
                 }
                 cursorChIds.moveToNext();
             }
@@ -404,190 +476,7 @@ public class Profile extends AppCompatActivity {
         db.close();
         dbh.close();
 
-        //int resId = Achievements.this.getResources().getIdentifier(logos[0], "drawable", Achievements.this.getPackageName());
-        //imgChallenge1.setImageResource(resId);
-
-
-
-        //count inhalt von chIds
-        int countorGl = 0;
-        for(int s = 0; s < 4; s++) {
-            if (genres[s] != null) {
-                countorGl++;
-            }
-        }
-        //creative, health, social, adventure
-        //get the genre --> get the logos for each of the 4 possible buttons
-        for (int gl = 0; gl < countorGl ; gl++) {
-            switch (genres[gl]) {
-                case "creative":
-                    int resId1 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
-                    buttonC.setBackgroundResource(resId1);
-                    switch (ch_ids[gl]){
-                        case "1":
-                            doingCreative = 1;
-                            break;
-                        case "2":
-                            doingCreative = 2;
-                            break;
-                        case "3":
-                            doingCreative = 3;
-                            break;
-                    }
-                   /*
-                    switch (logos[gl]) {
-                        case "creativebtn1":
-                            buttonC.setBackgroundResource(R.drawable.creativebtn1);
-                            doingCreative = 1;
-                            break;
-                        case "creativebtn2":
-                            buttonC.setBackgroundResource(R.drawable.creativebtn2);
-                            doingCreative = 2;
-                            break;
-                        case "creativebtn3":
-                            buttonC.setBackgroundResource(R.drawable.creativebtn3);
-                            doingCreative = 3;
-                            break;
-                    }
-                    */
-                    break;
-
-                case "health":
-                    int resId2 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
-                    buttonH.setBackgroundResource(resId2);
-                    switch (ch_ids[gl]){
-                        case "4":
-                            doingHealth = 4;
-                            break;
-                        case "5":
-                            doingHealth = 5;
-                            break;
-                        case "6":
-                            doingHealth = 6;
-                            break;
-                    }
-                    /*
-                    switch (logos[gl]) {
-                        case "healthbtn1":
-                            doingHealth = 4;
-                            buttonH.setBackgroundResource(R.drawable.healthbtn1);
-                            break;
-                        case "healthbtn2":
-                            buttonH.setBackgroundResource(R.drawable.healthbtn2);
-                            doingHealth = 5;
-                            break;
-                        case "healthbtn3":
-                            buttonH.setBackgroundResource(R.drawable.healthbtn3);
-                            doingHealth = 6;
-                            break;
-                    }
-                    */
-                    break;
-
-                case "social":
-                    int resId3 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
-                    buttonS.setBackgroundResource(resId3);
-                    switch (ch_ids[gl]){
-                        case "7":
-                            doingSocial = 7;
-                            break;
-                        case "8":
-                            doingSocial = 8;
-                            break;
-                        case "9":
-                            doingSocial = 9;
-                            break;
-                    }
-                    /*
-                    switch (logos[gl]) {
-                        case "socialbtn1":
-                            buttonS.setBackgroundResource(R.drawable.socialbtn1);
-                            doingSocial = 7;
-                            break;
-                        case "socialbtn2":
-                            buttonS.setBackgroundResource(R.drawable.socialbtn2);
-                            doingSocial = 8;
-                            break;
-                        case "socialbtn3":
-                            buttonS.setBackgroundResource(R.drawable.socialbtn3);
-                            doingSocial = 9;
-                            break;
-                    }
-                    */
-                    break;
-
-                case "adventure":
-                    int resId4 = Profile.this.getResources().getIdentifier(logos[gl], "drawable", Profile.this.getPackageName());
-                    buttonA.setBackgroundResource(resId4);
-                    switch (ch_ids[gl]){
-                        case "10":
-                            doingCreative = 10;
-                            break;
-                        case "11":
-                            doingCreative = 11;
-                            break;
-                        case "12":
-                            doingCreative = 12;
-                            break;
-                    }
-                    /*
-                    switch (logos[gl]) {
-                        case "adventurebtn1":
-                            buttonA.setBackgroundResource(R.drawable.adventurebtn1);
-                            doingAdventure = 10;
-                            break;
-                        case "adventurebtn2":
-                            buttonA.setBackgroundResource(R.drawable.adventurebtn2);
-                            doingAdventure = 11;
-                            break;
-                        case "adventurebtn3":
-                            buttonA.setBackgroundResource(R.drawable.adventurebtn3);
-                            doingAdventure = 12;
-                            break;
-                    }
-                    */
-                    break;
-            }
-
-        }
     }
-
-
-    /**
-     * returns the ch_id from ch_user table
-     * where ch_status is doing
-     * @return
-     */
-    public String[] getChallengeIdsDone(){
-        DbHelper dbh = new DbHelper(getApplicationContext());
-        SQLiteDatabase db = dbh.getReadableDatabase();
-
-        String name = getGiven();
-        String uId = getUserId(name);
-
-        String[] ch_ids = new String[12];
-
-        String sql = "SELECT * FROM ch_user WHERE user_id = ? AND ch_status = ?";
-
-        //alles wo der username dem geholten username entspricht
-        Cursor cursor = db.rawQuery(sql, new String[]{uId, "done"});
-        int count = cursor.getCount();
-
-        if(count > 0) {
-            cursor.moveToFirst();
-
-            for (int i = 0; i < count; i++) {
-                ch_ids[i] = cursor.getString(1);
-            }
-        }
-
-        cursor.close();
-        db.close();
-        dbh.close();
-
-        return ch_ids;
-    }
-
 
 
 
@@ -669,28 +558,28 @@ public class Profile extends AppCompatActivity {
                 case "creative":
                     if (creativeDone) {
                         buttonC.setBackgroundResource(R.drawable.challenge_done);
-                    } else {
+                    } else if(doingCreative == 0) {
                         buttonC.setBackgroundResource(R.drawable.pluszeichen);
                     }
                     break;
                 case "health":
                     if (healthDone) {
                         buttonH.setBackgroundResource(R.drawable.challenge_done);
-                    } else {
+                    } else if(doingHealth == 0) {
                         buttonH.setBackgroundResource(R.drawable.pluszeichen);
                     }
                     break;
                 case "social":
                     if (socialDone) {
                         buttonS.setBackgroundResource(R.drawable.challenge_done);
-                    } else {
+                    } else if (doingSocial == 0){
                         buttonS.setBackgroundResource(R.drawable.pluszeichen);
                     }
                     break;
                 case "adventure":
                     if (adventureDone) {
                         buttonA.setBackgroundResource(R.drawable.challenge_done);
-                    } else {
+                    } else if(doingAdventure == 0) {
                         buttonA.setBackgroundResource(R.drawable.pluszeichen);
                     }
                     break;

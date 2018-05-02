@@ -67,10 +67,9 @@ public class ChallengeNew extends AppCompatActivity {
 
             String sql = "SELECT * FROM challenges WHERE ch_id = ?";
 
-            String[] whereArgs = {String.valueOf(challengeId)};
+            String whereArg = String.valueOf(challengeId);
 
-
-            Cursor cursor = db.rawQuery(sql, whereArgs);
+            Cursor cursor = db.rawQuery(sql, new String[]{whereArg});
 
             int counter = cursor.getCount();
             if (cursor != null) {
@@ -104,8 +103,6 @@ public class ChallengeNew extends AppCompatActivity {
     }
 
     private int showChallenge(String genre){
-        int challengeId = 0;
-
         //sammle alle chids, die nicht in ch_user sind, weil die nicht gerade gemacht werden oder fertig sind
 
         DbHelper dbh = new DbHelper(getApplicationContext());
@@ -127,6 +124,11 @@ public class ChallengeNew extends AppCompatActivity {
                     //im Array an Position i das gegebene Genre und das logo speichern
                     chIds[i] = cursor.getString(1);
                     System.out.println(chIds[i]);
+
+
+
+
+
 
                     cursor.moveToNext();
                 }
@@ -197,10 +199,6 @@ public class ChallengeNew extends AppCompatActivity {
                 challengeId = 12;
             }
         }
-
-
-        db.close();
-        dbh.close();
 
         return challengeId;
     }
