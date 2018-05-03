@@ -519,6 +519,7 @@ public class Profile extends AppCompatActivity {
                 case "creative":
                     if (creativeDone) {
                         buttonC.setBackgroundResource(R.drawable.challenge_done);
+                        buttonC.setEnabled(false);
                     } else if(doingCreative == 0) {
                         buttonC.setBackgroundResource(R.drawable.pluszeichen);
                     }
@@ -526,6 +527,7 @@ public class Profile extends AppCompatActivity {
                 case "health":
                     if (healthDone) {
                         buttonH.setBackgroundResource(R.drawable.challenge_done);
+                        buttonH.setEnabled(false);
                     } else if(doingHealth == 0) {
                         buttonH.setBackgroundResource(R.drawable.pluszeichen);
                     }
@@ -533,6 +535,7 @@ public class Profile extends AppCompatActivity {
                 case "social":
                     if (socialDone) {
                         buttonS.setBackgroundResource(R.drawable.challenge_done);
+                        buttonS.setEnabled(false);
                     } else if (doingSocial == 0){
                         buttonS.setBackgroundResource(R.drawable.pluszeichen);
                     }
@@ -540,6 +543,7 @@ public class Profile extends AppCompatActivity {
                 case "adventure":
                     if (adventureDone) {
                         buttonA.setBackgroundResource(R.drawable.challenge_done);
+                        buttonA.setEnabled(false);
                     } else if(doingAdventure == 0) {
                         buttonA.setBackgroundResource(R.drawable.pluszeichen);
                     }
